@@ -63,7 +63,8 @@ class d3 {
 	class	voronoi		scalar	d3voronoi()
 	class	xhr			scalar	d3xhr()
 	class	zoom		scalar	d3zoom()
-	string 				scalar	get(), end()	
+	string 				scalar	get()
+	string				scalar  complete()	
 	string 				scalar 	ascending(), behavior_drag(), behavior_zoom(), 
 								bisect(), bisectLeft(), bisectRight(), 
 								bisector(), csv(), csv_parse(), 
@@ -149,6 +150,12 @@ void d3::new() {
 
 string scalar d3::get() {
 	return(this.d3)
+}
+
+string scalar d3::complete() {
+	string scalar object
+	object = this.get() + ";"
+	return(object)
 }
 
 class d3albers scalar d3albers() {
@@ -586,25 +593,57 @@ string scalar d3::behavior_zoom(string scalar varnm) {
 
 string scalar d3::bisect(string scalar aray, string scalar x, |				 ///   
 						 string scalar lo, string scalar hi) {
-        string scalar Bisect
-        Bisect = this.get() + ".bisect" 
-        return(Bisect)
+        
+		string scalar Bisect
+		
+		if (lo != "" & hi == "") {
+			Bisect = this.get() + ".bisect(" + aray + ", " + x + ", " + lo + ")"
+        }
+		else if (lo != "" & hi != "") {
+			Bisect = this.get() + ".bisect(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
+		}
+		else {
+			Bisect = this.get() + ".bisect(" + aray + ", " + x + ")"
+		}
+		
+		return(Bisect)
 }
 
 
 string scalar d3::bisectLeft(string scalar aray, string scalar x, |			 ///   
 							 string scalar lo, string scalar hi) {
-        string scalar Bisectleft
-        Bisectleft = this.get() + ".bisectLeft" 
-        return(Bisectleft)
+        
+		string scalar BisectLeft
+		
+		if (lo != "" & hi == "") {
+			BisectLeft = this.get() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ")"
+        }
+		else if (lo != "" & hi != "") {
+			BisectLeft = this.get() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
+		}
+		else {
+			BisectLeft = this.get() + ".bisectLeft(" + aray + ", " + x + ")"
+		}
+		
+		return(BisectLeft)
 }
 
 
 string scalar d3::bisectRight(string scalar aray, string scalar x, |		 ///   
 							 string scalar lo, string scalar hi) {
-        string scalar Bisectright
-        Bisectright = this.get() + ".bisectRight" 
-        return(Bisectright)
+		string scalar BisectRight
+		
+		if (lo != "" & hi == "") {
+			BisectRight = this.get() + ".bisectRight(" + aray + ", " + x + ", " + lo + ")"
+        }
+		else if (lo != "" & hi != "") {
+			BisectRight = this.get() + ".bisectRight(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
+		}
+		else {
+			BisectRight = this.get() + ".bisectRight(" + aray + ", " + x + ")"
+		}
+		
+		return(BisectRight)
 }
 
 
@@ -633,13 +672,24 @@ string scalar d3::csv(string scalar url, | string scalar accessor,
 
 string scalar d3::csv_parse(string scalar strng, | string scalar accessor) {
 		string scalar CsvParse
-		CsvParse = this.get() + ".csv.parse(" + strng + ", " + accessor + ")"
+		if (accessor != "") {
+			CsvParse = this.get() + ".csv.parse(" + strng + ", " + accessor + ")"
+		}
+		else {
+			CsvParse = this.get() + ".csv.parse(" + strng + ")"
+		}
+		
 		return(CsvParse)
 }
 
 string scalar d3::csv_parseRows(string scalar strng, | string scalar accessor) {
 		string scalar CsvParseRows
-		CsvParseRows = this.get() + ".csv.parseRows(" + strng + ", " + accessor + ")"
+		if (accessor != "") {
+			CsvParseRows = this.get() + ".csv.parseRows(" + strng + ", " + accessor + ")"
+		}
+		else {
+			CsvParseRows = this.get() + ".csv.parseRows(" + strng + ")"
+		}
 		return(CsvParseRows)
 }
 
@@ -665,28 +715,52 @@ string scalar d3::descending(string scalar a, string scalar b) {
 
 string scalar d3::deviation(string scalar aray, | string scalar accessor) {
         string scalar Deviation
-        Deviation = this.get() + ".deviation(" + aray + ", " + accessor + ")" 
-        return(Deviation)
+		if (accessor != "") { 
+			Deviation = this.get() + ".deviation(" + aray + ", " + accessor + ")" 
+        }
+		else {
+			Deviation = this.get() + ".deviation(" + aray + ")"
+		}
+		return(Deviation)
 }
 
 
 string scalar d3::dsv(string scalar url, | string scalar accessor, 
 					  string scalar callback) {
-        string scalar dsv
-        dsv = this.get() + ".dsv" 
+        string scalar Dsv
+		if (accessor != "" & callback == "") {
+			Dsv = this.get() + ".dsv(" + url + ", " + accessor + ")" 
+		}
+		else if (accessor != "" & callback == "") {
+			Dsv = this.get() + ".dsv(" + url + ", " + accessor + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Dsv = this.get() + ".dsv(" + url + ")"		
+		}
         return(dsv)
 }
 
 string scalar d3::dsv_parse(string scalar strng, | string scalar accessor) {
-		string scalar dsvParse
-		dsvParse = this.get() + ".dsv.parse(" + strng + ", " + accessor + ")"
-		return(dsvParse)
+		string scalar DsvParse
+		if (accessor != "") {
+			DsvParse = this.get() + ".dsv.parse(" + strng + ", " + accessor + ")"
+		}
+		else {
+			DsvParse = this.get() + ".dsv.parse(" + strng + ")"
+		}
+		return(DsvParse)
 }
 
 string scalar d3::dsv_parseRows(string scalar strng, | string scalar accessor) {
-		string scalar dsvParseRows
-		dsvParseRows = this.get() + ".dsv.parseRows(" + strng + ", " + accessor + ")"
-		return(dsvParseRows)
+		string scalar DsvParseRows
+		if (accessor != "") {
+			DsvParseRows = this.get() + ".dsv.parseRows(" + strng + ", " + accessor + ")"
+		}
+		else {
+			DsvParseRows = this.get() + ".dsv.parseRows(" + strng + ")"
+		}
+		return(DsvParseRows)
 }
 
 string scalar d3::dsv_format(string scalar rows) {
@@ -706,8 +780,23 @@ string scalar d3::ease(string scalar type, | string scalar arguments) {
 		/* legal types:
 		linear, poly(k), quad, cubic, sin, exp, circle, elastic(a, p), 
 		back(s), bounce */
-        string scalar Ease
-        Ease = this.get() + ".ease" 
+		string scalar Ease
+        
+		if ((type != "linear" & type != "quad" & type != "cubic" & 			 ///   
+		type != "sin" & type != "exp" & type != "circle" & type != "bounce") ///   
+		& ((strmatch(type, "poly*") != 1) & (strmatch(type, "elastic*") != 1) ///   
+		& (strmatch(type, "back*") != 1)) {
+			Ease = this.get()
+		}
+		else {
+			if (arguments != "") {
+				Ease = this.get + ".ease(" + type + ", " + arguments + ")"
+			} 
+			else {
+				Ease = this.get() + ".ease(" + type + ")"
+			}
+		}
+         
         return(Ease)
 }
 
@@ -728,8 +817,13 @@ string scalar d3::event() {
 
 string scalar d3::extent(string scalar aray, | string scalar accessor) {
         string scalar Extent
-        Extent = this.get() + ".extent(" + aray + ", " + accessor + ")" 
-        return(Extent)
+		if (accessor != "") {
+			Extent = this.get() + ".extent(" + aray + ", " + accessor + ")" 
+        }
+		else {
+			Extent = this.get() + ".extent(" + aray + ")" 
+		}
+		return(Extent)
 }
 
 
@@ -742,8 +836,13 @@ string scalar d3::format(string scalar specifier) {
 
 string scalar d3::formatPrefix(string scalar value, | string scalar precision) {
         string scalar Formatprefix
-        Formatprefix = this.get() + ".formatPrefix(" + value + ", " + precision + ")" 
-        return(Formatprefix)
+		if (precision != "") {
+			Formatprefix = this.get() + ".formatPrefix(" + value + ", " + precision + ")" 
+        }
+		else {
+			Formatprefix = this.get() + ".formatPrefix(" + value + ")" 
+		}
+		return(Formatprefix)
 }
 
 
@@ -784,7 +883,7 @@ string scalar d3::geo_circle() {
 
 string scalar d3::geo_distance(string scalar a, string scalar b) {
         string scalar Geo
-        Geo = this.get() + ".geo.distance(" + a + ", " + b ")" 
+        Geo = this.get() + ".geo.distance(" + a + ", " + b + ")" 
         return(Geo)
 }
 
@@ -798,7 +897,7 @@ string scalar d3::geo_graticule() {
 
 string scalar d3::geo_interpolate(string scalar a, string scalar b) {
         string scalar Geo
-        Geo = this.get() + ".geo.interpolate(" + a + ", " + b ")" 
+        Geo = this.get() + ".geo.interpolate(" + a + ", " + b + ")" 
         return(Geo)
 }
 
@@ -1056,9 +1155,11 @@ string scalar d3::geom_hull() {
         return(Geom)
 }
 
+/* This is where current TODO Begins */
 
 string scalar d3::hcl(string scalar h, | string scalar c, string scalar l) {
         string scalar Hcl
+		
 		// constructor can only have 1 or three arguments
         Hcl = this.get() + ".hcl(" + h + ", " + c + ", " + l + ")" 
         return(Hcl)
@@ -1832,9 +1933,19 @@ string scalar d3::variance(string scalar aray, | string scalar accessor) {
 }
 
 
-string scalar d3::xhr(string scalar TEMP) {
+string scalar d3::xhr(string scalar url, | string scalar mimeType,			 ///   
+					  string scalar callback) {
         string scalar Xhr
-        Xhr = this.get() + ".xhr" 
+		if (mimeType != "" & callback == "") {
+			Xhr = this.get() + ".xhr(" + url + ", " + mimeType + ")" 
+		}
+		else if (mimeType != "" & callback == "") {
+			Xhr = this.get() + ".xhr(" + url + ", " + mimeType + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Xhr = this.get() + ".xhr(" + url + ")"		
+		}
         return(Xhr)
 }
 
@@ -1864,255 +1975,298 @@ string scalar d3::zip(string scalar arays) {
 
 string scalar d3::time_day() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.day"
 	return(d3time)
 }
  
 string scalar d3::time_monday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.monday"
 	return(d3time)
 }
  
  
 string scalar d3::time_tuesday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.tuesday"
 	return(d3time)
 }
  
 string scalar d3::time_wednesday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.wednesday"
 	return(d3time)
 }
  
 
 string scalar d3::time_thursday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.thursday"
 	return(d3time)
 }
  
 
 string scalar d3::time_friday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.friday"
 	return(d3time)
 }
  
 
 string scalar d3::time_saturday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.saturday"
 	return(d3time)
 }
  
 
 string scalar d3::time_sunday() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.sunday"
 	return(d3time)
 }
  
 
 string scalar d3::time_hour() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.hour"
 	return(d3time)
 }
  
 
-string scalar d3::time_interval() {
+string scalar d3::time_interval(string scalar interval) {
 	string scalar d3time
-	d3time = ""
+	if (interval == "second") {
+		d3time = d3::time_second() 
+	} else if (interval == "minute") {	
+		d3time = d3::time_minute() 
+	} else if (interval == "hour") {
+		d3time = d3::time_hour() 
+	} else if (interval == "day") {	
+		d3time = d3::time_day() 
+	} else if (interval == "week") {
+		d3time = d3::time_week() 
+	} else if (interval == "sunday") {	
+		d3time = d3::time_sunday() 
+	} else if (interval == "monday") {	
+		d3time = d3::time_monday() 
+	} else if (interval == "tuesday") {	
+		d3time = d3::time_tuesday() 
+	} else if (interval == "wednesday") {	
+		d3time = d3::time_wednesday() 
+	} else if (interval == "thursday") {	
+		d3time = d3::time_thursday() 
+	} else if (interval == "friday") {	
+		d3time = d3::time_friday() 
+	} else if (interval == "saturday") {	
+		d3time = d3::time_saturday() 
+	} else if (interval == "month") {	
+		d3time = d3::time_month() 
+	} else if (interval == "year") {	
+		d3time = d3::time_year() 
+	} else {
+		d3time = this.get()
+	}
 	return(d3time)
 }
  
 
 string scalar d3::time_minute() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.minute"
 	return(d3time)
 }
  
 
 string scalar d3::time_second() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.second"
 	return(d3time)
 }
  
 
 string scalar d3::time_week() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.week"
 	return(d3time)
 }
  
 
 string scalar d3::time_year() {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.year"
 	return(d3time)
 }
  
 
 string scalar d3::time_days(string scalar start, string scalar stop, |		 ///   
 							string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.days(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 string scalar d3::time_mondays(string scalar start, string scalar stop, |	 ///   
 							   string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.mondays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_tuesdays(string scalar start, string scalar stop, |	 ///   
 								string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.tuesdays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_wednesdays(string scalar start, string scalar stop, | ///   
 								  string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.wednesdays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_thursdays(string scalar start, string scalar stop, |	 ///   
 								 string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.thursdays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_fridays(string scalar start, string scalar stop, |	 ///   
 							   string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.fridays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_saturdays(string scalar start, string scalar stop, |	 ///   
 								 string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.saturdays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_sundays(string scalar start, string scalar stop, |	 ///   
 							   string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.sundays(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_hours(string scalar start, string scalar stop, |		 ///   
 							 string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.hours(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_minutes(string scalar start, string scalar stop, |	 ///   
 							   string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.minutes(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_seconds(string scalar start, string scalar stop, |	 ///   
 							   string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.seconds(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_weeks(string scalar start, string scalar stop, |		 ///   
 							 string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.weeks(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_years(string scalar start, string scalar stop, |		 ///   
 							 string scalar step) {
+	if (step == "") step = "1"						
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.years(" + start + ", " + stop + ", " + step + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_dayOfYear(string scalar date) { 
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.dayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_mondayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.mondayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_tuesdayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.tuesdayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_wednesdayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.wednesdayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_thursdayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.thursdayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_fridayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.fridayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_saturdayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.saturdayOfYear(" + date + ")"
 	return(d3time)
 }
 
 
 string scalar d3::time_sundayOfYear(string scalar date) {
 	string scalar d3time
-	d3time = ""
+	d3time = this.get() + ".time.sundayOfYear(" + date + ")"
 	return(d3time)
 }
 

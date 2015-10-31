@@ -7,6 +7,9 @@ file open x using maked3.do, w replace
 file write x "// Clear mata memory " _n
 file write x "mata: mata clear " _n(2)
 
+file write x "// Creates the D3 class object" _n
+file write x "do d3.mata" _n(2)
+
 foreach v of loc clss {
 
 	file write x "// Creates the class `v' and associated methods from D3js API" _n
@@ -88,7 +91,5 @@ foreach v of loc clss {
 	
 }
 
-file write x "// Creates the D3 class object" _n
-file write x "do d3.mata" _n(3)
 file close x 
 

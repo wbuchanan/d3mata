@@ -1,6 +1,9 @@
 // Clear mata memory 
 mata: mata clear 
 
+// Creates the D3 class object
+do d3.mata
+
 // Creates the class albers and associated methods from D3js API
 do albers.mata
 
@@ -177,8 +180,4 @@ do xhr.mata
 
 // Creates the class zoom and associated methods from D3js API
 do zoom.mata
-
-// Creates the D3 class object
-do d3.mata
-
 
