@@ -1,10 +1,11 @@
 mata: 
 
-class d3graticule { 
+class d3graticule extends d3 { 
 
-    string            scalar    graticule
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    graticule
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    extent() 
     string            scalar    lines() 
     string            scalar    majorExtent() 
@@ -21,61 +22,73 @@ string scalar d3graticule::get() {
     return(this.graticule)
 }
 
+string scalar d3graticule::end() { 
+    string scalar graticuleObject 
+    graticuleObject = this.get() + ";"
+    return(graticuleObject)
+}
+
+string scalar d3graticule::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "graticule"
+    return(jsvarname)
+}
+
 void d3graticule::new() {
-    this.graticule = "graticule"
+    this.graticule = this.setVarnm(STgraticule)
 }
 
 string scalar d3graticule::extent(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".extent(" + x + ")"
+    this.graticule = this.get() + ".extent(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::lines(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".lines(" + x + ")"
+    this.graticule = this.get() + ".lines(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::majorExtent(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".majorExtent(" + x + ")"
+    this.graticule = this.get() + ".majorExtent(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::majorStep(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".majorStep(" + x + ")"
+    this.graticule = this.get() + ".majorStep(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::minorExtent(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".minorExtent(" + x + ")"
+    this.graticule = this.get() + ".minorExtent(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::minorStep(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".minorStep(" + x + ")"
+    this.graticule = this.get() + ".minorStep(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::outline(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".outline(" + x + ")"
+    this.graticule = this.get() + ".outline(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::precision(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".precision(" + x + ")"
+    this.graticule = this.get() + ".precision(" + x + ")"
     return(graticule)
 }
 
 string scalar d3graticule::step(string scalar x) { 
     string scalar graticule 
-    graticule = this.get() + ".step(" + x + ")"
+    this.graticule = this.get() + ".step(" + x + ")"
     return(graticule)
 }
 

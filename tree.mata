@@ -1,10 +1,11 @@
 mata: 
 
-class d3tree { 
+class d3tree extends d3 { 
 
-    string            scalar    tree
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    tree
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodeSize() 
@@ -19,49 +20,61 @@ string scalar d3tree::get() {
     return(this.tree)
 }
 
+string scalar d3tree::end() { 
+    string scalar treeObject 
+    treeObject = this.get() + ";"
+    return(treeObject)
+}
+
+string scalar d3tree::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "tree"
+    return(jsvarname)
+}
+
 void d3tree::new() {
-    this.tree = "tree"
+    this.tree = this.setVarnm(STtree)
 }
 
 string scalar d3tree::children(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".children(" + x + ")"
+    this.tree = this.get() + ".children(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::links(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".links(" + x + ")"
+    this.tree = this.get() + ".links(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::nodeSize(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".nodeSize(" + x + ")"
+    this.tree = this.get() + ".nodeSize(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::nodes(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".nodes(" + x + ")"
+    this.tree = this.get() + ".nodes(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::separation(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".separation(" + x + ")"
+    this.tree = this.get() + ".separation(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::size(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".size(" + x + ")"
+    this.tree = this.get() + ".size(" + x + ")"
     return(tree)
 }
 
 string scalar d3tree::sort(string scalar x) { 
     string scalar tree 
-    tree = this.get() + ".sort(" + x + ")"
+    this.tree = this.get() + ".sort(" + x + ")"
     return(tree)
 }
 

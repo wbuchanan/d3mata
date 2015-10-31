@@ -1,10 +1,11 @@
 mata: 
 
-class d3hcl { 
+class d3hcl extends d3 { 
 
-    string            scalar    hcl
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    hcl
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    rgb() 
@@ -16,31 +17,43 @@ string scalar d3hcl::get() {
     return(this.hcl)
 }
 
+string scalar d3hcl::end() { 
+    string scalar hclObject 
+    hclObject = this.get() + ";"
+    return(hclObject)
+}
+
+string scalar d3hcl::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "hcl"
+    return(jsvarname)
+}
+
 void d3hcl::new() {
-    this.hcl = "hcl"
+    this.hcl = this.setVarnm(SThcl)
 }
 
 string scalar d3hcl::brighter(string scalar x) { 
     string scalar hcl 
-    hcl = this.get() + ".brighter(" + x + ")"
+    this.hcl = this.get() + ".brighter(" + x + ")"
     return(hcl)
 }
 
 string scalar d3hcl::darker(string scalar x) { 
     string scalar hcl 
-    hcl = this.get() + ".darker(" + x + ")"
+    this.hcl = this.get() + ".darker(" + x + ")"
     return(hcl)
 }
 
 string scalar d3hcl::rgb(string scalar x) { 
     string scalar hcl 
-    hcl = this.get() + ".rgb(" + x + ")"
+    this.hcl = this.get() + ".rgb(" + x + ")"
     return(hcl)
 }
 
 string scalar d3hcl::toString(string scalar x) { 
     string scalar hcl 
-    hcl = this.get() + ".toString(" + x + ")"
+    this.hcl = this.get() + ".toString(" + x + ")"
     return(hcl)
 }
 

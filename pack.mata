@@ -1,10 +1,11 @@
 mata: 
 
-class d3pack { 
+class d3pack extends d3 { 
 
-    string            scalar    pack
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    pack
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodes() 
@@ -20,55 +21,67 @@ string scalar d3pack::get() {
     return(this.pack)
 }
 
+string scalar d3pack::end() { 
+    string scalar packObject 
+    packObject = this.get() + ";"
+    return(packObject)
+}
+
+string scalar d3pack::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "pack"
+    return(jsvarname)
+}
+
 void d3pack::new() {
-    this.pack = "pack"
+    this.pack = this.setVarnm(STpack)
 }
 
 string scalar d3pack::children(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".children(" + x + ")"
+    this.pack = this.get() + ".children(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::links(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".links(" + x + ")"
+    this.pack = this.get() + ".links(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::nodes(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".nodes(" + x + ")"
+    this.pack = this.get() + ".nodes(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::padding(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".padding(" + x + ")"
+    this.pack = this.get() + ".padding(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::radius(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".radius(" + x + ")"
+    this.pack = this.get() + ".radius(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::size(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".size(" + x + ")"
+    this.pack = this.get() + ".size(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::sort(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".sort(" + x + ")"
+    this.pack = this.get() + ".sort(" + x + ")"
     return(pack)
 }
 
 string scalar d3pack::value(string scalar x) { 
     string scalar pack 
-    pack = this.get() + ".value(" + x + ")"
+    this.pack = this.get() + ".value(" + x + ")"
     return(pack)
 }
 

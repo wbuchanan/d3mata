@@ -1,10 +1,11 @@
 mata: 
 
-class d3brush { 
+class d3brush extends d3 { 
 
-    string            scalar    brush
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    brush
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    clear() 
     string            scalar    empty() 
     string            scalar    event() 
@@ -19,49 +20,61 @@ string scalar d3brush::get() {
     return(this.brush)
 }
 
+string scalar d3brush::end() { 
+    string scalar brushObject 
+    brushObject = this.get() + ";"
+    return(brushObject)
+}
+
+string scalar d3brush::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "brush"
+    return(jsvarname)
+}
+
 void d3brush::new() {
-    this.brush = "brush"
+    this.brush = this.setVarnm(STbrush)
 }
 
 string scalar d3brush::clear(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".clear(" + x + ")"
+    this.brush = this.get() + ".clear(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::empty(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".empty(" + x + ")"
+    this.brush = this.get() + ".empty(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::event(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".event(" + x + ")"
+    this.brush = this.get() + ".event(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::extent(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".extent(" + x + ")"
+    this.brush = this.get() + ".extent(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::on(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".on(" + x + ")"
+    this.brush = this.get() + ".on(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::x(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".x(" + x + ")"
+    this.brush = this.get() + ".x(" + x + ")"
     return(brush)
 }
 
 string scalar d3brush::y(string scalar x) { 
     string scalar brush 
-    brush = this.get() + ".y(" + x + ")"
+    this.brush = this.get() + ".y(" + x + ")"
     return(brush)
 }
 

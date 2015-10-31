@@ -1,10 +1,11 @@
 mata: 
 
-class d3pie { 
+class d3pie extends d3 { 
 
-    string            scalar    pie
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    pie
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    endAngle() 
     string            scalar    padAngle() 
     string            scalar    sort() 
@@ -17,37 +18,49 @@ string scalar d3pie::get() {
     return(this.pie)
 }
 
+string scalar d3pie::end() { 
+    string scalar pieObject 
+    pieObject = this.get() + ";"
+    return(pieObject)
+}
+
+string scalar d3pie::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "pie"
+    return(jsvarname)
+}
+
 void d3pie::new() {
-    this.pie = "pie"
+    this.pie = this.setVarnm(STpie)
 }
 
 string scalar d3pie::endAngle(string scalar x) { 
     string scalar pie 
-    pie = this.get() + ".endAngle(" + x + ")"
+    this.pie = this.get() + ".endAngle(" + x + ")"
     return(pie)
 }
 
 string scalar d3pie::padAngle(string scalar x) { 
     string scalar pie 
-    pie = this.get() + ".padAngle(" + x + ")"
+    this.pie = this.get() + ".padAngle(" + x + ")"
     return(pie)
 }
 
 string scalar d3pie::sort(string scalar x) { 
     string scalar pie 
-    pie = this.get() + ".sort(" + x + ")"
+    this.pie = this.get() + ".sort(" + x + ")"
     return(pie)
 }
 
 string scalar d3pie::startAngle(string scalar x) { 
     string scalar pie 
-    pie = this.get() + ".startAngle(" + x + ")"
+    this.pie = this.get() + ".startAngle(" + x + ")"
     return(pie)
 }
 
 string scalar d3pie::value(string scalar x) { 
     string scalar pie 
-    pie = this.get() + ".value(" + x + ")"
+    this.pie = this.get() + ".value(" + x + ")"
     return(pie)
 }
 

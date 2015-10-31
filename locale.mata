@@ -1,10 +1,11 @@
 mata: 
 
-class d3locale { 
+class d3locale extends d3 { 
 
-    string            scalar    locale
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    locale
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    numberFormat() 
     string            scalar    timeFormat() 
 
@@ -14,19 +15,31 @@ string scalar d3locale::get() {
     return(this.locale)
 }
 
+string scalar d3locale::end() { 
+    string scalar localeObject 
+    localeObject = this.get() + ";"
+    return(localeObject)
+}
+
+string scalar d3locale::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "locale"
+    return(jsvarname)
+}
+
 void d3locale::new() {
-    this.locale = "locale"
+    this.locale = this.setVarnm(STlocale)
 }
 
 string scalar d3locale::numberFormat(string scalar x) { 
     string scalar locale 
-    locale = this.get() + ".numberFormat(" + x + ")"
+    this.locale = this.get() + ".numberFormat(" + x + ")"
     return(locale)
 }
 
 string scalar d3locale::timeFormat(string scalar x) { 
     string scalar locale 
-    locale = this.get() + ".timeFormat(" + x + ")"
+    this.locale = this.get() + ".timeFormat(" + x + ")"
     return(locale)
 }
 

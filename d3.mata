@@ -1,84 +1,95 @@
 mata:
 
-/*						TODO
-
-Make sure methods and sub classes use distinct names with favor for the methods
-over the classnames. */
-
-mata clear
-
 class d3 {
 
-	void						new()
+	void						new(), destroy()
 	string 				scalar 	d3	
-	class	albers		scalar	calbers()
-	class	arc			scalar	carc()
-	class	area		scalar	carea()
-	class	axis		scalar	caxis()
-	class	brush		scalar	cbrush()
-	class	bundle		scalar	cbundle()
-	class	chord		scalar	cchord()
-	class	circle		scalar	ccircle()
-	class	clipExtent	scalar	cclipExtent()
-	class	cluster		scalar	ccluster()
-	class	diagonal	scalar	cdiagonal()
-	class	dispatch	scalar	cdispatch()
-	class	drag		scalar	cdrag()
-	class	ease		scalar	cease()
-	class	force		scalar	cforce()
-	class	format		scalar	cformat()
-	class	graticule	scalar	cgraticule()
-	class	hcl			scalar	chcl()
-	class	hierarchy	scalar	chierarchy()
-	class	histogram	scalar	chistogram()
-	class	hsl			scalar	chsl()
-	class	hull		scalar	chull()
-	class	identity	scalar	cidentity()
-	class	interpolate	scalar	cinterpolate()
-	class	interval	scalar	cinterval()
-	class	lab			scalar	clab()
-	class	line		scalar	cline()
-	class	linear		scalar	clinear()
-	class	locale		scalar	clocale()
-	class	log			scalar	clog()
-	class	map			scalar	cmap()
-	class	nest		scalar	cnest()
-	class	ordinal		scalar	cordinal()
-	class	pack		scalar	cpack()
-	class	partition	scalar	cpartition()
-	class	path		scalar	cpath()
-	class	pie			scalar	cpie()
-	class	polygon		scalar	cpolygon()
-	class	pow			scalar	cpow()
-	class	projection	scalar	cprojection()
-	class	quadtree	scalar	cquadtree()
-	class	quantile	scalar	cquantile()
-	class	quantize	scalar	cquantize()
-	class	rgb			scalar	crgb()
-	class	rotation	scalar	crotation()
-	class	scale		scalar	cscale()
-	class	selection	scalar	cselection()
-	class	set			scalar	cset()
-	class	stack		scalar	cstack()
-	class	stream		scalar	cstream()
-	class	symbol		scalar	csymbol()
-	class	threshold	scalar	cthreshold()
-	class	transform	scalar	ctransform()
-	class	transition	scalar	ctransition()
-	class	tree		scalar	ctree()
-	class	treemap		scalar	ctreemap()
-	class	voronoi		scalar	cvoronoi()
-	class	xhr			scalar	cxhr()
-	class	zoom		scalar	czoom()
-	string 				scalar	get()	
-	string 				scalar 	ascending(), behavior(), bisect(), bisectLeft(), 
-								bisectRight(), bisector(), csv(), csv_parse(), 
+	class	albers		scalar	d3albers()
+	class	arc			scalar	d3arc()
+	class	area		scalar	d3area()
+	class	axis		scalar	d3axis()
+	class	brush		scalar	d3brush()
+	class	bundle		scalar	d3bundle()
+	class	chord		scalar	d3chord()
+	class	circle		scalar	d3circle()
+	class	clipExtent	scalar	d3clipExtent()
+	class	cluster		scalar	d3cluster()
+	class	diagonal	scalar	d3diagonal()
+	class	dispatch	scalar	d3dispatch()
+	class	drag		scalar	d3drag()
+	class	ease		scalar	d3ease()
+	class	force		scalar	d3force()
+	class	format		scalar	d3format()
+	class	graticule	scalar	d3graticule()
+	class	hcl			scalar	d3hcl()
+	class	hierarchy	scalar	d3hierarchy()
+	class	histogram	scalar	d3histogram()
+	class	hsl			scalar	d3hsl()
+	class	hull		scalar	d3hull()
+	class	identity	scalar	d3identity()
+	class	interpolate	scalar	d3interpolate()
+	class	interval	scalar	d3interval()
+	class	lab			scalar	d3lab()
+	class	line		scalar	d3line()
+	class	linear		scalar	d3linear()
+	class	locale		scalar	d3locale()
+	class	log			scalar	d3log()
+	class	map			scalar	d3map()
+	class	nest		scalar	d3nest()
+	class	ordinal		scalar	d3ordinal()
+	class	pack		scalar	d3pack()
+	class	partition	scalar	d3partition()
+	class	path		scalar	d3path()
+	class	pie			scalar	d3pie()
+	class	polygon		scalar	d3polygon()
+	class	pow			scalar	d3pow()
+	class	projection	scalar	d3projection()
+	class	quadtree	scalar	d3quadtree()
+	class	quantile	scalar	d3quantile()
+	class	quantize	scalar	d3quantize()
+	class	rgb			scalar	d3rgb()
+	class	rotation	scalar	d3rotation()
+	class	scale		scalar	d3scale()
+	class	selection	scalar	d3selection()
+	class	set			scalar	d3set()
+	class	stack		scalar	d3stack()
+	class	stream		scalar	d3stream()
+	class	symbol		scalar	d3symbol()
+	class	threshold	scalar	d3threshold()
+	class	transform	scalar	d3transform()
+	class	transition	scalar	d3transition()
+	class	tree		scalar	d3tree()
+	class	treemap		scalar	d3treemap()
+	class	voronoi		scalar	d3voronoi()
+	class	xhr			scalar	d3xhr()
+	class	zoom		scalar	d3zoom()
+	string 				scalar	get(), end()	
+	string 				scalar 	ascending(), behavior_drag(), behavior_zoom(), 
+								bisect(), bisectLeft(), bisectRight(), 
+								bisector(), csv(), csv_parse(), 
 								csv_parseRows(), csv_format(), csv_formatRows(),
-								descending(), deviation(), dispatch(), dsv(), 
+								descending(), deviation(), dsv(), 
 								dsv_parse(), dsv_parseRows(), dsv_format(), 
 								dsv_formatRows(), ease(), entries(), event(), 
 								extent(), format(), formatPrefix(), functor(), 
-								geo(), geom(), hcl(), hsl(), html(), 
+								geo_area(), geo_bounds(), geo_centroid(), 
+								geo_circle(), geo_distance(), geo_graticule(), 
+								geo_interpolate(), geo_length(), geo_path(), 
+								geo_rotation(), geo_albersUsa(), geo_albers(), geo_albers_raw(),
+								geo_azimuthalEqualArea_raw(), geo_azimuthalEqualArea(), 
+								geo_azimuthalEquidistant_raw(), geo_azimuthalEquidistant(), 
+								geo_conicConformal_raw(), geo_conicConformal(), 
+								geo_conicEqualArea_raw(), geo_conicEqualArea(), 
+								geo_conicEquidistant_raw(), geo_conicEquidistant(), 
+								geo_equirectangular_raw(), geo_equirectangular(), 
+								geo_gnomonic_raw(), geo_gnomonic(), 
+								geo_mercator_raw(), geo_mercator(), 
+								geo_orthographic(), geo_projectionMutator(), 
+								geo_projection(), geo_stereographic_raw(), 
+								geo_stereographic(), geo_transverseMercator_raw(), 
+								geo_clipExtent(), geo_stream(), geo_transform(),
+								geom_voronoi(), geom_quadtree(), geom_polygon(), 
+								geom_hull(), hcl(), hsl(), html(), 
 								interpolate(), interpolatearay(), 
 								interpolateHcl(), interpolateHsl(), 
 								interpolateLab(), interpolateNumber(), 
@@ -86,7 +97,11 @@ class d3 {
 								interpolateRound(), interpolateString(), 
 								interpolateTransform(), interpolateZoom(), 
 								interpolators(), json(), keys(), lab(), 
-								layout(), locale(), map(), max(), mean(), 
+								layout_bundle(), layout_chord(), layout_cluster(), 
+								layout_force(), layout_hierarchy(), layout_histogram(), 
+								layout_pack(), layout_partition(), layout_pie(), 
+								layout_stack(), layout_tree(), layout_treemap(),
+								locale(), map(), max(), mean(), 
 								median(), merge(), min(), mouse(), nest(), 
 								ns_prefix(), ns_qualify(), pairs(), permute(), 
 								quantile(), random_normal(), random_logNormal(),
@@ -102,19 +117,33 @@ class d3 {
 								svg_brush(), svg_area_radial(), 
 								svg_area(), svg_chord(), svg_diagonal_radial(), 
 								svg_diagonal(), svg_line_radial(), svg_line(), 
-								svg_symbolTypes(), svg_symbol(), text(), time(), 
+								svg_symbolTypes(), svg_symbol(), text(),  
 								timer(), timer_flush(), touch(), touches(), 
 								transform(), transition(), transpose(), tsv(),
 								tsv_parse(), tsv_parseRows(), tsv_format(), 
 								tsv_formatRows(), values(), variance(), xhr(), 
-								xml(), zip()
+								xml(), zip(), time_format(), fime_format_iso(), 
+								time_format_multi(), time_format_utc(), 
+								time_scale(), time_scale_utc(),
+								time_dayOfYear(), time_days(), time_day(), 
+								time_mondayOfYear(), time_mondays(), time_monday(), 
+								time_tuesdayOfYear(), time_tuesdays(), time_tuesday(), 
+								time_wednesdayOfYear(), time_wednesdays(), time_wednesday(), 
+								time_thursdayOfYear(), time_thursdays(), time_thursday(), 
+								time_fridayOfYear(), time_fridays(), time_friday(), 
+								time_saturdayOfYear(), time_saturdays(), time_saturday(), 
+								time_sundayOfYear(), time_sundays(), time_sunday(),
+								time_hours(), time_hour(), time_interval(), 
+								time_minutes(), time_minute(), time_seconds(), 
+								time_second(), time_week(), time_weeks(), time_years(), 
+								time_year()
 
 	
 }
 
 void d3::new() {
 
-	this.d3 = "d3";
+	this.d3 = "var d3 = d3";
 
 }
 
@@ -541,14 +570,21 @@ string scalar d3::ascending(string scalar a, string scalar b) {
 }
 
 
-string scalar d3::behavior(string scalar TEMP) {
+string scalar d3::behavior_drag(string scalar varnm) {
         string scalar Behavior
-        Behavior = this.get() + ".behavior" 
+        Behavior = "var " + varnm + " = " + this.get() + ".behavior.drag();" 
         return(Behavior)
 }
 
 
-string scalar d3::bisect(string scalar aray, string scalar x, | ///   
+string scalar d3::behavior_zoom(string scalar varnm) {
+        string scalar Behavior
+        Behavior = "var " + varnm + " = " + this.get() + ".behavior.zoom();" 
+        return(Behavior)
+}
+
+
+string scalar d3::bisect(string scalar aray, string scalar x, |				 ///   
 						 string scalar lo, string scalar hi) {
         string scalar Bisect
         Bisect = this.get() + ".bisect" 
@@ -556,7 +592,7 @@ string scalar d3::bisect(string scalar aray, string scalar x, | ///
 }
 
 
-string scalar d3::bisectLeft(string scalar aray, string scalar x, | ///   
+string scalar d3::bisectLeft(string scalar aray, string scalar x, |			 ///   
 							 string scalar lo, string scalar hi) {
         string scalar Bisectleft
         Bisectleft = this.get() + ".bisectLeft" 
@@ -564,7 +600,7 @@ string scalar d3::bisectLeft(string scalar aray, string scalar x, | ///
 }
 
 
-string scalar d3::bisectRight(string scalar aray, string scalar x, | ///   
+string scalar d3::bisectRight(string scalar aray, string scalar x, |		 ///   
 							 string scalar lo, string scalar hi) {
         string scalar Bisectright
         Bisectright = this.get() + ".bisectRight" 
@@ -582,7 +618,16 @@ string scalar d3::bisector(string scalar accomp) {
 string scalar d3::csv(string scalar url, | string scalar accessor, 
 					  string scalar callback) {
         string scalar Csv
-        Csv = this.get() + ".csv" 
+		if (accessor != "" & callback == "") {
+			Csv = this.get() + ".csv(" + url + ", " + accessor + ")" 
+		}
+		else if (accessor != "" & callback == "") {
+			Csv = this.get() + ".csv(" + url + ", " + accessor + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Csv = this.get() + ".csv(" + url + ")"		
+		}
         return(Csv)
 }
 
@@ -622,13 +667,6 @@ string scalar d3::deviation(string scalar aray, | string scalar accessor) {
         string scalar Deviation
         Deviation = this.get() + ".deviation(" + aray + ", " + accessor + ")" 
         return(Deviation)
-}
-
-
-string scalar d3::dispatch(string scalar TEMP) {
-        string scalar Dispatch
-        Dispatch = this.get() + ".dispatch" 
-        return(Dispatch)
 }
 
 
@@ -681,7 +719,7 @@ string scalar d3::entries(string scalar object) {
 }
 
 
-string scalar d3::event(string scalar TEMP) {
+string scalar d3::event() {
         string scalar Event
         Event = this.get() + ".event" 
         return(Event)
@@ -709,23 +747,312 @@ string scalar d3::formatPrefix(string scalar value, | string scalar precision) {
 }
 
 
-string scalar d3::functor(string scalar TEMP) {
+string scalar d3::functor(string scalar value) {
         string scalar Functor
-        Functor = this.get() + ".functor" 
+        Functor = this.get() + ".functor(" + value + ")" 
         return(Functor)
 }
 
 
-string scalar d3::geo(string scalar TEMP) {
+string scalar d3::geo_area(string scalar feature) {
+        string scalar Geo
+        Geo = this.get() + ".geo.area(" + feature + ")"
+        return(Geo)
+}
+
+
+string scalar d3::geo_bounds(string scalar feature) {
+        string scalar Geo
+        Geo = this.get() + ".geo.bounds(" + feature + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_centroid(string scalar feature) {
+        string scalar Geo
+        Geo = this.get() + ".geo.centroid(" + feature + ")"
+        return(Geo)
+}
+
+
+string scalar d3::geo_circle() {
+        string scalar Geo
+        Geo = this.get() + ".geo.circle" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_distance(string scalar a, string scalar b) {
+        string scalar Geo
+        Geo = this.get() + ".geo.distance(" + a + ", " + b ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_graticule() {
+        string scalar Geo
+        Geo = this.get() + ".geo.graticule" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_interpolate(string scalar a, string scalar b) {
+        string scalar Geo
+        Geo = this.get() + ".geo.interpolate(" + a + ", " + b ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_length(string scalar feature) {
+        string scalar Geo
+        Geo = this.get() + ".geo.length(" + feature + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_path() {
+        string scalar Geo
+        Geo = this.get() + ".geo.path()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_rotation(string scalar rotate) {
+        string scalar Geo
+        Geo = this.get() + ".geo.rotation(" + rotate + ")" 
+        return(Geo)
+}
+
+
+
+string scalar d3::geo_albersUsa() {
+        string scalar Geo
+        Geo = this.get() + ".geo.albersUsa()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_albers_raw(string scalar phi0, string scalar phi1) {
+        string scalar Geo
+        Geo = this.get() + ".geo.albers.raw(" + phi0 + ", " + phi1 + ")" 
+        return(Geo)
+}
+
+
+
+string scalar d3::geo_albers() {
+        string scalar Geo
+        Geo = this.get() + ".geo.albers()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_azimuthalEqualArea_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.azimuthalEqualArea()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_azimuthalEqualArea() {
+        string scalar Geo
+        Geo = this.get() + ".geo.azimuthalEqualArea()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_azimuthalEquidistant_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.azimuthalEquidistant()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_azimuthalEquidistant() {
+        string scalar Geo
+        Geo = this.get() + ".geo.azimuthalEquidistant()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicConformal_raw(string scalar phi0, string scalar phi1) {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicConformal.raw(" + phi0 + ", " + phi1 + ")"  
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicConformal() {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicConformal()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicEqualArea_raw(string scalar phi0, string scalar phi1) {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicEqualArea.raw(" + phi0 + ", " + phi1 + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicEqualArea() {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicEqualArea()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicEquidistant_raw(string scalar phi0, string scalar phi1) {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicEquidistant.raw(" + phi0 + ", " + phi1 + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_conicEquidistant() {
+        string scalar Geo
+        Geo = this.get() + ".geo.conicEquidistant()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_equirectangular_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.equirectangular.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_equirectangular() {
+        string scalar Geo
+        Geo = this.get() + ".geo.equirectangular()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_gnomonic_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.gnomonic.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_gnomonic() {
+        string scalar Geo
+        Geo = this.get() + ".geo.gnomonic()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_mercator_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.mercator.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_mercator() {
+        string scalar Geo
+        Geo = this.get() + ".geo.mercator()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_orthographic_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.orthographic.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_orthographic() {
+        string scalar Geo
+        Geo = this.get() + ".geo.orthographic()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_projectionMutator() {
         string scalar Geo
         Geo = this.get() + ".geo" 
         return(Geo)
 }
 
 
-string scalar d3::geom(string scalar TEMP) {
+string scalar d3::geo_projection() {
+        string scalar Geo
+        Geo = this.get() + ".geo" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_stereographic_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.stereographic.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_stereographic() {
+        string scalar Geo
+        Geo = this.get() + ".geo.stereographic()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_transverseMercator_raw() {
+        string scalar Geo
+        Geo = this.get() + ".geo.transverseMercator.raw" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_clipExtent() {
+        string scalar Geo
+        Geo = this.get() + ".geo.clipExtent()" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_stream(string scalar object, string scalar listener) {
+        string scalar Geo
+        Geo = this.get() + ".geo.stream(" + object + ", " + listener + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geo_transform(string scalar methods) {
+        string scalar Geo
+        Geo = this.get() + ".geo.transform(" + methods + ")" 
+        return(Geo)
+}
+
+
+string scalar d3::geom_voronoi() {
         string scalar Geom
-        Geom = this.get() + ".geom" 
+        Geom = this.get() + ".geom.voronoi()" 
+        return(Geom)
+}
+
+
+string scalar d3::geom_quadtree() {
+        string scalar Geom
+        Geom = this.get() + ".geom.quadtree()" 
+        return(Geom)
+}
+
+
+string scalar d3::geom_polygon(string scalar vertices) {
+        string scalar Geom
+        Geom = this.get() + ".geom.polygon(" + vertices + ")" 
+        return(Geom)
+}
+
+
+string scalar d3::geom_hull() {
+        string scalar Geom
+        Geom = this.get() + ".geom.hull()" 
         return(Geom)
 }
 
@@ -745,9 +1072,14 @@ string scalar d3::hsl(string scalar h, | string scalar s, string scalar l) {
 }
 
 
-string scalar d3::html(string scalar TEMP) {
+string scalar d3::html(string scalar url, | string scalar callback) {
         string scalar Html
-        Html = this.get() + ".html" 
+		if (callback != "") {
+			Html = this.get() + ".html(" + url + ", " + callback + ")" 
+		}
+		else {
+			Html = this.get() + ".html(" + url + ")"		
+		}
         return(Html)
 }
 
@@ -836,16 +1168,21 @@ string scalar d3::interpolateZoom(string scalar a, string scalar b) {
 }
 
 
-string scalar d3::interpolators(string scalar TEMP) {
+string scalar d3::interpolators() {
         string scalar Interpolators
         Interpolators = this.get() + ".interpolators" 
         return(Interpolators)
 }
 
 
-string scalar d3::json(string scalar TEMP) {
+string scalar d3::json(string scalar url, | string scalar callback) {
         string scalar Json
-        Json = this.get() + ".json" 
+		if (callback != "") {
+			Json = this.get() + ".json(" + url + ", " + callback + ")" 
+		}
+		else {
+			Json = this.get() + ".json(" + url + ")"		
+		}
         return(Json)
 }
 
@@ -865,9 +1202,86 @@ string scalar d3::lab(string scalar l, | string scalar a, string scalar b) {
 }
 
 
-string scalar d3::layout(string scalar TEMP) {
+string scalar d3::layout_bundle() {
         string scalar Layout
-        Layout = this.get() + ".layout" 
+        Layout = this.get() + ".layout.bundle()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_chord() {
+        string scalar Layout
+        Layout = this.get() + ".layout.chord()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_cluster() {
+        string scalar Layout
+        Layout = this.get() + ".layout.cluster()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_force() {
+        string scalar Layout
+        Layout = this.get() + ".layout.force()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_hierarchy() {
+        string scalar Layout
+        Layout = this.get() + ".layout.hierarchy()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_histogram() {
+        string scalar Layout
+        Layout = this.get() + ".layout.histogram()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_pack() {
+        string scalar Layout
+        Layout = this.get() + ".layout.pack()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_partition() {
+        string scalar Layout
+        Layout = this.get() + ".layout.partition()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_pie() {
+        string scalar Layout
+        Layout = this.get() + ".layout.pie()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_stack() {
+        string scalar Layout
+        Layout = this.get() + ".layout.stack()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_tree() {
+        string scalar Layout
+        Layout = this.get() + ".layout.tree()" 
+        return(Layout)
+}
+
+
+string scalar d3::layout_treemap() {
+        string scalar Layout
+        Layout = this.get() + ".layout.treemap()" 
         return(Layout)
 }
 
@@ -1013,9 +1427,10 @@ string scalar d3::range(string scalar stop, | string scalar start, ///
 }
 
 
-string scalar d3::rebind(string scalar TEMP) {
+string scalar d3::rebind(string scalar target, string scalar source,		 ///   
+						string scalar names) {
         string scalar Rebind
-        Rebind = this.get() + ".rebind" 
+        Rebind = this.get() + ".rebind(" + target + ", " + source + ", " + names + ")" 
         return(Rebind)
 }
 
@@ -1124,23 +1539,23 @@ string scalar d3::scale_threshold() {
 }
 
 
-string scalar d3::select(string scalar TEMP) {
+string scalar d3::select(string scalar node) {
         string scalar Select
-        Select = this.get() + ".select" 
+        Select = this.get() + ".select(" + node + ")" 
         return(Select)
 }
 
 
-string scalar d3::selectAll(string scalar TEMP) {
+string scalar d3::selectAll(string scalar selector) {
         string scalar Selectall
-        Selectall = this.get() + ".selectAll" 
+        Selectall = this.get() + ".selectAll(" + selector + ")" 
         return(Selectall)
 }
 
 
-string scalar d3::selection(string scalar TEMP) {
+string scalar d3::selection() {
         string scalar Selection
-        Selection = this.get() + ".selection" 
+        Selection = this.get() + ".selection()" 
         return(Selection)
 }
 
@@ -1251,16 +1666,62 @@ string scalar d3::svg_symbol() {
 }
 
 
-string scalar d3::text(string scalar TEMP) {
+string scalar d3::text(string scalar url, | string scalar mimeType,			 ///   
+					   string scalar callback) {
         string scalar Text
-        Text = this.get() + ".text" 
-        return(Text)
+		
+		if (mimeType != "" & callback == "") {
+			Text = this.get() + ".text(" + url + ", " + mimeType + ")" 
+		}
+		else if (mimeType != "" & callback == "") {
+			Text = this.get() + ".text(" + url + ", " + mimeType + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Text = this.get() + ".text(" + url + ")"		
+		}
+		return(Text)
 }
 
 
-string scalar d3::time(string scalar TEMP) {
+string scalar d3::time_format(string scalar specifier) {
         string scalar Time
-        Time = this.get() + ".time" 
+        Time = this.get() + ".time.format(" + specifier + ")" 
+        return(Time)
+}
+
+
+string scalar d3::time_format_iso() {
+        string scalar Time
+        Time = this.get() + ".time.format.iso" 
+        return(Time)
+}
+
+
+string scalar d3::time_format_multi(string scalar formats) {
+        string scalar Time
+        Time = this.get() + ".time.format.multi(" + formats + ")" 
+        return(Time)
+}
+
+
+string scalar d3::time_format_utc(string scalar specifier) {
+        string scalar Time
+        Time = this.get() + ".time.format.utc(" + specifier + ")" 
+        return(Time)
+}
+
+
+string scalar d3::time_scale() {
+        string scalar Time
+        Time = this.get() + ".time.scale()" 
+        return(Time)
+}
+
+
+string scalar d3::time_scale_utc(string scalar formats) {
+        string scalar Time
+        Time = this.get() + ".time.scale.utc()"
         return(Time)
 }
 
@@ -1319,7 +1780,16 @@ string scalar d3::transpose(string scalar mtrix) {
 string scalar d3::tsv(string scalar url, | string scalar accessor, 
 					  string scalar callback) {
         string scalar Tsv
-        Tsv = this.get() + ".tsv" 
+		if (accessor != "" & callback == "") {
+			Tsv = this.get() + ".tsv(" + url + ", " + accessor + ")" 
+		}
+		else if (accessor != "" & callback == "") {
+			Tsv = this.get() + ".tsv(" + url + ", " + accessor + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Tsv = this.get() + ".tsv(" + url + ")"		
+		}
         return(Tsv)
 }
 
@@ -1369,9 +1839,19 @@ string scalar d3::xhr(string scalar TEMP) {
 }
 
 
-string scalar d3::xml(string scalar TEMP) {
+string scalar d3::xml(string scalar url, | string scalar mimeType,			 ///   
+					  string scalar callback) {
         string scalar Xml
-        Xml = this.get() + ".xml" 
+		if (mimeType != "" & callback == "") {
+			Xml = this.get() + ".xml(" + url + ", " + mimeType + ")" 
+		}
+		else if (mimeType != "" & callback == "") {
+			Xml = this.get() + ".xml(" + url + ", " + mimeType + ", " +  	 ///   
+					callback + ")"		
+		}
+		else {
+			Xml = this.get() + ".xml(" + url + ")"		
+		}
         return(Xml)
 }
 
@@ -1381,6 +1861,262 @@ string scalar d3::zip(string scalar arays) {
         Zip = this.get() + ".zip(" + arays + ")" 
         return(Zip)
 }
+
+string scalar d3::time_day() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+string scalar d3::time_monday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+ 
+string scalar d3::time_tuesday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+string scalar d3::time_wednesday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_thursday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_friday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_saturday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_sunday() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_hour() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_interval() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_minute() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_second() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_week() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_year() {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+ 
+
+string scalar d3::time_days(string scalar start, string scalar stop, |		 ///   
+							string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+string scalar d3::time_mondays(string scalar start, string scalar stop, |	 ///   
+							   string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_tuesdays(string scalar start, string scalar stop, |	 ///   
+								string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_wednesdays(string scalar start, string scalar stop, | ///   
+								  string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_thursdays(string scalar start, string scalar stop, |	 ///   
+								 string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_fridays(string scalar start, string scalar stop, |	 ///   
+							   string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_saturdays(string scalar start, string scalar stop, |	 ///   
+								 string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_sundays(string scalar start, string scalar stop, |	 ///   
+							   string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_hours(string scalar start, string scalar stop, |		 ///   
+							 string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_minutes(string scalar start, string scalar stop, |	 ///   
+							   string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_seconds(string scalar start, string scalar stop, |	 ///   
+							   string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_weeks(string scalar start, string scalar stop, |		 ///   
+							 string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_years(string scalar start, string scalar stop, |		 ///   
+							 string scalar step) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_dayOfYear(string scalar date) { 
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_mondayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_tuesdayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_wednesdayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_thursdayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_fridayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_saturdayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
+string scalar d3::time_sundayOfYear(string scalar date) {
+	string scalar d3time
+	d3time = ""
+	return(d3time)
+}
+
+
 
 end
 

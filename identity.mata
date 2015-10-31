@@ -1,10 +1,11 @@
 mata: 
 
-class d3identity { 
+class d3identity extends d3 { 
 
-    string            scalar    identity
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    identity
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invert() 
@@ -18,43 +19,55 @@ string scalar d3identity::get() {
     return(this.identity)
 }
 
+string scalar d3identity::end() { 
+    string scalar identityObject 
+    identityObject = this.get() + ";"
+    return(identityObject)
+}
+
+string scalar d3identity::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "identity"
+    return(jsvarname)
+}
+
 void d3identity::new() {
-    this.identity = "identity"
+    this.identity = this.setVarnm(STidentity)
 }
 
 string scalar d3identity::copy(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".copy(" + x + ")"
+    this.identity = this.get() + ".copy(" + x + ")"
     return(identity)
 }
 
 string scalar d3identity::domain(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".domain(" + x + ")"
+    this.identity = this.get() + ".domain(" + x + ")"
     return(identity)
 }
 
 string scalar d3identity::invert(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".invert(" + x + ")"
+    this.identity = this.get() + ".invert(" + x + ")"
     return(identity)
 }
 
 string scalar d3identity::range(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".range(" + x + ")"
+    this.identity = this.get() + ".range(" + x + ")"
     return(identity)
 }
 
 string scalar d3identity::tickFormat(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".tickFormat(" + x + ")"
+    this.identity = this.get() + ".tickFormat(" + x + ")"
     return(identity)
 }
 
 string scalar d3identity::ticks(string scalar x) { 
     string scalar identity 
-    identity = this.get() + ".ticks(" + x + ")"
+    this.identity = this.get() + ".ticks(" + x + ")"
     return(identity)
 }
 

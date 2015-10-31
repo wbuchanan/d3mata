@@ -1,10 +1,11 @@
 mata: 
 
-class d3transition { 
+class d3transition extends d3 { 
 
-    string            scalar    transition
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    transition
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    attr() 
     string            scalar    attrTween() 
     string            scalar    call() 
@@ -31,121 +32,133 @@ string scalar d3transition::get() {
     return(this.transition)
 }
 
+string scalar d3transition::end() { 
+    string scalar transitionObject 
+    transitionObject = this.get() + ";"
+    return(transitionObject)
+}
+
+string scalar d3transition::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "transition"
+    return(jsvarname)
+}
+
 void d3transition::new() {
-    this.transition = "transition"
+    this.transition = this.setVarnm(STtransition)
 }
 
 string scalar d3transition::attr(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".attr(" + x + ")"
+    this.transition = this.get() + ".attr(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::attrTween(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".attrTween(" + x + ")"
+    this.transition = this.get() + ".attrTween(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::call(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".call(" + x + ")"
+    this.transition = this.get() + ".call(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::delay(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".delay(" + x + ")"
+    this.transition = this.get() + ".delay(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::duration(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".duration(" + x + ")"
+    this.transition = this.get() + ".duration(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::each(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".each(" + x + ")"
+    this.transition = this.get() + ".each(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::ease(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".ease(" + x + ")"
+    this.transition = this.get() + ".ease(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::empty(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".empty(" + x + ")"
+    this.transition = this.get() + ".empty(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::filter(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".filter(" + x + ")"
+    this.transition = this.get() + ".filter(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::node(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".node(" + x + ")"
+    this.transition = this.get() + ".node(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::remove(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".remove(" + x + ")"
+    this.transition = this.get() + ".remove(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::select(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".select(" + x + ")"
+    this.transition = this.get() + ".select(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::selectAll(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".selectAll(" + x + ")"
+    this.transition = this.get() + ".selectAll(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::size(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".size(" + x + ")"
+    this.transition = this.get() + ".size(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::style(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".style(" + x + ")"
+    this.transition = this.get() + ".style(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::styleTween(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".styleTween(" + x + ")"
+    this.transition = this.get() + ".styleTween(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::text(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".text(" + x + ")"
+    this.transition = this.get() + ".text(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::transition(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".transition(" + x + ")"
+    this.transition = this.get() + ".transition(" + x + ")"
     return(transition)
 }
 
 string scalar d3transition::tween(string scalar x) { 
     string scalar transition 
-    transition = this.get() + ".tween(" + x + ")"
+    this.transition = this.get() + ".tween(" + x + ")"
     return(transition)
 }
 

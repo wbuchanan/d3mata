@@ -1,10 +1,11 @@
 mata: 
 
-class d3threshold { 
+class d3threshold extends d3 { 
 
-    string            scalar    threshold
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    threshold
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invertExtent() 
@@ -16,31 +17,43 @@ string scalar d3threshold::get() {
     return(this.threshold)
 }
 
+string scalar d3threshold::end() { 
+    string scalar thresholdObject 
+    thresholdObject = this.get() + ";"
+    return(thresholdObject)
+}
+
+string scalar d3threshold::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "threshold"
+    return(jsvarname)
+}
+
 void d3threshold::new() {
-    this.threshold = "threshold"
+    this.threshold = this.setVarnm(STthreshold)
 }
 
 string scalar d3threshold::copy(string scalar x) { 
     string scalar threshold 
-    threshold = this.get() + ".copy(" + x + ")"
+    this.threshold = this.get() + ".copy(" + x + ")"
     return(threshold)
 }
 
 string scalar d3threshold::domain(string scalar x) { 
     string scalar threshold 
-    threshold = this.get() + ".domain(" + x + ")"
+    this.threshold = this.get() + ".domain(" + x + ")"
     return(threshold)
 }
 
 string scalar d3threshold::invertExtent(string scalar x) { 
     string scalar threshold 
-    threshold = this.get() + ".invertExtent(" + x + ")"
+    this.threshold = this.get() + ".invertExtent(" + x + ")"
     return(threshold)
 }
 
 string scalar d3threshold::range(string scalar x) { 
     string scalar threshold 
-    threshold = this.get() + ".range(" + x + ")"
+    this.threshold = this.get() + ".range(" + x + ")"
     return(threshold)
 }
 

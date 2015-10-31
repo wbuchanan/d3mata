@@ -1,10 +1,11 @@
 mata: 
 
-class d3histogram { 
+class d3histogram extends d3 { 
 
-    string            scalar    histogram
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    histogram
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    bins() 
     string            scalar    frequency() 
     string            scalar    range() 
@@ -16,31 +17,43 @@ string scalar d3histogram::get() {
     return(this.histogram)
 }
 
+string scalar d3histogram::end() { 
+    string scalar histogramObject 
+    histogramObject = this.get() + ";"
+    return(histogramObject)
+}
+
+string scalar d3histogram::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "histogram"
+    return(jsvarname)
+}
+
 void d3histogram::new() {
-    this.histogram = "histogram"
+    this.histogram = this.setVarnm(SThistogram)
 }
 
 string scalar d3histogram::bins(string scalar x) { 
     string scalar histogram 
-    histogram = this.get() + ".bins(" + x + ")"
+    this.histogram = this.get() + ".bins(" + x + ")"
     return(histogram)
 }
 
 string scalar d3histogram::frequency(string scalar x) { 
     string scalar histogram 
-    histogram = this.get() + ".frequency(" + x + ")"
+    this.histogram = this.get() + ".frequency(" + x + ")"
     return(histogram)
 }
 
 string scalar d3histogram::range(string scalar x) { 
     string scalar histogram 
-    histogram = this.get() + ".range(" + x + ")"
+    this.histogram = this.get() + ".range(" + x + ")"
     return(histogram)
 }
 
 string scalar d3histogram::value(string scalar x) { 
     string scalar histogram 
-    histogram = this.get() + ".value(" + x + ")"
+    this.histogram = this.get() + ".value(" + x + ")"
     return(histogram)
 }
 

@@ -1,10 +1,11 @@
 mata: 
 
-class d3stream { 
+class d3stream extends d3 { 
 
-    string            scalar    stream
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    stream
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    lineEnd() 
     string            scalar    lineStart() 
     string            scalar    point() 
@@ -18,43 +19,55 @@ string scalar d3stream::get() {
     return(this.stream)
 }
 
+string scalar d3stream::end() { 
+    string scalar streamObject 
+    streamObject = this.get() + ";"
+    return(streamObject)
+}
+
+string scalar d3stream::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "stream"
+    return(jsvarname)
+}
+
 void d3stream::new() {
-    this.stream = "stream"
+    this.stream = this.setVarnm(STstream)
 }
 
 string scalar d3stream::lineEnd(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".lineEnd(" + x + ")"
+    this.stream = this.get() + ".lineEnd(" + x + ")"
     return(stream)
 }
 
 string scalar d3stream::lineStart(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".lineStart(" + x + ")"
+    this.stream = this.get() + ".lineStart(" + x + ")"
     return(stream)
 }
 
 string scalar d3stream::point(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".point(" + x + ")"
+    this.stream = this.get() + ".point(" + x + ")"
     return(stream)
 }
 
 string scalar d3stream::polygonEnd(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".polygonEnd(" + x + ")"
+    this.stream = this.get() + ".polygonEnd(" + x + ")"
     return(stream)
 }
 
 string scalar d3stream::polygonStart(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".polygonStart(" + x + ")"
+    this.stream = this.get() + ".polygonStart(" + x + ")"
     return(stream)
 }
 
 string scalar d3stream::sphere(string scalar x) { 
     string scalar stream 
-    stream = this.get() + ".sphere(" + x + ")"
+    this.stream = this.get() + ".sphere(" + x + ")"
     return(stream)
 }
 

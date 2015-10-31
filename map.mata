@@ -1,10 +1,11 @@
 mata: 
 
-class d3map { 
+class d3map extends d3 { 
 
-    string            scalar    map
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    map
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    empty() 
     string            scalar    entries() 
     string            scalar    forEach() 
@@ -21,67 +22,79 @@ string scalar d3map::get() {
     return(this.map)
 }
 
+string scalar d3map::end() { 
+    string scalar mapObject 
+    mapObject = this.get() + ";"
+    return(mapObject)
+}
+
+string scalar d3map::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "map"
+    return(jsvarname)
+}
+
 void d3map::new() {
-    this.map = "map"
+    this.map = this.setVarnm(STmap)
 }
 
 string scalar d3map::empty(string scalar x) { 
     string scalar map 
-    map = this.get() + ".empty(" + x + ")"
+    this.map = this.get() + ".empty(" + x + ")"
     return(map)
 }
 
 string scalar d3map::entries(string scalar x) { 
     string scalar map 
-    map = this.get() + ".entries(" + x + ")"
+    this.map = this.get() + ".entries(" + x + ")"
     return(map)
 }
 
 string scalar d3map::forEach(string scalar x) { 
     string scalar map 
-    map = this.get() + ".forEach(" + x + ")"
+    this.map = this.get() + ".forEach(" + x + ")"
     return(map)
 }
 
 string scalar d3map::get(string scalar x) { 
     string scalar map 
-    map = this.get() + ".get(" + x + ")"
+    this.map = this.get() + ".get(" + x + ")"
     return(map)
 }
 
 string scalar d3map::has(string scalar x) { 
     string scalar map 
-    map = this.get() + ".has(" + x + ")"
+    this.map = this.get() + ".has(" + x + ")"
     return(map)
 }
 
 string scalar d3map::keys(string scalar x) { 
     string scalar map 
-    map = this.get() + ".keys(" + x + ")"
+    this.map = this.get() + ".keys(" + x + ")"
     return(map)
 }
 
 string scalar d3map::remove(string scalar x) { 
     string scalar map 
-    map = this.get() + ".remove(" + x + ")"
+    this.map = this.get() + ".remove(" + x + ")"
     return(map)
 }
 
 string scalar d3map::set(string scalar x) { 
     string scalar map 
-    map = this.get() + ".set(" + x + ")"
+    this.map = this.get() + ".set(" + x + ")"
     return(map)
 }
 
 string scalar d3map::size(string scalar x) { 
     string scalar map 
-    map = this.get() + ".size(" + x + ")"
+    this.map = this.get() + ".size(" + x + ")"
     return(map)
 }
 
 string scalar d3map::values(string scalar x) { 
     string scalar map 
-    map = this.get() + ".values(" + x + ")"
+    this.map = this.get() + ".values(" + x + ")"
     return(map)
 }
 

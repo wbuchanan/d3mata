@@ -1,10 +1,11 @@
 mata: 
 
-class d3rgb { 
+class d3rgb extends d3 { 
 
-    string            scalar    rgb
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    rgb
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    hsl() 
@@ -16,31 +17,43 @@ string scalar d3rgb::get() {
     return(this.rgb)
 }
 
+string scalar d3rgb::end() { 
+    string scalar rgbObject 
+    rgbObject = this.get() + ";"
+    return(rgbObject)
+}
+
+string scalar d3rgb::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "rgb"
+    return(jsvarname)
+}
+
 void d3rgb::new() {
-    this.rgb = "rgb"
+    this.rgb = this.setVarnm(STrgb)
 }
 
 string scalar d3rgb::brighter(string scalar x) { 
     string scalar rgb 
-    rgb = this.get() + ".brighter(" + x + ")"
+    this.rgb = this.get() + ".brighter(" + x + ")"
     return(rgb)
 }
 
 string scalar d3rgb::darker(string scalar x) { 
     string scalar rgb 
-    rgb = this.get() + ".darker(" + x + ")"
+    this.rgb = this.get() + ".darker(" + x + ")"
     return(rgb)
 }
 
 string scalar d3rgb::hsl(string scalar x) { 
     string scalar rgb 
-    rgb = this.get() + ".hsl(" + x + ")"
+    this.rgb = this.get() + ".hsl(" + x + ")"
     return(rgb)
 }
 
 string scalar d3rgb::toString(string scalar x) { 
     string scalar rgb 
-    rgb = this.get() + ".toString(" + x + ")"
+    this.rgb = this.get() + ".toString(" + x + ")"
     return(rgb)
 }
 

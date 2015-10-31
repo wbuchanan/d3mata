@@ -1,10 +1,11 @@
 mata: 
 
-class d3xhr { 
+class d3xhr extends d3 { 
 
-    string            scalar    xhr
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    xhr
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    abort() 
     string            scalar    header() 
     string            scalar    mimeType() 
@@ -19,55 +20,67 @@ string scalar d3xhr::get() {
     return(this.xhr)
 }
 
+string scalar d3xhr::end() { 
+    string scalar xhrObject 
+    xhrObject = this.get() + ";"
+    return(xhrObject)
+}
+
+string scalar d3xhr::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "xhr"
+    return(jsvarname)
+}
+
 void d3xhr::new() {
-    this.xhr = "xhr"
+    this.xhr = this.setVarnm(STxhr)
 }
 
 string scalar d3xhr::abort(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".abort(" + x + ")"
+    this.xhr = this.get() + ".abort(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::get(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".get(" + x + ")"
+    this.xhr = this.get() + ".get(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::header(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".header(" + x + ")"
+    this.xhr = this.get() + ".header(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::mimeType(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".mimeType(" + x + ")"
+    this.xhr = this.get() + ".mimeType(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::on(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".on(" + x + ")"
+    this.xhr = this.get() + ".on(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::post(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".post(" + x + ")"
+    this.xhr = this.get() + ".post(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::response(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".response(" + x + ")"
+    this.xhr = this.get() + ".response(" + x + ")"
     return(xhr)
 }
 
 string scalar d3xhr::send(string scalar x) { 
     string scalar xhr 
-    xhr = this.get() + ".send(" + x + ")"
+    this.xhr = this.get() + ".send(" + x + ")"
     return(xhr)
 }
 

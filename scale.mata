@@ -1,10 +1,11 @@
 mata: 
 
-class d3scale { 
+class d3scale extends d3 { 
 
-    string            scalar    scale
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    scale
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -22,67 +23,79 @@ string scalar d3scale::get() {
     return(this.scale)
 }
 
+string scalar d3scale::end() { 
+    string scalar scaleObject 
+    scaleObject = this.get() + ";"
+    return(scaleObject)
+}
+
+string scalar d3scale::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "scale"
+    return(jsvarname)
+}
+
 void d3scale::new() {
-    this.scale = "scale"
+    this.scale = this.setVarnm(STscale)
 }
 
 string scalar d3scale::clamp(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".clamp(" + x + ")"
+    this.scale = this.get() + ".clamp(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::copy(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".copy(" + x + ")"
+    this.scale = this.get() + ".copy(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::domain(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".domain(" + x + ")"
+    this.scale = this.get() + ".domain(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::interpolate(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".interpolate(" + x + ")"
+    this.scale = this.get() + ".interpolate(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::invert(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".invert(" + x + ")"
+    this.scale = this.get() + ".invert(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::nice(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".nice(" + x + ")"
+    this.scale = this.get() + ".nice(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::range(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".range(" + x + ")"
+    this.scale = this.get() + ".range(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::rangeRound(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".rangeRound(" + x + ")"
+    this.scale = this.get() + ".rangeRound(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::tickFormat(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".tickFormat(" + x + ")"
+    this.scale = this.get() + ".tickFormat(" + x + ")"
     return(scale)
 }
 
 string scalar d3scale::ticks(string scalar x) { 
     string scalar scale 
-    scale = this.get() + ".ticks(" + x + ")"
+    this.scale = this.get() + ".ticks(" + x + ")"
     return(scale)
 }
 

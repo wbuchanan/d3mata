@@ -1,10 +1,11 @@
 mata: 
 
-class d3pow { 
+class d3pow extends d3 { 
 
-    string            scalar    pow
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    pow
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -23,73 +24,85 @@ string scalar d3pow::get() {
     return(this.pow)
 }
 
+string scalar d3pow::end() { 
+    string scalar powObject 
+    powObject = this.get() + ";"
+    return(powObject)
+}
+
+string scalar d3pow::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "pow"
+    return(jsvarname)
+}
+
 void d3pow::new() {
-    this.pow = "pow"
+    this.pow = this.setVarnm(STpow)
 }
 
 string scalar d3pow::clamp(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".clamp(" + x + ")"
+    this.pow = this.get() + ".clamp(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::copy(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".copy(" + x + ")"
+    this.pow = this.get() + ".copy(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::domain(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".domain(" + x + ")"
+    this.pow = this.get() + ".domain(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::exponent(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".exponent(" + x + ")"
+    this.pow = this.get() + ".exponent(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::interpolate(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".interpolate(" + x + ")"
+    this.pow = this.get() + ".interpolate(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::invert(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".invert(" + x + ")"
+    this.pow = this.get() + ".invert(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::nice(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".nice(" + x + ")"
+    this.pow = this.get() + ".nice(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::range(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".range(" + x + ")"
+    this.pow = this.get() + ".range(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::rangeRound(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".rangeRound(" + x + ")"
+    this.pow = this.get() + ".rangeRound(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::tickFormat(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".tickFormat(" + x + ")"
+    this.pow = this.get() + ".tickFormat(" + x + ")"
     return(pow)
 }
 
 string scalar d3pow::ticks(string scalar x) { 
     string scalar pow 
-    pow = this.get() + ".ticks(" + x + ")"
+    this.pow = this.get() + ".ticks(" + x + ")"
     return(pow)
 }
 

@@ -1,10 +1,11 @@
 mata: 
 
-class d3stack { 
+class d3stack extends d3 { 
 
-    string            scalar    stack
-    void              new()
-    string            scalar    get() 
+    private   string  scalar    stack
+    void                        new(), destroy()
+    private   string  scalar    get()
+    public    string  scalar    setVarnm(), end() 
     string            scalar    offset() 
     string            scalar    order() 
     string            scalar    out() 
@@ -18,43 +19,55 @@ string scalar d3stack::get() {
     return(this.stack)
 }
 
+string scalar d3stack::end() { 
+    string scalar stackObject 
+    stackObject = this.get() + ";"
+    return(stackObject)
+}
+
+string scalar d3stack::setVarnm(string scalar vnm) { 
+    string scalar jsvarname
+    jsvarname = "var " + vnm + " = " + "stack"
+    return(jsvarname)
+}
+
 void d3stack::new() {
-    this.stack = "stack"
+    this.stack = this.setVarnm(STstack)
 }
 
 string scalar d3stack::offset(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".offset(" + x + ")"
+    this.stack = this.get() + ".offset(" + x + ")"
     return(stack)
 }
 
 string scalar d3stack::order(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".order(" + x + ")"
+    this.stack = this.get() + ".order(" + x + ")"
     return(stack)
 }
 
 string scalar d3stack::out(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".out(" + x + ")"
+    this.stack = this.get() + ".out(" + x + ")"
     return(stack)
 }
 
 string scalar d3stack::values(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".values(" + x + ")"
+    this.stack = this.get() + ".values(" + x + ")"
     return(stack)
 }
 
 string scalar d3stack::x(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".x(" + x + ")"
+    this.stack = this.get() + ".x(" + x + ")"
     return(stack)
 }
 
 string scalar d3stack::y(string scalar x) { 
     string scalar stack 
-    stack = this.get() + ".y(" + x + ")"
+    this.stack = this.get() + ".y(" + x + ")"
     return(stack)
 }
 
