@@ -1,11 +1,11 @@
 mata: 
 
-class d3area extends d3 { 
+class d3area { 
 
     private   string  scalar    area
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    angle() 
     string            scalar    defined() 
     string            scalar    endAngle() 
@@ -28,7 +28,7 @@ string scalar d3area::get() {
     return(this.area)
 }
 
-string scalar d3area::end() { 
+string scalar d3area::complete() { 
     string scalar areaObject 
     areaObject = this.get() + ";"
     return(areaObject)
@@ -36,7 +36,7 @@ string scalar d3area::end() {
 
 string scalar d3area::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "area"
+    jsvarname = "var " + vnm + " = " + "area()"
     return(jsvarname)
 }
 

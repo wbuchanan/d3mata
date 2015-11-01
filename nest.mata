@@ -1,11 +1,11 @@
 mata: 
 
-class d3nest extends d3 { 
+class d3nest { 
 
     private   string  scalar    nest
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    entries() 
     string            scalar    key() 
     string            scalar    map() 
@@ -19,7 +19,7 @@ string scalar d3nest::get() {
     return(this.nest)
 }
 
-string scalar d3nest::end() { 
+string scalar d3nest::complete() { 
     string scalar nestObject 
     nestObject = this.get() + ";"
     return(nestObject)
@@ -27,7 +27,7 @@ string scalar d3nest::end() {
 
 string scalar d3nest::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "nest"
+    jsvarname = "var " + vnm + " = " + "nest()"
     return(jsvarname)
 }
 

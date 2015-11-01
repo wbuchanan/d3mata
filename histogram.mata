@@ -1,11 +1,11 @@
 mata: 
 
-class d3histogram extends d3 { 
+class d3histogram { 
 
     private   string  scalar    histogram
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    bins() 
     string            scalar    frequency() 
     string            scalar    range() 
@@ -17,7 +17,7 @@ string scalar d3histogram::get() {
     return(this.histogram)
 }
 
-string scalar d3histogram::end() { 
+string scalar d3histogram::complete() { 
     string scalar histogramObject 
     histogramObject = this.get() + ";"
     return(histogramObject)
@@ -25,7 +25,7 @@ string scalar d3histogram::end() {
 
 string scalar d3histogram::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "histogram"
+    jsvarname = "var " + vnm + " = " + "histogram()"
     return(jsvarname)
 }
 

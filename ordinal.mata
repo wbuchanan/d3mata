@@ -1,11 +1,11 @@
 mata: 
 
-class d3ordinal extends d3 { 
+class d3ordinal { 
 
     private   string  scalar    ordinal
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    range() 
@@ -22,7 +22,7 @@ string scalar d3ordinal::get() {
     return(this.ordinal)
 }
 
-string scalar d3ordinal::end() { 
+string scalar d3ordinal::complete() { 
     string scalar ordinalObject 
     ordinalObject = this.get() + ";"
     return(ordinalObject)
@@ -30,7 +30,7 @@ string scalar d3ordinal::end() {
 
 string scalar d3ordinal::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "ordinal"
+    jsvarname = "var " + vnm + " = " + "ordinal()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3format extends d3 { 
+class d3format { 
 
     private   string  scalar    format
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    parse() 
 
 }
@@ -14,7 +14,7 @@ string scalar d3format::get() {
     return(this.format)
 }
 
-string scalar d3format::end() { 
+string scalar d3format::complete() { 
     string scalar formatObject 
     formatObject = this.get() + ";"
     return(formatObject)
@@ -22,7 +22,7 @@ string scalar d3format::end() {
 
 string scalar d3format::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "format"
+    jsvarname = "var " + vnm + " = " + "format()"
     return(jsvarname)
 }
 

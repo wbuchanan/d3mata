@@ -1,11 +1,11 @@
 mata: 
 
-class d3symbol extends d3 { 
+class d3symbol { 
 
     private   string  scalar    symbol
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    size() 
     string            scalar    type() 
 
@@ -15,7 +15,7 @@ string scalar d3symbol::get() {
     return(this.symbol)
 }
 
-string scalar d3symbol::end() { 
+string scalar d3symbol::complete() { 
     string scalar symbolObject 
     symbolObject = this.get() + ";"
     return(symbolObject)
@@ -23,7 +23,7 @@ string scalar d3symbol::end() {
 
 string scalar d3symbol::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "symbol"
+    jsvarname = "var " + vnm + " = " + "symbol()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3line extends d3 { 
+class d3line { 
 
     private   string  scalar    line
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    angle() 
     string            scalar    defined() 
     string            scalar    interpolate() 
@@ -20,7 +20,7 @@ string scalar d3line::get() {
     return(this.line)
 }
 
-string scalar d3line::end() { 
+string scalar d3line::complete() { 
     string scalar lineObject 
     lineObject = this.get() + ";"
     return(lineObject)
@@ -28,7 +28,7 @@ string scalar d3line::end() {
 
 string scalar d3line::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "line"
+    jsvarname = "var " + vnm + " = " + "line()"
     return(jsvarname)
 }
 

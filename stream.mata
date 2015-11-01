@@ -1,11 +1,11 @@
 mata: 
 
-class d3stream extends d3 { 
+class d3stream { 
 
     private   string  scalar    stream
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    lineEnd() 
     string            scalar    lineStart() 
     string            scalar    point() 
@@ -19,7 +19,7 @@ string scalar d3stream::get() {
     return(this.stream)
 }
 
-string scalar d3stream::end() { 
+string scalar d3stream::complete() { 
     string scalar streamObject 
     streamObject = this.get() + ";"
     return(streamObject)
@@ -27,7 +27,7 @@ string scalar d3stream::end() {
 
 string scalar d3stream::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "stream"
+    jsvarname = "var " + vnm + " = " + "stream()"
     return(jsvarname)
 }
 

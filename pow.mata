@@ -1,11 +1,11 @@
 mata: 
 
-class d3pow extends d3 { 
+class d3pow { 
 
     private   string  scalar    pow
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -24,7 +24,7 @@ string scalar d3pow::get() {
     return(this.pow)
 }
 
-string scalar d3pow::end() { 
+string scalar d3pow::complete() { 
     string scalar powObject 
     powObject = this.get() + ";"
     return(powObject)
@@ -32,7 +32,7 @@ string scalar d3pow::end() {
 
 string scalar d3pow::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "pow"
+    jsvarname = "var " + vnm + " = " + "pow()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3hcl extends d3 { 
+class d3hcl { 
 
     private   string  scalar    hcl
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    rgb() 
@@ -17,7 +17,7 @@ string scalar d3hcl::get() {
     return(this.hcl)
 }
 
-string scalar d3hcl::end() { 
+string scalar d3hcl::complete() { 
     string scalar hclObject 
     hclObject = this.get() + ";"
     return(hclObject)
@@ -25,7 +25,7 @@ string scalar d3hcl::end() {
 
 string scalar d3hcl::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "hcl"
+    jsvarname = "var " + vnm + " = " + "hcl()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3xhr extends d3 { 
+class d3xhr { 
 
     private   string  scalar    xhr
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    abort() 
     string            scalar    header() 
     string            scalar    mimeType() 
@@ -20,7 +20,7 @@ string scalar d3xhr::get() {
     return(this.xhr)
 }
 
-string scalar d3xhr::end() { 
+string scalar d3xhr::complete() { 
     string scalar xhrObject 
     xhrObject = this.get() + ";"
     return(xhrObject)
@@ -28,7 +28,7 @@ string scalar d3xhr::end() {
 
 string scalar d3xhr::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "xhr"
+    jsvarname = "var " + vnm + " = " + "xhr()"
     return(jsvarname)
 }
 

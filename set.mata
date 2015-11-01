@@ -1,11 +1,11 @@
 mata: 
 
-class d3set extends d3 { 
+class d3set { 
 
     private   string  scalar    set
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    add() 
     string            scalar    empty() 
     string            scalar    forEach() 
@@ -20,7 +20,7 @@ string scalar d3set::get() {
     return(this.set)
 }
 
-string scalar d3set::end() { 
+string scalar d3set::complete() { 
     string scalar setObject 
     setObject = this.get() + ";"
     return(setObject)
@@ -28,7 +28,7 @@ string scalar d3set::end() {
 
 string scalar d3set::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "set"
+    jsvarname = "var " + vnm + " = " + "set()"
     return(jsvarname)
 }
 

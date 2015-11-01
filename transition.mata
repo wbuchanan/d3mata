@@ -1,11 +1,11 @@
 mata: 
 
-class d3transition extends d3 { 
+class d3transition { 
 
     private   string  scalar    transition
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    attr() 
     string            scalar    attrTween() 
     string            scalar    call() 
@@ -32,7 +32,7 @@ string scalar d3transition::get() {
     return(this.transition)
 }
 
-string scalar d3transition::end() { 
+string scalar d3transition::complete() { 
     string scalar transitionObject 
     transitionObject = this.get() + ";"
     return(transitionObject)
@@ -40,7 +40,7 @@ string scalar d3transition::end() {
 
 string scalar d3transition::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "transition"
+    jsvarname = "var " + vnm + " = " + "transition()"
     return(jsvarname)
 }
 

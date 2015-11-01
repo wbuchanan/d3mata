@@ -1,11 +1,11 @@
 mata: 
 
-class d3hierarchy extends d3 { 
+class d3hierarchy { 
 
     private   string  scalar    hierarchy
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodes() 
@@ -19,7 +19,7 @@ string scalar d3hierarchy::get() {
     return(this.hierarchy)
 }
 
-string scalar d3hierarchy::end() { 
+string scalar d3hierarchy::complete() { 
     string scalar hierarchyObject 
     hierarchyObject = this.get() + ";"
     return(hierarchyObject)
@@ -27,7 +27,7 @@ string scalar d3hierarchy::end() {
 
 string scalar d3hierarchy::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "hierarchy"
+    jsvarname = "var " + vnm + " = " + "hierarchy()"
     return(jsvarname)
 }
 

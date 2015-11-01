@@ -1,11 +1,11 @@
 mata: 
 
-class d3voronoi extends d3 { 
+class d3voronoi { 
 
     private   string  scalar    voronoi
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clipExtent() 
     string            scalar    links() 
     string            scalar    triangles() 
@@ -18,7 +18,7 @@ string scalar d3voronoi::get() {
     return(this.voronoi)
 }
 
-string scalar d3voronoi::end() { 
+string scalar d3voronoi::complete() { 
     string scalar voronoiObject 
     voronoiObject = this.get() + ";"
     return(voronoiObject)
@@ -26,7 +26,7 @@ string scalar d3voronoi::end() {
 
 string scalar d3voronoi::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "voronoi"
+    jsvarname = "var " + vnm + " = " + "voronoi()"
     return(jsvarname)
 }
 

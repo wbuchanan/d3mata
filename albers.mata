@@ -1,11 +1,11 @@
 mata: 
 
-class d3albers extends d3 { 
+class d3albers { 
 
     private   string  scalar    albers
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    parallels() 
 
 }
@@ -14,7 +14,7 @@ string scalar d3albers::get() {
     return(this.albers)
 }
 
-string scalar d3albers::end() { 
+string scalar d3albers::complete() { 
     string scalar albersObject 
     albersObject = this.get() + ";"
     return(albersObject)
@@ -22,7 +22,7 @@ string scalar d3albers::end() {
 
 string scalar d3albers::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "albers"
+    jsvarname = "var " + vnm + " = " + "albers()"
     return(jsvarname)
 }
 

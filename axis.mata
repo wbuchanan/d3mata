@@ -1,11 +1,11 @@
 mata: 
 
-class d3axis extends d3 { 
+class d3axis { 
 
     private   string  scalar    axis
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    innerTickSize() 
     string            scalar    orient() 
     string            scalar    outerTickSize() 
@@ -22,7 +22,7 @@ string scalar d3axis::get() {
     return(this.axis)
 }
 
-string scalar d3axis::end() { 
+string scalar d3axis::complete() { 
     string scalar axisObject 
     axisObject = this.get() + ";"
     return(axisObject)
@@ -30,7 +30,7 @@ string scalar d3axis::end() {
 
 string scalar d3axis::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "axis"
+    jsvarname = "var " + vnm + " = " + "axis()"
     return(jsvarname)
 }
 

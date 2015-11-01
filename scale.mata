@@ -1,11 +1,11 @@
 mata: 
 
-class d3scale extends d3 { 
+class d3scale { 
 
     private   string  scalar    scale
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -23,7 +23,7 @@ string scalar d3scale::get() {
     return(this.scale)
 }
 
-string scalar d3scale::end() { 
+string scalar d3scale::complete() { 
     string scalar scaleObject 
     scaleObject = this.get() + ";"
     return(scaleObject)
@@ -31,7 +31,7 @@ string scalar d3scale::end() {
 
 string scalar d3scale::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "scale"
+    jsvarname = "var " + vnm + " = " + "scale()"
     return(jsvarname)
 }
 

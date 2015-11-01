@@ -1,11 +1,11 @@
 mata: 
 
-class d3quadtree extends d3 { 
+class d3quadtree { 
 
     private   string  scalar    quadtree
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    add() 
     string            scalar    find() 
     string            scalar    visit() 
@@ -16,7 +16,7 @@ string scalar d3quadtree::get() {
     return(this.quadtree)
 }
 
-string scalar d3quadtree::end() { 
+string scalar d3quadtree::complete() { 
     string scalar quadtreeObject 
     quadtreeObject = this.get() + ";"
     return(quadtreeObject)
@@ -24,7 +24,7 @@ string scalar d3quadtree::end() {
 
 string scalar d3quadtree::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "quadtree"
+    jsvarname = "var " + vnm + " = " + "quadtree()"
     return(jsvarname)
 }
 

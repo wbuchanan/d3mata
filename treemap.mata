@@ -1,11 +1,11 @@
 mata: 
 
-class d3treemap extends d3 { 
+class d3treemap { 
 
     private   string  scalar    treemap
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    mode() 
@@ -23,7 +23,7 @@ string scalar d3treemap::get() {
     return(this.treemap)
 }
 
-string scalar d3treemap::end() { 
+string scalar d3treemap::complete() { 
     string scalar treemapObject 
     treemapObject = this.get() + ";"
     return(treemapObject)
@@ -31,7 +31,7 @@ string scalar d3treemap::end() {
 
 string scalar d3treemap::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "treemap"
+    jsvarname = "var " + vnm + " = " + "treemap()"
     return(jsvarname)
 }
 

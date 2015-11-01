@@ -1,11 +1,11 @@
 mata: 
 
-class d3hull extends d3 { 
+class d3hull { 
 
     private   string  scalar    hull
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    x() 
     string            scalar    y() 
 
@@ -15,7 +15,7 @@ string scalar d3hull::get() {
     return(this.hull)
 }
 
-string scalar d3hull::end() { 
+string scalar d3hull::complete() { 
     string scalar hullObject 
     hullObject = this.get() + ";"
     return(hullObject)
@@ -23,7 +23,7 @@ string scalar d3hull::end() {
 
 string scalar d3hull::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "hull"
+    jsvarname = "var " + vnm + " = " + "hull()"
     return(jsvarname)
 }
 

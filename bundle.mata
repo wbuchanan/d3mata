@@ -1,11 +1,11 @@
 mata: 
 
-class d3bundle extends d3 { 
+class d3bundle { 
 
     private   string  scalar    bundle
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
 
 }
 
@@ -13,7 +13,7 @@ string scalar d3bundle::get() {
     return(this.bundle)
 }
 
-string scalar d3bundle::end() { 
+string scalar d3bundle::complete() { 
     string scalar bundleObject 
     bundleObject = this.get() + ";"
     return(bundleObject)
@@ -21,7 +21,7 @@ string scalar d3bundle::end() {
 
 string scalar d3bundle::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "bundle"
+    jsvarname = "var " + vnm + " = " + "bundle()"
     return(jsvarname)
 }
 

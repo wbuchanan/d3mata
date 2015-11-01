@@ -1,11 +1,11 @@
 mata: 
 
-class d3lab extends d3 { 
+class d3lab { 
 
     private   string  scalar    lab
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    rgb() 
@@ -17,7 +17,7 @@ string scalar d3lab::get() {
     return(this.lab)
 }
 
-string scalar d3lab::end() { 
+string scalar d3lab::complete() { 
     string scalar labObject 
     labObject = this.get() + ";"
     return(labObject)
@@ -25,7 +25,7 @@ string scalar d3lab::end() {
 
 string scalar d3lab::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "lab"
+    jsvarname = "var " + vnm + " = " + "lab()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3quantile extends d3 { 
+class d3quantile { 
 
     private   string  scalar    quantile
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invertExtent() 
@@ -18,7 +18,7 @@ string scalar d3quantile::get() {
     return(this.quantile)
 }
 
-string scalar d3quantile::end() { 
+string scalar d3quantile::complete() { 
     string scalar quantileObject 
     quantileObject = this.get() + ";"
     return(quantileObject)
@@ -26,7 +26,7 @@ string scalar d3quantile::end() {
 
 string scalar d3quantile::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "quantile"
+    jsvarname = "var " + vnm + " = " + "quantile()"
     return(jsvarname)
 }
 

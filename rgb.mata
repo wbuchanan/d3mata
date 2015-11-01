@@ -1,11 +1,11 @@
 mata: 
 
-class d3rgb extends d3 { 
+class d3rgb { 
 
     private   string  scalar    rgb
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    hsl() 
@@ -17,7 +17,7 @@ string scalar d3rgb::get() {
     return(this.rgb)
 }
 
-string scalar d3rgb::end() { 
+string scalar d3rgb::complete() { 
     string scalar rgbObject 
     rgbObject = this.get() + ";"
     return(rgbObject)
@@ -25,7 +25,7 @@ string scalar d3rgb::end() {
 
 string scalar d3rgb::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "rgb"
+    jsvarname = "var " + vnm + " = " + "rgb()"
     return(jsvarname)
 }
 

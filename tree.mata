@@ -1,11 +1,11 @@
 mata: 
 
-class d3tree extends d3 { 
+class d3tree { 
 
     private   string  scalar    tree
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodeSize() 
@@ -20,7 +20,7 @@ string scalar d3tree::get() {
     return(this.tree)
 }
 
-string scalar d3tree::end() { 
+string scalar d3tree::complete() { 
     string scalar treeObject 
     treeObject = this.get() + ";"
     return(treeObject)
@@ -28,7 +28,7 @@ string scalar d3tree::end() {
 
 string scalar d3tree::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "tree"
+    jsvarname = "var " + vnm + " = " + "tree()"
     return(jsvarname)
 }
 

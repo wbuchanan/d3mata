@@ -1,11 +1,11 @@
 mata: 
 
-class d3path extends d3 { 
+class d3path { 
 
     private   string  scalar    path
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    area() 
     string            scalar    bounds() 
     string            scalar    centroid() 
@@ -19,7 +19,7 @@ string scalar d3path::get() {
     return(this.path)
 }
 
-string scalar d3path::end() { 
+string scalar d3path::complete() { 
     string scalar pathObject 
     pathObject = this.get() + ";"
     return(pathObject)
@@ -27,7 +27,7 @@ string scalar d3path::end() {
 
 string scalar d3path::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "path"
+    jsvarname = "var " + vnm + " = " + "path()"
     return(jsvarname)
 }
 

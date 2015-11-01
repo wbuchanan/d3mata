@@ -161,13 +161,15 @@ string scalar d3::complete() {
 class d3albers scalar d3albers() {
 		 class d3albers scalar Albers
          Albers =  d3albers()
+         Albers =  d3albers()
          return(Albers)
 }
 
 
-class d3arc scalar d3arc() {
+class d3arc scalar d3arc(string scalar v, string scalar d, | string scalar i) {
 		 class d3arc scalar Arc
          Arc =  d3arc()
+         Arc.init(v, d, i)
          return(Arc)
 }
 
@@ -175,6 +177,7 @@ class d3arc scalar d3arc() {
 class d3area scalar d3area() {
 		 class d3area scalar Area
          Area =  d3area()
+         Area.init()
          return(Area)
 }
 
@@ -182,6 +185,7 @@ class d3area scalar d3area() {
 class d3axis scalar d3axis() {
 		 class d3axis scalar Axis
          Axis =  d3axis()
+         Axis.init()
          return(Axis)
 }
 
@@ -189,6 +193,7 @@ class d3axis scalar d3axis() {
 class d3brush scalar d3brush() {
 		 class d3brush scalar Brush
          Brush =  d3brush()
+         Brush.init()
          return(Brush)
 }
 
@@ -196,6 +201,7 @@ class d3brush scalar d3brush() {
 class d3bundle scalar d3bundle() {
 		 class d3bundle scalar Bundle
          Bundle =  d3bundle()
+         Bundle.init()
          return(Bundle)
 }
 
@@ -203,6 +209,7 @@ class d3bundle scalar d3bundle() {
 class d3chord scalar d3chord() {
 		 class d3chord scalar Chord
          Chord = d3chord()
+         Chord.init()
          return(Chord)
 }
 
@@ -210,6 +217,7 @@ class d3chord scalar d3chord() {
 class d3circle scalar d3circle() {
 		 class d3circle scalar Circle
          Circle = d3circle()
+         Circle.init()
          return(Circle)
 }
 
@@ -217,6 +225,7 @@ class d3circle scalar d3circle() {
 class d3clipExtent scalar d3clipExtent() {
 		 class d3clipExtent scalar Clipextent
          Clipextent = d3clipExtent()
+         Clipextent.init()
          return(Clipextent)
 }
 
@@ -224,6 +233,7 @@ class d3clipExtent scalar d3clipExtent() {
 class d3cluster scalar d3cluster() {
 		 class d3cluster scalar Cluster
          Cluster = d3cluster()
+         Cluster.init()
          return(Cluster)
 }
 
@@ -231,6 +241,7 @@ class d3cluster scalar d3cluster() {
 class d3diagonal scalar d3diagonal() {
 		 class d3diagonal scalar Diagonal
          Diagonal = d3diagonal()
+         Diagonal.init()
          return(Diagonal)
 }
 
@@ -238,6 +249,7 @@ class d3diagonal scalar d3diagonal() {
 class d3dispatch scalar d3dispatch() {
 		 class d3dispatch scalar Dispatch
          Dispatch = d3dispatch()
+         Dispatch.init()
          return(Dispatch)
 }
 
@@ -245,6 +257,7 @@ class d3dispatch scalar d3dispatch() {
 class d3drag scalar d3drag() {
 		 class d3drag scalar Drag
          Drag = d3drag()
+         Drag.init()
          return(Drag)
 }
 
@@ -252,6 +265,7 @@ class d3drag scalar d3drag() {
 class d3ease scalar d3ease() {
 		 class d3ease scalar Ease
          Ease = d3ease()
+         Ease.init()
          return(Ease)
 }
 
@@ -259,6 +273,7 @@ class d3ease scalar d3ease() {
 class d3force scalar d3force() {
 		 class d3force scalar Force
          Force = d3force()
+         Force.init()
          return(Force)
 }
 
@@ -266,6 +281,7 @@ class d3force scalar d3force() {
 class d3format scalar d3format() {
 		 class d3format scalar Format
          Format = d3format()
+         Format.init()
          return(Format)
 }
 
@@ -273,6 +289,7 @@ class d3format scalar d3format() {
 class d3graticule scalar d3graticule() {
 		 class d3graticule scalar Graticule
          Graticule = d3graticule()
+         Graticule.init()
          return(Graticule)
 }
 
@@ -280,6 +297,7 @@ class d3graticule scalar d3graticule() {
 class d3hcl scalar d3hcl() {
 		 class d3hcl scalar Hcl
          Hcl = d3hcl()
+         Hcl.init()
          return(Hcl)
 }
 
@@ -287,6 +305,7 @@ class d3hcl scalar d3hcl() {
 class d3hierarchy scalar d3hierarchy() {
 		 class d3hierarchy scalar Hierarchy
          Hierarchy = d3hierarchy()
+         Hierarchy.init()
          return(Hierarchy)
 }
 
@@ -294,6 +313,7 @@ class d3hierarchy scalar d3hierarchy() {
 class d3histogram scalar d3histogram() {
 		 class d3histogram scalar Histogram
          Histogram = d3histogram()
+         Histogram.init()
          return(Histogram)
 }
 
@@ -301,6 +321,7 @@ class d3histogram scalar d3histogram() {
 class d3hsl scalar d3hsl() {
 		 class d3hsl scalar Hsl
          Hsl = d3hsl()
+         Hsl.init()
          return(Hsl)
 }
 
@@ -308,6 +329,7 @@ class d3hsl scalar d3hsl() {
 class d3hull scalar d3hull() {
 		 class d3hull scalar Hull
          Hull = d3hull()
+         Hull.init()
          return(Hull)
 }
 
@@ -315,6 +337,7 @@ class d3hull scalar d3hull() {
 class d3identity scalar d3identity() {
 		 class d3identity scalar Identity
          Identity = d3identity()
+         Identity.init()
          return(Identity)
 }
 
@@ -322,6 +345,7 @@ class d3identity scalar d3identity() {
 class d3interpolate scalar d3interpolate() {
 		 class d3interpolate scalar Interpolate
          Interpolate = d3interpolate()
+         Interpolate.init()
          return(Interpolate)
 }
 
@@ -329,6 +353,7 @@ class d3interpolate scalar d3interpolate() {
 class d3interval scalar d3interval() {
 		 class d3interval scalar Interval
          Interval = d3interval()
+         Interval.init()
          return(Interval)
 }
 
@@ -336,6 +361,7 @@ class d3interval scalar d3interval() {
 class d3lab scalar d3lab() {
 		 class d3lab scalar Lab
          Lab = d3lab()
+         Lab.init()
          return(Lab)
 }
 
@@ -343,6 +369,7 @@ class d3lab scalar d3lab() {
 class d3line scalar d3line() {
 		 class d3line scalar Line
          Line = d3line()
+         Line.init()
          return(Line)
 }
 
@@ -350,6 +377,7 @@ class d3line scalar d3line() {
 class d3linear scalar d3linear() {
 		 class d3linear scalar Linear
          Linear = d3linear()
+         Linear.init()
          return(Linear)
 }
 
@@ -357,6 +385,7 @@ class d3linear scalar d3linear() {
 class d3locale scalar d3locale() {
 		 class d3locale scalar Locale
          Locale = d3locale()
+         Locale.init()
          return(Locale)
 }
 
@@ -364,6 +393,7 @@ class d3locale scalar d3locale() {
 class d3log scalar d3log() {
 		 class d3log scalar Log
          Log = d3log()
+         Log.init()
          return(Log)
 }
 
@@ -371,6 +401,7 @@ class d3log scalar d3log() {
 class d3map scalar d3map() {
 		 class d3map scalar Map
          Map = d3map()
+         Map.init()
          return(Map)
 }
 
@@ -378,6 +409,7 @@ class d3map scalar d3map() {
 class d3nest scalar d3nest() {
 		 class d3nest scalar Nest
          Nest = d3nest()
+         Nest.init()
          return(Nest)
 }
 
@@ -385,6 +417,7 @@ class d3nest scalar d3nest() {
 class d3ordinal scalar d3ordinal() {
 		 class d3ordinal scalar Ordinal
          Ordinal = d3ordinal()
+         Ordinal.init()
          return(Ordinal)
 }
 
@@ -392,6 +425,7 @@ class d3ordinal scalar d3ordinal() {
 class d3pack scalar d3pack() {
 		 class d3pack scalar Pack
          Pack = d3pack()
+         Pack.init()
          return(Pack)
 }
 
@@ -399,6 +433,7 @@ class d3pack scalar d3pack() {
 class d3partition scalar d3partition() {
 		 class d3partition scalar Partition
          Partition = d3partition()
+         Partition.init()
          return(Partition)
 }
 
@@ -406,6 +441,7 @@ class d3partition scalar d3partition() {
 class d3path scalar d3path() {
 		 class d3path scalar Path
          Path = d3path()
+         Path.init()
          return(Path)
 }
 
@@ -413,6 +449,7 @@ class d3path scalar d3path() {
 class d3pie scalar d3pie() {
 		 class d3pie scalar Pie
          Pie = d3pie()
+         Pie.init()
          return(Pie)
 }
 
@@ -420,6 +457,7 @@ class d3pie scalar d3pie() {
 class d3polygon scalar d3polygon() {
 		 class d3polygon scalar Polygon
          Polygon = d3polygon()
+         Polygon.init()
          return(Polygon)
 }
 
@@ -427,6 +465,7 @@ class d3polygon scalar d3polygon() {
 class d3pow scalar d3pow() {
 		 class d3pow scalar Pow
          Pow = d3pow()
+         Pow.init()
          return(Pow)
 }
 
@@ -434,6 +473,7 @@ class d3pow scalar d3pow() {
 class d3projection scalar d3projection() {
 		 class d3projection scalar Projection
          Projection = d3projection()
+         Projection.init()
          return(Projection)
 }
 
@@ -441,6 +481,7 @@ class d3projection scalar d3projection() {
 class d3quadtree scalar d3quadtree() {
 		 class d3quadtree scalar Quadtree
          Quadtree = d3quadtree()
+         Quadtree.init()
          return(Quadtree)
 }
 
@@ -448,6 +489,7 @@ class d3quadtree scalar d3quadtree() {
 class d3quantile scalar d3quantile() {
 		 class d3quantile scalar Quantile
          Quantile = d3quantile()
+         Quantile.init()
          return(Quantile)
 }
 
@@ -455,6 +497,7 @@ class d3quantile scalar d3quantile() {
 class d3quantize scalar d3quantize() {
 		 class d3quantize scalar Quantize
          Quantize = d3quantize()
+         Quantize.init()
          return(Quantize)
 }
 
@@ -462,6 +505,7 @@ class d3quantize scalar d3quantize() {
 class d3rgb scalar d3rgb() {
 		 class d3rgb scalar Rgb
          Rgb = d3rgb()
+         Rgb.init()
          return(Rgb)
 }
 
@@ -469,6 +513,7 @@ class d3rgb scalar d3rgb() {
 class d3rotation scalar d3rotation() {
 		 class d3rotation scalar Rotation
          Rotation = d3rotation()
+         Rotation.init()
          return(Rotation)
 }
 
@@ -476,6 +521,7 @@ class d3rotation scalar d3rotation() {
 class d3scale scalar d3scale() {
 		 class d3scale scalar Scale
          Scale = d3scale()
+         Scale.init()
          return(Scale)
 }
 
@@ -483,6 +529,7 @@ class d3scale scalar d3scale() {
 class d3selection scalar d3selection() {
 		 class d3selection scalar Selection
          Selection = d3selection()
+         Selection.init()
          return(Selection)
 }
 
@@ -490,6 +537,7 @@ class d3selection scalar d3selection() {
 class d3set scalar d3set() {
 		 class d3set scalar Set
          Set = d3set()
+         Set.init()
          return(Set)
 }
 
@@ -497,6 +545,7 @@ class d3set scalar d3set() {
 class d3stack scalar d3stack() {
 		 class d3stack scalar Stack
          Stack = d3stack()
+         Stack.init()
          return(Stack)
 }
 
@@ -504,6 +553,7 @@ class d3stack scalar d3stack() {
 class d3stream scalar d3stream() {
 		 class d3stream scalar Stream
          Stream = d3stream()
+         Stream.init()
          return(Stream)
 }
 
@@ -511,6 +561,7 @@ class d3stream scalar d3stream() {
 class d3symbol scalar d3symbol() {
 		 class d3symbol scalar Symbol
          Symbol = d3symbol()
+         Symbol.init()
          return(Symbol)
 }
 
@@ -518,6 +569,7 @@ class d3symbol scalar d3symbol() {
 class d3threshold scalar d3threshold() {
 		 class d3threshold scalar Threshold
          Threshold = d3threshold()
+         Threshold.init()
          return(Threshold)
 }
 
@@ -525,6 +577,7 @@ class d3threshold scalar d3threshold() {
 class d3transform scalar d3transform() {
 		 class d3transform scalar Transform
          Transform = d3transform()
+         Transform.init()
          return(Transform)
 }
 
@@ -532,6 +585,7 @@ class d3transform scalar d3transform() {
 class d3transition scalar d3transition() {
 		 class d3transition scalar Transition
          Transition = d3transition()
+         Transition.init()
          return(Transition)
 }
 
@@ -539,6 +593,7 @@ class d3transition scalar d3transition() {
 class d3tree scalar d3tree() {
 		 class d3tree scalar Tree
          Tree = d3tree()
+         Tree.init()
          return(Tree)
 }
 
@@ -546,6 +601,7 @@ class d3tree scalar d3tree() {
 class d3treemap scalar d3treemap() {
 		 class d3treemap scalar Treemap
          Treemap = d3treemap()
+         Treemap.init()
          return(Treemap)
 }
 
@@ -553,6 +609,7 @@ class d3treemap scalar d3treemap() {
 class d3voronoi scalar d3voronoi() {
 		 class d3voronoi scalar Voronoi
          Voronoi = d3voronoi()
+         Voronoi.init()
          return(Voronoi)
 }
 
@@ -560,6 +617,7 @@ class d3voronoi scalar d3voronoi() {
 class d3xhr scalar d3xhr() {
 		 class d3xhr scalar Xhr
          Xhr = d3xhr()
+         Xhr.init()
          return(Xhr)
 }
 
@@ -567,6 +625,7 @@ class d3xhr scalar d3xhr() {
 class d3zoom scalar d3zoom() {
 		 class d3zoom scalar Zoom
          Zoom = d3zoom()
+         Zoom.init()
          return(Zoom)
 }
 
@@ -1155,20 +1214,31 @@ string scalar d3::geom_hull() {
         return(Geom)
 }
 
-/* This is where current TODO Begins */
 
 string scalar d3::hcl(string scalar h, | string scalar c, string scalar l) {
         string scalar Hcl
-		
-		// constructor can only have 1 or three arguments
-        Hcl = this.get() + ".hcl(" + h + ", " + c + ", " + l + ")" 
+		assert((h != "" & c != "" & l != "") | ///   
+			   (h != "" & c == "" & l == ""))
+		if (c == "" | l == "") {	
+			Hcl = this.get() + ".hcl(" + h + ")" 
+		} 
+		else {
+			Hcl = this.get() + ".hcl(" + h + ", " + c + ", " + l + ")" 		
+		}
         return(Hcl)
 }
 
 
 string scalar d3::hsl(string scalar h, | string scalar s, string scalar l) {
         string scalar Hsl
-        Hsl = this.get() + ".hsl(" + h + ", " + s + ", " + l + ")"
+		assert((h != "" & s != "" & l != "") | ///   
+			   (h != "" & s == "" & l == ""))
+		if (s == "" | l == "") {	
+			Hsl = this.get() + ".hcl(" + h + ")" 
+		} 
+		else {
+			Hsl = this.get() + ".hcl(" + h + ", " + s + ", " + l + ")" 		
+		}
         return(Hsl)
 }
 
@@ -1297,9 +1367,15 @@ string scalar d3::keys(string scalar object) {
 
 string scalar d3::lab(string scalar l, | string scalar a, string scalar b) {
         string scalar Lab
-		// Constructor can only have 1 or 3 arguments
-        Lab = this.get() + ".lab(" + l + ", " + a + ", " + b + ")"
-        return(Lab)
+		assert((l != "" & a != "" & b != "") | ///   
+			   (l != "" & a == "" & b == ""))
+		if (a == "" | b == "") {	
+			Lab = this.get() + ".lab(" + l + ")" 
+		} 
+		else {
+			Lab = this.get() + ".lab(" + l + ", " + a + ", " + b + ")" 		
+		}
+       return(Lab)
 }
 
 
@@ -1396,28 +1472,48 @@ string scalar d3::locale(string scalar definition) {
 
 string scalar d3::map(string scalar object, | string scalar key) {
         string scalar Map
-        Map = this.get() + ".map(" + object + ", " + key + ")"
-        return(Map)
+		if (key != "") {
+			Map = this.get() + ".map(" + object + ", " + key + ")"
+        }
+		else {
+			Map = this.get() + ".map(" + object + ")"		
+		}
+		return(Map)
 }
 
 
 string scalar d3::max(string scalar aray, | string scalar accessor) {
         string scalar Max
-        Max = this.get() + ".max(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Max = this.get() + ".max(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Max = this.get() + ".max(" + aray + ")" 
+		}
         return(Max)
 }
 
 
 string scalar d3::mean(string scalar aray, | string scalar accessor) {
         string scalar Mean
-        Mean = this.get() + ".mean(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Mean = this.get() + ".mean(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Mean = this.get() + ".mean(" + aray + ")" 
+		}
         return(Mean)
 }
 
 
 string scalar d3::median(string scalar aray, | string scalar accessor) {
         string scalar Median
-        Median = this.get() + ".median(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Median = this.get() + ".median(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Median = this.get() + ".median(" + aray + ")" 
+		}
         return(Median)
 }
 
@@ -1431,7 +1527,12 @@ string scalar d3::merge(string scalar arays) {
 
 string scalar d3::min(string scalar aray, | string scalar accessor) {
         string scalar Min
-        Min = this.get() + ".min(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Min = this.get() + ".min(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Min = this.get() + ".min(" + aray + ")" 
+		}
         return(Min)
 }
 
@@ -1487,14 +1588,24 @@ string scalar d3::quantile(string scalar numbers, string scalar p) {
 
 string scalar d3::random_normal(| string scalar mean, string scalar sd) {
         string scalar Random
-        Random = this.get() + ".random.normal(" + mean + ", " + sd + ")" 
+		if (mean != "" & sd != "") {
+			Random = this.get() + ".random.normal(" + mean + ", " + sd + ")" 
+		}
+		else {
+			Random = this.get() + ".random.normal()" 
+		}
         return(Random)
 }
 
 
 string scalar d3::random_logNormal(| string scalar mean, string scalar sd) {
         string scalar Random
-        Random = this.get() + ".random.logNormal(" + mean + ", " + sd + ")" 
+		if (mean != "" & sd != "") {
+			Random = this.get() + ".random.logNormal(" + mean + ", " + sd + ")" 
+		}
+		else {
+			Random = this.get() + ".random.logNormal()" 
+		}
         return(Random)
 }
 
@@ -1523,7 +1634,7 @@ string scalar d3::range(string scalar stop, | string scalar start, ///
 			step = "1"
 		}
         string scalar Range
-        Range = this.get() + ".range" 
+        Range = this.get() + ".range(" + start + ", " + stop + ", " + step + ")" 
         return(Range)
 }
 
@@ -1545,14 +1656,26 @@ string scalar d3::requote(string scalar strng) {
 
 string scalar d3::rgb(string scalar r, | string scalar g, string scalar b) {
         string scalar Rgb
-        Rgb = this.get() + ".rgb(" + r + ", " + g + ", " + b + ")"
+		assert((r != "" & g != "" & b != "") | ///   
+			   (r != "" & g == "" & b == ""))
+		if (g == "" | b == "") {	
+			Rgb = this.get() + ".lab(" + r + ")" 
+		} 
+		else {
+			Rgb = this.get() + ".lab(" + r + ", " + g + ", " + b + ")" 		
+		}
         return(Rgb)
 }
 
 
 string scalar d3::round(string scalar x, | string scalar n) {
         string scalar Round
-        Round = this.get() + ".round(" + x + ", " + n + ")" 
+		if (n != "") {
+			Round = this.get() + ".round(" + x + ", " + n + ")" 
+		}
+		else {
+			Round = this.get() + ".round(" + x + ")" 
+		}
         return(Round)
 }
 
@@ -1671,14 +1794,27 @@ string scalar d3::set(string scalar aray) {
 string scalar d3::shuffle(string scalar aray, | string scalar lo,  ///   
 						  string scalar hi) {
         string scalar Shuffle
-        Shuffle = this.get() + ".shuffle" 
-        return(Shuffle)
+		if (lo != "" & hi != "") {
+			Shuffle = this.get() + ".shuffle(" + aray + ", " + lo + ", " + hi + ")" 
+        }
+		else if (lo != "" & hi == "") {
+			Shuffle = this.get() + ".shuffle(" + aray + ", " + lo + ")" 
+		}
+		else {
+			Shuffle = this.get() + ".shuffle(" + aray + ")" 
+		}
+		return(Shuffle)
 }
 
 
 string scalar d3::sum(string scalar aray, | string scalar accessor) {
         string scalar Sum
-        Sum = this.get() + ".sum(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Sum = this.get() + ".sum(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Sum = this.get() + ".sum(" + aray + ")" 
+		}
         return(Sum)
 }
 
@@ -1830,8 +1966,16 @@ string scalar d3::time_scale_utc(string scalar formats) {
 string scalar d3::timer(string scalar func, | string scalar delay, 
 						string scalar time) {
         string scalar Timer
-        Timer = this.get() + ".timer(" + func + ", " + delay + ", " + time + ")" 
-        return(Timer)
+		if (delay != "" & time != "") {
+			Timer = this.get() + ".timer(" + func + ", " + delay + ", " + time + ")" 
+        }
+		else if (delay != "" & time == "") {
+			Timer = this.get() + ".timer(" + func + ", " + delay + ")" 
+		}
+		else {
+			Timer = this.get() + ".timer(" + func + ")" 
+		}
+		return(Timer)
 }
 
 string scalar d3::timer_flush() {
@@ -1844,15 +1988,29 @@ string scalar d3::timer_flush() {
 string scalar d3::touch(string scalar container, | string scalar touches, 
 						string scalar identifier) {
         string scalar Touch
-        Touch = this.get() + ".touch(" + container + ", " + touches + ", " + 
-				identifier + ")"
+		if (touches != "" & identifier != "") {
+			Touch = this.get() + ".touch(" + container + ", " + ///   
+					touches + ", " + identifier + ")"
+		}
+		else if (touches != "" & identifier == "") {
+			Touch = this.get() + ".touch(" + container + ", " + ///   
+					touches + ")"
+		}
+		else {
+			Touch = this.get() + ".touch(" + container + ")"
+		}
         return(Touch)
 }
 
 
 string scalar d3::touches(string scalar container, | string scalar touches) {
         string scalar Touches
-        Touches = this.get() + ".touches(" + container + ", " + touches + ")" 
+		if (touches != "") {
+			Touches = this.get() + ".touches(" + container + ", " + touches + ")" 
+		}
+		else {
+			Touches = this.get() + ".touches(" + container + ")" 
+		}
         return(Touches)
 }
 
@@ -1866,7 +2024,12 @@ string scalar d3::transform(string scalar strng) {
 
 string scalar d3::transition(string scalar selection, | string scalar name) {
         string scalar Transition
-        Transition = this.get() + ".transition" 
+		if (name != "") {
+			Transition = this.get() + ".transition(" + selection + ", " + name + ")"
+		}
+		else {
+			Transition = this.get() + ".transition(" + selection + ")" 
+		}
         return(Transition)
 }
 
@@ -1896,13 +2059,23 @@ string scalar d3::tsv(string scalar url, | string scalar accessor,
 
 string scalar d3::tsv_parse(string scalar strng, | string scalar accessor) {
 		string scalar tsvParse
-		tsvParse = this.get() + ".tsv.parse(" + strng + ", " + accessor + ")"
+		if (accessor != "") {
+			tsvParse = this.get() + ".tsv.parse(" + strng + ", " + accessor + ")"
+		}
+		else {
+			tsvParse = this.get() + ".tsv.parse(" + strng + ")"
+		}
 		return(tsvParse)
 }
 
 string scalar d3::tsv_parseRows(string scalar strng, | string scalar accessor) {
 		string scalar tsvParseRows
-		tsvParseRows = this.get() + ".tsv.parseRows(" + strng + ", " + accessor + ")"
+		if (accessor != "") {
+			tsvParseRows = this.get() + ".tsv.parseRows(" + strng + ", " + accessor + ")"
+		}
+		else {
+			tsvParseRows = this.get() + ".tsv.parseRows(" + strng + ")"
+		}
 		return(tsvParseRows)
 }
 
@@ -1928,7 +2101,12 @@ string scalar d3::values(string scalar object) {
 
 string scalar d3::variance(string scalar aray, | string scalar accessor) {
         string scalar Variance
-        Variance = this.get() + ".variance(" + aray + ", " + accessor + ")" 
+		if (accessor != "") {
+			Variance = this.get() + ".variance(" + aray + ", " + accessor + ")" 
+		}
+		else {
+			Variance = this.get() + ".variance(" + aray + ")" 
+		}
         return(Variance)
 }
 
@@ -2036,6 +2214,15 @@ string scalar d3::time_hour() {
 
 string scalar d3::time_interval(string scalar interval) {
 	string scalar d3time
+	
+	// Make sure argument is valid for this method
+	assert(interval == "second" | interval == "minute" | 					 ///   
+	interval == "hour" | interval == "day" | interval == "week" | 			 ///   
+	interval == "sunday" | interval == "monday" | interval == "tuesday" | 	 ///   
+	interval == "wednesday" | interval == "thursday" | 						 ///   
+	interval == "friday" | interval == "saturday" | interval == "sunday" | 	 ///   
+	interval == "month" | interval == "year")
+	
 	if (interval == "second") {
 		d3time = d3::time_second() 
 	} else if (interval == "minute") {	
@@ -2062,11 +2249,9 @@ string scalar d3::time_interval(string scalar interval) {
 		d3time = d3::time_saturday() 
 	} else if (interval == "month") {	
 		d3time = d3::time_month() 
-	} else if (interval == "year") {	
+	} else {	
 		d3time = d3::time_year() 
-	} else {
-		d3time = this.get()
-	}
+	} 
 	return(d3time)
 }
  

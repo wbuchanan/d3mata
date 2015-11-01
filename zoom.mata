@@ -1,11 +1,11 @@
 mata: 
 
-class d3zoom extends d3 { 
+class d3zoom { 
 
     private   string  scalar    zoom
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    center() 
     string            scalar    duration() 
     string            scalar    event() 
@@ -23,7 +23,7 @@ string scalar d3zoom::get() {
     return(this.zoom)
 }
 
-string scalar d3zoom::end() { 
+string scalar d3zoom::complete() { 
     string scalar zoomObject 
     zoomObject = this.get() + ";"
     return(zoomObject)
@@ -31,7 +31,7 @@ string scalar d3zoom::end() {
 
 string scalar d3zoom::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "zoom"
+    jsvarname = "var " + vnm + " = " + "zoom()"
     return(jsvarname)
 }
 

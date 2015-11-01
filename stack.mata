@@ -1,11 +1,11 @@
 mata: 
 
-class d3stack extends d3 { 
+class d3stack { 
 
     private   string  scalar    stack
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    offset() 
     string            scalar    order() 
     string            scalar    out() 
@@ -19,7 +19,7 @@ string scalar d3stack::get() {
     return(this.stack)
 }
 
-string scalar d3stack::end() { 
+string scalar d3stack::complete() { 
     string scalar stackObject 
     stackObject = this.get() + ";"
     return(stackObject)
@@ -27,7 +27,7 @@ string scalar d3stack::end() {
 
 string scalar d3stack::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "stack"
+    jsvarname = "var " + vnm + " = " + "stack()"
     return(jsvarname)
 }
 

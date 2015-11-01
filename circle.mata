@@ -1,11 +1,11 @@
 mata: 
 
-class d3circle extends d3 { 
+class d3circle { 
 
     private   string  scalar    circle
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    angle() 
     string            scalar    origin() 
     string            scalar    precision() 
@@ -16,7 +16,7 @@ string scalar d3circle::get() {
     return(this.circle)
 }
 
-string scalar d3circle::end() { 
+string scalar d3circle::complete() { 
     string scalar circleObject 
     circleObject = this.get() + ";"
     return(circleObject)
@@ -24,7 +24,7 @@ string scalar d3circle::end() {
 
 string scalar d3circle::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "circle"
+    jsvarname = "var " + vnm + " = " + "circle()"
     return(jsvarname)
 }
 

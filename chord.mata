@@ -1,11 +1,11 @@
 mata: 
 
-class d3chord extends d3 { 
+class d3chord { 
 
     private   string  scalar    chord
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    chords() 
     string            scalar    endAngle() 
     string            scalar    groups() 
@@ -25,7 +25,7 @@ string scalar d3chord::get() {
     return(this.chord)
 }
 
-string scalar d3chord::end() { 
+string scalar d3chord::complete() { 
     string scalar chordObject 
     chordObject = this.get() + ";"
     return(chordObject)
@@ -33,7 +33,7 @@ string scalar d3chord::end() {
 
 string scalar d3chord::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "chord"
+    jsvarname = "var " + vnm + " = " + "chord()"
     return(jsvarname)
 }
 

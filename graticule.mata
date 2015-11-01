@@ -1,11 +1,11 @@
 mata: 
 
-class d3graticule extends d3 { 
+class d3graticule { 
 
     private   string  scalar    graticule
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    extent() 
     string            scalar    lines() 
     string            scalar    majorExtent() 
@@ -22,7 +22,7 @@ string scalar d3graticule::get() {
     return(this.graticule)
 }
 
-string scalar d3graticule::end() { 
+string scalar d3graticule::complete() { 
     string scalar graticuleObject 
     graticuleObject = this.get() + ";"
     return(graticuleObject)
@@ -30,7 +30,7 @@ string scalar d3graticule::end() {
 
 string scalar d3graticule::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "graticule"
+    jsvarname = "var " + vnm + " = " + "graticule()"
     return(jsvarname)
 }
 

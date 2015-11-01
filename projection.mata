@@ -1,11 +1,11 @@
 mata: 
 
-class d3projection extends d3 { 
+class d3projection { 
 
     private   string  scalar    projection
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    center() 
     string            scalar    clipAngle() 
     string            scalar    clipExtent() 
@@ -22,7 +22,7 @@ string scalar d3projection::get() {
     return(this.projection)
 }
 
-string scalar d3projection::end() { 
+string scalar d3projection::complete() { 
     string scalar projectionObject 
     projectionObject = this.get() + ";"
     return(projectionObject)
@@ -30,7 +30,7 @@ string scalar d3projection::end() {
 
 string scalar d3projection::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "projection"
+    jsvarname = "var " + vnm + " = " + "projection()"
     return(jsvarname)
 }
 

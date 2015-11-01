@@ -1,11 +1,11 @@
 mata: 
 
-class d3interval extends d3 { 
+class d3interval { 
 
     private   string  scalar    interval
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    ceil() 
     string            scalar    floor() 
     string            scalar    offset() 
@@ -19,7 +19,7 @@ string scalar d3interval::get() {
     return(this.interval)
 }
 
-string scalar d3interval::end() { 
+string scalar d3interval::complete() { 
     string scalar intervalObject 
     intervalObject = this.get() + ";"
     return(intervalObject)
@@ -27,7 +27,7 @@ string scalar d3interval::end() {
 
 string scalar d3interval::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "interval"
+    jsvarname = "var " + vnm + " = " + "interval()"
     return(jsvarname)
 }
 

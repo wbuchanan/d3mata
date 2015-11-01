@@ -1,11 +1,11 @@
 mata: 
 
-class d3threshold extends d3 { 
+class d3threshold { 
 
     private   string  scalar    threshold
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invertExtent() 
@@ -17,7 +17,7 @@ string scalar d3threshold::get() {
     return(this.threshold)
 }
 
-string scalar d3threshold::end() { 
+string scalar d3threshold::complete() { 
     string scalar thresholdObject 
     thresholdObject = this.get() + ";"
     return(thresholdObject)
@@ -25,7 +25,7 @@ string scalar d3threshold::end() {
 
 string scalar d3threshold::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "threshold"
+    jsvarname = "var " + vnm + " = " + "threshold()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3pack extends d3 { 
+class d3pack { 
 
     private   string  scalar    pack
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodes() 
@@ -21,7 +21,7 @@ string scalar d3pack::get() {
     return(this.pack)
 }
 
-string scalar d3pack::end() { 
+string scalar d3pack::complete() { 
     string scalar packObject 
     packObject = this.get() + ";"
     return(packObject)
@@ -29,7 +29,7 @@ string scalar d3pack::end() {
 
 string scalar d3pack::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "pack"
+    jsvarname = "var " + vnm + " = " + "pack()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3pie extends d3 { 
+class d3pie { 
 
     private   string  scalar    pie
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    endAngle() 
     string            scalar    padAngle() 
     string            scalar    sort() 
@@ -18,7 +18,7 @@ string scalar d3pie::get() {
     return(this.pie)
 }
 
-string scalar d3pie::end() { 
+string scalar d3pie::complete() { 
     string scalar pieObject 
     pieObject = this.get() + ";"
     return(pieObject)
@@ -26,7 +26,7 @@ string scalar d3pie::end() {
 
 string scalar d3pie::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "pie"
+    jsvarname = "var " + vnm + " = " + "pie()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3quantize extends d3 { 
+class d3quantize { 
 
     private   string  scalar    quantize
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invertExtent() 
@@ -17,7 +17,7 @@ string scalar d3quantize::get() {
     return(this.quantize)
 }
 
-string scalar d3quantize::end() { 
+string scalar d3quantize::complete() { 
     string scalar quantizeObject 
     quantizeObject = this.get() + ";"
     return(quantizeObject)
@@ -25,7 +25,7 @@ string scalar d3quantize::end() {
 
 string scalar d3quantize::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "quantize"
+    jsvarname = "var " + vnm + " = " + "quantize()"
     return(jsvarname)
 }
 

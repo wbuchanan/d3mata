@@ -1,11 +1,11 @@
 mata: 
 
-class d3map extends d3 { 
+class d3map { 
 
     private   string  scalar    map
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    empty() 
     string            scalar    entries() 
     string            scalar    forEach() 
@@ -22,7 +22,7 @@ string scalar d3map::get() {
     return(this.map)
 }
 
-string scalar d3map::end() { 
+string scalar d3map::complete() { 
     string scalar mapObject 
     mapObject = this.get() + ";"
     return(mapObject)
@@ -30,7 +30,7 @@ string scalar d3map::end() {
 
 string scalar d3map::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "map"
+    jsvarname = "var " + vnm + " = " + "map()"
     return(jsvarname)
 }
 

@@ -1,11 +1,11 @@
 mata: 
 
-class d3brush extends d3 { 
+class d3brush { 
 
     private   string  scalar    brush
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clear() 
     string            scalar    empty() 
     string            scalar    event() 
@@ -20,7 +20,7 @@ string scalar d3brush::get() {
     return(this.brush)
 }
 
-string scalar d3brush::end() { 
+string scalar d3brush::complete() { 
     string scalar brushObject 
     brushObject = this.get() + ";"
     return(brushObject)
@@ -28,7 +28,7 @@ string scalar d3brush::end() {
 
 string scalar d3brush::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "brush"
+    jsvarname = "var " + vnm + " = " + "brush()"
     return(jsvarname)
 }
 

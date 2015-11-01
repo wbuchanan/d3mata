@@ -1,11 +1,11 @@
 mata: 
 
-class d3partition extends d3 { 
+class d3partition { 
 
     private   string  scalar    partition
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodes() 
@@ -19,7 +19,7 @@ string scalar d3partition::get() {
     return(this.partition)
 }
 
-string scalar d3partition::end() { 
+string scalar d3partition::complete() { 
     string scalar partitionObject 
     partitionObject = this.get() + ";"
     return(partitionObject)
@@ -27,7 +27,7 @@ string scalar d3partition::end() {
 
 string scalar d3partition::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "partition"
+    jsvarname = "var " + vnm + " = " + "partition()"
     return(jsvarname)
 }
 

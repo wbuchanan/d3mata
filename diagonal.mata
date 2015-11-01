@@ -1,11 +1,11 @@
 mata: 
 
-class d3diagonal extends d3 { 
+class d3diagonal { 
 
     private   string  scalar    diagonal
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    projection() 
     string            scalar    source() 
     string            scalar    target() 
@@ -16,7 +16,7 @@ string scalar d3diagonal::get() {
     return(this.diagonal)
 }
 
-string scalar d3diagonal::end() { 
+string scalar d3diagonal::complete() { 
     string scalar diagonalObject 
     diagonalObject = this.get() + ";"
     return(diagonalObject)
@@ -24,7 +24,7 @@ string scalar d3diagonal::end() {
 
 string scalar d3diagonal::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "diagonal"
+    jsvarname = "var " + vnm + " = " + "diagonal()"
     return(jsvarname)
 }
 

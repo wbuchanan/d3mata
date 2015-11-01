@@ -1,11 +1,11 @@
 mata: 
 
-class d3polygon extends d3 { 
+class d3polygon { 
 
     private   string  scalar    polygon
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    area() 
     string            scalar    centroid() 
     string            scalar    clip() 
@@ -16,7 +16,7 @@ string scalar d3polygon::get() {
     return(this.polygon)
 }
 
-string scalar d3polygon::end() { 
+string scalar d3polygon::complete() { 
     string scalar polygonObject 
     polygonObject = this.get() + ";"
     return(polygonObject)
@@ -24,7 +24,7 @@ string scalar d3polygon::end() {
 
 string scalar d3polygon::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "polygon"
+    jsvarname = "var " + vnm + " = " + "polygon()"
     return(jsvarname)
 }
 

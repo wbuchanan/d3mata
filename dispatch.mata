@@ -1,11 +1,11 @@
 mata: 
 
-class d3dispatch extends d3 { 
+class d3dispatch { 
 
     private   string  scalar    dispatch
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    on() 
     string            scalar    type() 
 
@@ -15,7 +15,7 @@ string scalar d3dispatch::get() {
     return(this.dispatch)
 }
 
-string scalar d3dispatch::end() { 
+string scalar d3dispatch::complete() { 
     string scalar dispatchObject 
     dispatchObject = this.get() + ";"
     return(dispatchObject)
@@ -23,7 +23,7 @@ string scalar d3dispatch::end() {
 
 string scalar d3dispatch::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "dispatch"
+    jsvarname = "var " + vnm + " = " + "dispatch()"
     return(jsvarname)
 }
 

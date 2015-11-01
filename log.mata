@@ -1,11 +1,11 @@
 mata: 
 
-class d3log extends d3 { 
+class d3log { 
 
     private   string  scalar    log
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -23,7 +23,7 @@ string scalar d3log::get() {
     return(this.log)
 }
 
-string scalar d3log::end() { 
+string scalar d3log::complete() { 
     string scalar logObject 
     logObject = this.get() + ";"
     return(logObject)
@@ -31,7 +31,7 @@ string scalar d3log::end() {
 
 string scalar d3log::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "log"
+    jsvarname = "var " + vnm + " = " + "log()"
     return(jsvarname)
 }
 

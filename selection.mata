@@ -1,11 +1,11 @@
 mata: 
 
-class d3selection extends d3 { 
+class d3selection { 
 
     private   string  scalar    selection
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    append() 
     string            scalar    attr() 
     string            scalar    call() 
@@ -39,7 +39,7 @@ string scalar d3selection::get() {
     return(this.selection)
 }
 
-string scalar d3selection::end() { 
+string scalar d3selection::complete() { 
     string scalar selectionObject 
     selectionObject = this.get() + ";"
     return(selectionObject)
@@ -47,7 +47,7 @@ string scalar d3selection::end() {
 
 string scalar d3selection::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "selection"
+    jsvarname = "var " + vnm + " = " + "selection()"
     return(jsvarname)
 }
 

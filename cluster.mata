@@ -1,11 +1,11 @@
 mata: 
 
-class d3cluster extends d3 { 
+class d3cluster { 
 
     private   string  scalar    cluster
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    children() 
     string            scalar    links() 
     string            scalar    nodeSize() 
@@ -20,7 +20,7 @@ string scalar d3cluster::get() {
     return(this.cluster)
 }
 
-string scalar d3cluster::end() { 
+string scalar d3cluster::complete() { 
     string scalar clusterObject 
     clusterObject = this.get() + ";"
     return(clusterObject)
@@ -28,7 +28,7 @@ string scalar d3cluster::end() {
 
 string scalar d3cluster::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "cluster"
+    jsvarname = "var " + vnm + " = " + "cluster()"
     return(jsvarname)
 }
 

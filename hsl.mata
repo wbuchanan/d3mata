@@ -1,11 +1,11 @@
 mata: 
 
-class d3hsl extends d3 { 
+class d3hsl { 
 
     private   string  scalar    hsl
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    brighter() 
     string            scalar    darker() 
     string            scalar    rgb() 
@@ -17,7 +17,7 @@ string scalar d3hsl::get() {
     return(this.hsl)
 }
 
-string scalar d3hsl::end() { 
+string scalar d3hsl::complete() { 
     string scalar hslObject 
     hslObject = this.get() + ";"
     return(hslObject)
@@ -25,7 +25,7 @@ string scalar d3hsl::end() {
 
 string scalar d3hsl::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "hsl"
+    jsvarname = "var " + vnm + " = " + "hsl()"
     return(jsvarname)
 }
 

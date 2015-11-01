@@ -1,11 +1,11 @@
 mata: 
 
-class d3force extends d3 { 
+class d3force { 
 
     private   string  scalar    force
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    alpha() 
     string            scalar    charge() 
     string            scalar    chargeDistance() 
@@ -30,7 +30,7 @@ string scalar d3force::get() {
     return(this.force)
 }
 
-string scalar d3force::end() { 
+string scalar d3force::complete() { 
     string scalar forceObject 
     forceObject = this.get() + ";"
     return(forceObject)
@@ -38,7 +38,7 @@ string scalar d3force::end() {
 
 string scalar d3force::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "force"
+    jsvarname = "var " + vnm + " = " + "force()"
     return(jsvarname)
 }
 

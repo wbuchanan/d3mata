@@ -1,11 +1,11 @@
 mata: 
 
-class d3linear extends d3 { 
+class d3linear { 
 
     private   string  scalar    linear
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    clamp() 
     string            scalar    copy() 
     string            scalar    domain() 
@@ -23,7 +23,7 @@ string scalar d3linear::get() {
     return(this.linear)
 }
 
-string scalar d3linear::end() { 
+string scalar d3linear::complete() { 
     string scalar linearObject 
     linearObject = this.get() + ";"
     return(linearObject)
@@ -31,7 +31,7 @@ string scalar d3linear::end() {
 
 string scalar d3linear::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "linear"
+    jsvarname = "var " + vnm + " = " + "linear()"
     return(jsvarname)
 }
 

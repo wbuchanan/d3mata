@@ -1,11 +1,11 @@
 mata: 
 
-class d3identity extends d3 { 
+class d3identity { 
 
     private   string  scalar    identity
     void                        new(), destroy()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), end() 
+    public    string  scalar    setVarnm(), complete() 
     string            scalar    copy() 
     string            scalar    domain() 
     string            scalar    invert() 
@@ -19,7 +19,7 @@ string scalar d3identity::get() {
     return(this.identity)
 }
 
-string scalar d3identity::end() { 
+string scalar d3identity::complete() { 
     string scalar identityObject 
     identityObject = this.get() + ";"
     return(identityObject)
@@ -27,7 +27,7 @@ string scalar d3identity::end() {
 
 string scalar d3identity::setVarnm(string scalar vnm) { 
     string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + "identity"
+    jsvarname = "var " + vnm + " = " + "identity()"
     return(jsvarname)
 }
 
