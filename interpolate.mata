@@ -3,9 +3,9 @@ mata:
 class d3interpolate { 
 
     private   string  scalar    interpolate
-    void                        new(), destroy()
+    void                        new(), destroy(), init()
     private   string  scalar    get()
-    public    string  scalar    setVarnm(), complete() 
+    public    string  scalar    complete() 
 
 }
 
@@ -19,14 +19,13 @@ string scalar d3interpolate::complete() {
     return(interpolateObject)
 }
 
-string scalar d3interpolate::setVarnm(string scalar vnm) { 
+void d3interpolate::init(string scalar vnm) { 
     string scalar jsvarname
     jsvarname = "var " + vnm + " = " + "interpolate()"
     return(jsvarname)
 }
 
 void d3interpolate::new() {
-    this.interpolate = this.setVarnm(STinterpolate)
 }
 
 end

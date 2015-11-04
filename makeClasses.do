@@ -23,11 +23,11 @@ foreach v of loc clss {
 	
 	file write c "    private   string  scalar    `v'" _n 
 	
-	file write c "    void                        new(), destroy()" _n 
+	file write c "    void                        new(), destroy(), init()" _n 
 	
 	file write c "    private   string  scalar    get()" _n
 	
-	file write c "    public    string  scalar    setVarnm(), complete() " _n 
+	file write c "    public    string  scalar    complete() " _n 
 	
 	qui: levelsof subclass if class == `"`v'"', loc(methods)
 	
@@ -40,7 +40,7 @@ foreach v of loc clss {
 		}
 	
 		if "`j'" != "get" {
-			file write c "    string            scalar    `j'() " _n
+			file write c "    void                        `j'() " _n
 		}	
 	} 
 	
@@ -57,14 +57,13 @@ foreach v of loc clss {
 	file write c "    return(`v'Object)" _n
 	file write c "}" _n(2)
 	
-	file write c "string scalar d3`v'::setVarnm(string scalar vnm) { " _n
+	file write c "void d3`v'::init(string scalar vnm) { " _n
 	file write c "    string scalar jsvarname" _n
 	file write c `"    jsvarname = "var " + vnm + " = " + "`v'()""' _n
 	file write c "    return(jsvarname)" _n
 	file write c "}" _n(2)
 	
 	file write c "void d3`v'::new() {" _n
-	file write c `"    this.`v' = this.setVarnm(ST`v')"' _n
 	file write c "}" _n(2)
 	
 	
@@ -76,10 +75,10 @@ foreach v of loc clss {
 			
 		}
 	
-		file write c "string scalar d3`v'::`j'(string scalar x) { " _n
-		file write c "    string scalar `v' " _n
-		file write c `"    this.`v' = this.get() + ".`j'(" + x + ")""' _n
-		file write c "    return(`v')" _n
+		file write c "void d3`v'::`j'(string scalar x) { " _n
+		file write c "    string scalar `: di substr("`v'", 1, 1)' " _n
+		file write c `"    `: di substr("`v'", 1, 1)' = this.get() + ".`j'(" + x + ")""' _n
+		file write c "    this.`v' = `: di substr("`v'", 1, 1)'" _n
 		file write c "}" _n(2)
 		
 	}
