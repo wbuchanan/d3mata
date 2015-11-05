@@ -1,0 +1,93 @@
+d 'D3': Mata classes wrapping the D3js library
+d
+d d3 is a package that currently contains an ado file used to compile Mata code 
+d and Mata object/method definitions used to build Mata wrappers around the D3js
+d library.  The Mata classes/methods aim to mirror the D3js API as closely as 
+d possible. This program is still extremely early in development and should not 
+d be used in a production environment.
+d
+d KW: Data Visualization
+d KW: Graphs
+d KW: Web graphics
+d KW: D3
+d
+d Requires: Stata version 13
+d
+d Distribution-Date: 20151105
+d
+d Author: Billy Buchanan 
+d		  Data Scientist
+d		  Office of Research, Evaluation, and Assessment
+d		  Minneapolis Public Schools
+d Support: email William [dot] Buchanan @t mpls [dot] k12 [dot] mn [dot] us
+d
+f buildd3.ado
+f d3.mata
+f d3behavior.mata
+f d3behaviordrag.mata
+f d3behaviorzoom.mata
+f d3clipExtent.mata
+f d3csv.mata
+f d3dispatch.mata
+f d3dsv.mata
+f d3format.mata
+f d3geo.mata
+f d3geocircle.mata
+f d3geograticule.mata
+f d3geopath.mata
+f d3geoprojection.mata
+f d3georotation.mata
+f d3geostream.mata
+f d3geom.mata
+f d3geomhull.mata
+f d3geompolygon.mata
+f d3geomquadtree.mata
+f d3geomvoronoi.mata
+f d3hcl.mata
+f d3interval.mata
+f d3lab.mata
+f d3layout.mata
+f d3lbundle.mata
+f d3lchord.mata
+f d3lcluster.mata
+f d3lforce.mata
+f d3lhierarchy.mata
+f d3lhistogram.mata
+f d3lpack.mata
+f d3lpartition.mata
+f d3lpie.mata
+f d3lstack.mata
+f d3ltree.mata
+f d3ltreemap.mata
+f d3locale.mata
+f d3map.mata
+f d3math.mata
+f d3nest.mata
+f d3rgb.mata
+f d3scale.mata
+f d3scidentity.mata
+f d3sclinear.mata
+f d3sclog.mata
+f d3scordinal.mata
+f d3scpow.mata
+f d3scquantile.mata
+f d3scquantize.mata
+f d3scthreshold.mata
+f d3selection.mata
+f d3set.mata
+f d3svg.mata
+f d3svgarc.mata
+f d3svgarea.mata
+f d3svgaxis.mata
+f d3svgbrush.mata
+f d3svgchord.mata
+f d3svgdiagonal.mata
+f d3svgline.mata
+f d3svgsymbol.mata
+f d3time.mata
+f d3timeformat.mata
+f d3timescale.mata
+f d3transform.mata
+f d3transition.mata
+f d3tsv.mata
+f d3xhr.mata
