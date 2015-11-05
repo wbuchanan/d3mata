@@ -30,8 +30,13 @@ void d3lchord::new() {
 void d3lchord::destroy() {
 }
 
-void d3lchord::init(string scalar vnm, string scalar arguments) { 
-    this.chord = "var " + vnm + " = " + arguments
+void d3lchord::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.chord = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.chord = vnm
+	}	
 }
 
 

@@ -4,7 +4,7 @@ class d3lforce {
 
     private   string  scalar    force
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        alpha() 
     void                        charge() 
@@ -36,11 +36,19 @@ string scalar d3lforce::complete() {
     return(forceObject)
 }
 
-void d3lforce::init(string scalar vnm, string scalar arguments) { 
-	this.force = "var " + vnm + " = " + arguments
+void d3lforce::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.force = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.force = vnm
+	}	
 }
 
 void d3lforce::new() {
+}
+
+void d3lforce::destroy() {
 }
 
 void d3lforce::alpha(| string scalar value) { 

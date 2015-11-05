@@ -4,7 +4,7 @@ class d3svgdiagonal {
 
     private   string  scalar    diagonal
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public   string  scalar    get()
     public    string  scalar    complete() 
     void                        diagonal() 
     void                        projection() 
@@ -23,11 +23,19 @@ string scalar d3svgdiagonal::complete() {
     return(diagonalObject)
 }
 
-void d3svgdiagonal::init(string scalar vnm, string scalar arguments) { 
-    this.diagonal = "var " + vnm + " = " + arguments
+void d3svgdiagonal::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.diagonal = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.diagonal = vnm
+	}	
 }
 
 void d3svgdiagonal::new() {
+}
+
+void d3svgdiagonal::destroy() {
 }
 
 void d3svgdiagonal::diagonal(string scalar datum, | string scalar index) { 

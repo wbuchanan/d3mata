@@ -4,7 +4,7 @@ class d3geostream {
 
     private   string  scalar    stream
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        lineEnd() 
     void                        lineStart() 
@@ -25,11 +25,19 @@ string scalar d3geostream::complete() {
     return(streamObject)
 }
 
-void d3geostream::init(string scalar vnm, string scalar arguments) { 
-	this.stream = "var " + vnm + " = " + arguments
+void d3geostream::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.stream = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.stream = vnm
+	}	
 }
 
 void d3geostream::new() {
+}
+
+void d3geostream::destroy() {
 }
 
 void d3geostream::lineEnd() { 

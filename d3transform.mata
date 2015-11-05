@@ -4,7 +4,7 @@ class d3transform {
 
     private   string  scalar    transform
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        rotate() 
     void                        translate() 
@@ -23,13 +23,19 @@ string scalar d3transform::complete() {
     return(transformObject)
 }
 
-void d3transform::init(string scalar vnm, string scalar trnsargs) { 
-    string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + trnsargs
-    return(jsvarname)
+void d3transform::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.transform = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.transform = vnm
+	}	
 }
 
 void d3transform::new() {
+}
+
+void d3transform::destroy() {
 }
 
 void d3transform::rotate() { 

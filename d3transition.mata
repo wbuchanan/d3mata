@@ -4,7 +4,7 @@ class d3transition {
 
     private   string  scalar    transition
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        attr() 
     void                        attrTween() 
@@ -38,8 +38,13 @@ string scalar d3transition::complete() {
     return(transitionObject)
 }
 
-void d3transition::init(string scalar vnm, string scalar arguments) { 
-	this.transition = "var " + vnm + " = " + arguments 
+void d3transition::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.transition = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.transition = vnm
+	}	
 }
 
 void d3transition::new() {

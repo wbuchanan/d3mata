@@ -4,7 +4,7 @@ class d3csv {
 
     private   string  scalar    csv
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
 	void						parse()
 	void						parseRows()
@@ -23,49 +23,45 @@ string scalar d3csv::complete() {
     return(csvObject)
 }
 
-void d3csv::init(string scalar vnm, string scalar arguments) { 
-    string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + arguments
-    return(jsvarname)
+void d3csv::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.csv = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.csv = vnm
+	}	
 }
-
-
 
 void d3csv::new() {
 }
 
+void d3csv::destroy() {
+}
+
 void d3csv::parse(string scalar strng, | string scalar accessor) {
-		string scalar CsvParse
-		if (accessor != "") {
-			CsvParse = this.get() + ".parse(" + strng + ", " + accessor + ")"
-		}
-		else {
-			CsvParse = this.get() + ".parse(" + strng + ")"
-		}
-		this.csv = CsvParse
+	if (accessor != "") {
+		this.csv = this.get() + ".parse(" + strng + ", " + accessor + ")"
+	}
+	else {
+		this.csv = this.get() + ".parse(" + strng + ")"
+	}
 }
 
 void d3csv::parseRows(string scalar strng, | string scalar accessor) {
-		string scalar CsvParseRows
-		if (accessor != "") {
-			CsvParseRows = this.get() + ".parseRows(" + strng + ", " + accessor + ")"
-		}
-		else {
-			CsvParseRows = this.get() + ".parseRows(" + strng + ")"
-		}
-		this.csv = CsvParseRows
+	if (accessor != "") {
+		this.csv = this.get() + ".parseRows(" + strng + ", " + accessor + ")"
+	}
+	else {
+		this.csv = this.get() + ".parseRows(" + strng + ")"
+	}
 }
 
 void d3csv::format(string scalar rows) {
-		string scalar CsvFormat
-		CsvFormat = this.get() + ".format(" + rows + ")"
-		this.csv = CsvFormat
+	this.csv = this.get() + ".format(" + rows + ")"
 }
 
 void d3csv::formatRows(string scalar rows) {
-		string scalar CsvFormatRows
-		CsvFormatRows = this.get() + ".formatRows(" + rows + ")"
-		this.csv = CsvFormatRows
+	this.csv = this.get() + ".formatRows(" + rows + ")"
 }
 
 

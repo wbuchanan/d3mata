@@ -4,7 +4,7 @@ class d3lcluster {
 
     private   string  scalar    cluster
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public   string  scalar    get()
     public    string  scalar    complete() 
     void                        children() 
     void                        cluster() 
@@ -28,14 +28,21 @@ string scalar d3lcluster::complete() {
     return(clusterObject)
 }
 
-void d3lcluster::init(string scalar vnm, string scalar root) { 
-    string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + ".cluster(" + root + ")"
-    return(jsvarname)
+void d3lcluster::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.cluster = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.cluster = vnm
+	}	
 }
 
 void d3lcluster::new() {
 }
+
+void d3lcluster::destroy() {
+}
+
 
 void d3lcluster::children(| string scalar children) { 
 	if (children != "") {

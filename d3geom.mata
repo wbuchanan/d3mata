@@ -5,7 +5,7 @@ class d3geom {
     private		string		scalar    	geom
 	private		string		scalar		varnm
     void                		        new(), destroy(), init()
-    private   	string  	scalar    	get(), getVarnm()
+    public   	string  	scalar    	get(), getVarnm()
     public    	string  	scalar    	complete() 
     class	  	d3hull  	scalar		hull()
     class	  	d3polygon  	scalar		polygon()
@@ -22,12 +22,12 @@ void d3geom::destroy() {
 }
 
 
-void d3geom::init(string scalar varnm, | string scalar arguments) {
+void d3geom::init(string scalar vnm, | string scalar arguments) {
 	if (arguments != "") {
-		this.geom = "var " + varnm + " = " + arguments
+		this.geom = "var " + vnm + " = " + arguments
 	}
 	else {
-		this.geom = varnm
+		this.geom = vnm
 	}
 }
 
@@ -55,9 +55,7 @@ class d3voronoi scalar d3geom::voronoi() {
 class d3quadtree scalar d3geom::quadtree() {
 	class d3quadtree scalar Geom
 	Geom = d3quadtree() 
-	string scalar quadt
-	quadt = this.getVarnm() + ".quadtree()"
-	Geom.init(varnm, quadt)
+	Geom.init(varnm, this.getVarnm() + ".quadtree()")
 	return(Geom)
 }
 
@@ -65,9 +63,7 @@ class d3quadtree scalar d3geom::quadtree() {
 class d3polygon scalar d3geom::polygon(string scalar varnm, string scalar vertices) {
 	class d3polygon scalar Geom
 	Geom = d3polygon() 
-	string scalar poly
-	poly = this.getVarnm() + ".polygon(" + vertices + ")"
-	Geom.init(varnm, poly)
+	Geom.init(varnm, this.getVarnm() + ".polygon(" + vertices + ")")
 	return(Geom)
 }
 

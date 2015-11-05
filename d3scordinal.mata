@@ -3,7 +3,7 @@ mata:
 class d3ordinal { 
     private   string  scalar    ordinal
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						ordinal()
     void                        copy() 
@@ -27,8 +27,13 @@ string scalar d3ordinal::complete() {
     return(ordinalObject)
 }
 
-void d3ordinal::init(string scalar vnm, string scalar arguments) { 
-	this.ordinal = "var " + vnm + " = " + arguments
+void d3ordinal::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.ordinal = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.ordinal = vnm
+	}	
 }
 
 void d3ordinal::new() {

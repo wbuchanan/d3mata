@@ -4,7 +4,7 @@ class d3lpie {
 
     private   string  scalar    pie
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        pie() 
     void                        endAngle() 
@@ -25,13 +25,20 @@ string scalar d3lpie::complete() {
     return(pieObject)
 }
 
-void d3lpie::init(string scalar vnm, string scalar arguments) { 
-	this.pie = "var " + vnm + " = " + arguments
+void d3lpie::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.pie = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.pie = vnm
+	}	
 }
 
 void d3lpie::new() {
 }
 
+void d3lpie::destroy() {
+}
 
 void d3lpie::pie(string scalar values, | string scalar index) { 
 	if (index != "") {

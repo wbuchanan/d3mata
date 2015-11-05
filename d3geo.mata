@@ -4,8 +4,9 @@ class d3geo {
     private   	string  		scalar    	geo
 	private		string			scalar		varnm
     void                			        new(), destroy(), init()
-    private   	string  		scalar    	get(), getVarnm()
+    public   	string  		scalar    	get(), getVarnm()
     public    	string  		scalar    	complete() 
+	class		d3geocircle		scalar		circl()
 	class		d3geograticule	scalar		graticule()
 	class		d3geopath		scalar		path()
 	class		d3georotation	scalar		rotation()
@@ -76,6 +77,9 @@ void d3geo::init(string scalar vnm, | string scalar arguments) {
 void d3geo::new() {
 }
 
+void d3geo::destroy() {
+}
+
 class d3geograticule scalar d3geo::graticule(string scalar varnm) {
 	class d3geograticule scalar ge
 	ge = d3geograticule()
@@ -84,10 +88,18 @@ class d3geograticule scalar d3geo::graticule(string scalar varnm) {
 }
 
 
+class d3geocircle scalar d3geo::circl(string scalar varnm) {
+	class d3geocircle scalar circ
+	circ = d3geocircl()
+	circ.init(this.getVarnm() + ".circle")
+	return(circ)
+}
+
+
 class d3geopath scalar d3geo::path() {
 	class d3geopath scalar ge
 	ge = d3geopath()
-	ge.init(varnm, getVarnm())
+	ge.init(varnm, this.getVarnm())
 	return(ge)
 }
 
@@ -100,7 +112,7 @@ class d3georotation scalar d3geo::rotation(string scalar varnm, 			 ///
 	if (gamma == "") {
 		gamma = "0"
 	}
-	rotator = getVarnm() + ".rotation([" + lambda + ", " + phi + ", " + gamma + "])"
+	rotator = this.getVarnm() + ".rotation([" + lambda + ", " + phi + ", " + gamma + "])"
 	ge.init(varnm, rotator)
 	return(ge)
 }
@@ -109,7 +121,7 @@ class d3georotation scalar d3geo::rotation(string scalar varnm, 			 ///
 class d3geoprojection scalar d3geo::projection(string scalar varnm) {
 	class d3geoprojection scalar ge
 	ge = d3geoprojection()
-	ge.init(varnm, getVarnm())
+	ge.init(varnm, this.getVarnm())
 	return(ge)
 }
 
@@ -118,7 +130,7 @@ class d3geostream scalar d3geo::stream(string scalar varnm, 				 ///
 	class d3geostream scalar ge
 	ge = d3geostream()
 	string scalar geoargs
-	geoargs = getVarnm() + ".stream(" + object + ", " + listener + ")"
+	geoargs = this.getVarnm() + ".stream(" + object + ", " + listener + ")"
 	ge.init(varnm, geoargs)
 	return(ge)
 }

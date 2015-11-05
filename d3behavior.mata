@@ -17,9 +17,14 @@ void d3behavior::new() {
 void d3behavior::destroy() {
 }
 
-void d3behavior::init(string scalar varnm, string scalar arguments) {
+void d3behavior::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.behavior = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.behavior = vnm
+	}	
 	this.varnm = varnm
-	this.behavior = "var " + varnm + " = " + arguments
 }
 
 string scalar d3behavior::get() {

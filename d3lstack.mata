@@ -4,7 +4,7 @@ class d3lstack {
 
     private   string  scalar    stack
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        stack() 
     void                        offset() 
@@ -26,11 +26,19 @@ string scalar d3lstack::complete() {
     return(stackObject)
 }
 
-void d3lstack::init(string scalar vnm, string scalar arguments) { 
-	this.stack = "var " + vnm + " = " + arguments
+void d3lstack::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.stack = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.stack = vnm
+	}	
 }
 
 void d3lstack::new() {
+}
+
+void d3lstack::destroy() {
 }
 
 void d3lstack::stack(string scalar layers, | string scalar index) { 
@@ -64,9 +72,7 @@ void d3lstack::order(| string scalar order) {
 
 
 void d3lstack::out(string scalar x) { 
-    string scalar s 
-    s = this.get() + ".out(" + x + ")"
-    this.stack = s
+	this.stack = this.get() + ".out(" + x + ")"
 }
 
 

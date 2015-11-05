@@ -4,7 +4,7 @@ class d3lpartition {
 
     private   string  scalar    partition
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        partition() 
     void                        children() 
@@ -26,11 +26,19 @@ string scalar d3lpartition::complete() {
     return(partitionObject)
 }
 
-void d3lpartition::init(string scalar vnm, string scalar arguments) { 
-	this.partition = "var " + vnm + " = " + arguments
+void d3lpartition::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.partition = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.partition = vnm
+	}	
 }
 
 void d3lpartition::new() {
+}
+
+void d3lpartition::destroy() {
 }
 
 void d3lpartition::partition(string scalar root) { 

@@ -4,7 +4,7 @@ class d3lhierarchy {
 
     private   string  scalar    hierarchy
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        hierarchy() 
     void                        children() 
@@ -27,14 +27,21 @@ string scalar d3lhierarchy::complete() {
 }
 
 
-void d3lhierarchy::init(string scalar vnm, string scalar arguments) { 
-	this.hierarchy = "var " + vnm + " = " + arguments
+void d3lhierarchy::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.hierarchy = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.hierarchy = vnm
+	}	
 }
 
 
 void d3lhierarchy::new() {
 }
 
+void d3lhierarchy::destroy() {
+}
 
 void d3lhierarchy::hierarchy(string scalar root) { 
     this.hierarchy = this.get() + ".hierarchy(" + root + ")"

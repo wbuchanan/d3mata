@@ -4,7 +4,7 @@ class d3svgarc {
 
     private   string  scalar    arc
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
     void                        centroid() 
     void                        cornerRadius() 
@@ -26,11 +26,19 @@ string scalar d3svgarc::complete() {
     return(arcObject)
 }
 
-void d3svgarc::init(string scalar vnm, string scalar arguments) { 
-	this.arc = "var " + vnm + " = " + arguments
+void d3svgarc::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.arc = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.arc = vnm
+	}	
 }
 
 void d3svgarc::new() {
+}
+
+void d3svgarc::destroy() {
 }
 
 void d3svgarc::centroid(string scalar arguments) { 

@@ -4,7 +4,7 @@ class d3geograticule {
 
     private   string  scalar    graticule
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        extent() 
 	void						graticule()
@@ -29,13 +29,19 @@ string scalar d3geograticule::complete() {
     return(graticuleObject)
 }
 
-void d3geograticule::init(string scalar vnm, string scalar ob) { 
-    string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + ob + ".graticule()"
-    return(jsvarname)
+void d3geograticule::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.graticule = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.graticule = vnm
+	}	
 }
 
 void d3geograticule::new() {
+}
+
+void d3geograticule::destroy() {
 }
 
 void d3geograticule::extent(string scalar extent) { 

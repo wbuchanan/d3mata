@@ -4,7 +4,7 @@ class d3geopath {
 
     private   string  scalar    path
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
 	void						path()
     void                        area() 
@@ -26,11 +26,19 @@ string scalar d3geopath::complete() {
     return(pathObject)
 }
 
-void d3geopath::init(string scalar vnm, string scalar ob) { 
-    this.path = "var " + vnm + " = " + ob + ".path()"
+void d3geopath::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.path = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.path = vnm
+	}	
 }
 
 void d3geopath::new() {
+}
+
+void d3geopath::destroy() {
 }
 
 void d3geopath::path(string scalar feature, | string scalar index) {

@@ -4,7 +4,7 @@ class d3svgsymbol {
 
     private   string  scalar    symbol
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        symbol() 
     void                        size() 
@@ -22,12 +22,21 @@ string scalar d3svgsymbol::complete() {
     return(symbolObject)
 }
 
-void d3svgsymbol::init(string scalar vnm, string scalar arguments) { 
-    this.symbol = "var " + vnm + " = " + arguments
+void d3svgsymbol::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.symbol = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.symbol = vnm
+	}	
 }
 
 void d3svgsymbol::new() {
 }
+
+void d3svgsymbol::destroy() {
+}
+
 
 void d3svgsymbol::symbol(string scalar datum, | string scalar index) {
 	if (index != "") {

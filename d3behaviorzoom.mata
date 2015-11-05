@@ -28,11 +28,20 @@ string scalar d3bzoom::complete() {
     return(zoomObject)
 }
 
-void d3bzoom::init(string scalar vnm, string scalar arguments) { 
-    this.zoom = "var " + vnm + " = " + arguments
+void d3bzoom::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.zoom = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.zoom = vnm
+	}	
 }
 
+
 void d3bzoom::new() {
+}
+
+void d3bzoom::destroy() {
 }
 
 void d3bzoom::zoom(string scalar selection) { 

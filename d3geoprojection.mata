@@ -4,7 +4,7 @@ class d3geoprojection {
 
     private   string  scalar    projection
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        center() 
     void                        clipAngle() 
@@ -28,11 +28,19 @@ string scalar d3geoprojection::complete() {
     return(projectionObject)
 }
 
-void d3geoprojection::init(string scalar vnm, string scalar ob) { 
-    this.projection = "var " + vnm + " = " + ob + ".projection()"
+void d3geoprojection::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.projection = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.projection = vnm
+	}	
 }
 
 void d3geoprojection::new() {
+}
+
+void d3geoprojection::destroy() {
 }
 
 void d3geoprojection::center(| string scalar location) { 

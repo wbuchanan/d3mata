@@ -4,7 +4,7 @@ class d3dispatch {
 
     private   string  scalar    dispatch
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        on() 
     void                        type() 
@@ -21,8 +21,13 @@ string scalar d3dispatch::complete() {
     return(dispatchObject)
 }
 
-void d3dispatch::init(string scalar vnm, string scalar arguments) { 
-	this.dispatch = "var " + vnm + " = " + arguments 
+void d3dispatch::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.dispatch = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.dispatch = vnm
+	}	
 }
 
 void d3dispatch::new() {

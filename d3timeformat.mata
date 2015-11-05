@@ -4,7 +4,7 @@ class d3timeformat {
 
     private   string  scalar    timeformat
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						format()
 	void						parse()
@@ -24,13 +24,21 @@ string scalar d3timeformat::complete() {
     return(timeformatObject)
 }
 
-void d3timeformat::init(string scalar vnm, string scalar arguments) { 
-	this.timeformat = "var " + vnm + " = " + arguments 
+void d3timeformat::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.timeformat = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.timeformat = vnm
+	}	
 }
 
 void d3timeformat::new() {
 }
 
+
+void d3timeformat::destroy() {
+}
 
 
 void d3timeformat::format(string scalar date) {

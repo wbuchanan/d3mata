@@ -4,7 +4,7 @@ class d3svgchord {
 
     private   string  scalar    chord
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        chord() 
     void                        endAngle() 
@@ -15,8 +15,13 @@ class d3svgchord {
 
 }
 
-void d3svgchord::init(string scalar vnm, string scalar arguments) {
-	this.chord = "var " + vnm + " = " + arguments
+void d3svgchord::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.chord = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.chord = vnm
+	}	
 }
 
 void d3svgchord::chord(string scalar datum, | string scalar index) { 
@@ -29,6 +34,9 @@ void d3svgchord::chord(string scalar datum, | string scalar index) {
 }
 
 void d3svgchord::new() {
+}
+
+void d3svgchord::destroy() {
 }
 
 string scalar d3svgchord::get() { 

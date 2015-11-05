@@ -4,7 +4,7 @@ class d3dsv {
 
     private   string  scalar    dsv
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
 	void						dsv()
 	void						parse()
@@ -27,68 +27,62 @@ string scalar d3dsv::complete() {
 }
 
 
-void d3dsv::init(string scalar vnm, string scalar arguments) { 
-    string scalar jsvarname
-    jsvarname = "var " + vnm + " = " + arguments
-    return(jsvarname)
+void d3dsv::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.dsv = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.dsv = vnm
+	}	
 }
-
 
 void d3dsv::new() {
 }
 
+void d3dsv::destroy() {
+}
 
 void d3dsv::dsv(string scalar url, | string scalar accessor, string scalar callback) {
-	string scalar Dsv
 	if (accessor != "" & callback != "") {
-		Dsv = this.get() + ".dsv(" + url + ", " + accessor + ", " + callback + ")"
+		this.dsv = this.get() + ".dsv(" + url + ", " + accessor + ", " + callback + ")"
 	}
 	else if (accessor != "" & callback == "") {
-		Dsv = this.get() + ".dsv(" + url + ", " + accessor + ")"
+		this.dsv = this.get() + ".dsv(" + url + ", " + accessor + ")"
 	}
 	else {
-		Dsv = this.get() + ".dsv(" + url + ")"
+		this.dsv = this.get() + ".dsv(" + url + ")"
 	}
-	this.dsv = Dsv
 }
 
 
 
 void d3dsv::parse(string scalar strng, | string scalar accessor) {
-		string scalar dsvParse
-		if (accessor != "") {
-			dsvParse = this.get() + ".parse(" + strng + ", " + accessor + ")"
-		}
-		else {
-			dsvParse = this.get() + ".parse(" + strng + ")"
-		}
-		this.dsv = dsvParse
+	if (accessor != "") {
+		this.dsv = this.get() + ".parse(" + strng + ", " + accessor + ")"
+	}
+	else {
+		this.dsv = this.get() + ".parse(" + strng + ")"
+	}
 }
 
 
 void d3dsv::parseRows(string scalar strng, | string scalar accessor) {
-		string scalar dsvParseRows
-		if (accessor != "") {
-			dsvParseRows = this.get() + ".parseRows(" + strng + ", " + accessor + ")"
-		}
-		else {
-			dsvParseRows = this.get() + ".parseRows(" + strng + ")"
-		}
-		this.dsv = dsvParseRows
+	if (accessor != "") {
+		this.dsv = this.get() + ".parseRows(" + strng + ", " + accessor + ")"
+	}
+	else {
+		this.dsv = this.get() + ".parseRows(" + strng + ")"
+	}
 }
 
 
 void d3dsv::format(string scalar rows) {
-		string scalar dsvFormat
-		dsvFormat = this.get() + ".format(" + rows + ")"
-		this.dsv = dsvFormat
+	this.dsv = this.get() + ".format(" + rows + ")"
 }
 
 
 void d3dsv::formatRows(string scalar rows) {
-		string scalar dsvFormatRows
-		dsvFormatRows = this.get() + ".formatRows(" + rows + ")"
-		this.dsv = dsvFormatRows
+	this.dsv = this.get() + ".formatRows(" + rows + ")"
 }
 
 

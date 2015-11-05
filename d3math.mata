@@ -3,7 +3,7 @@ mata:
 class d3math { 
     private   string  scalar    math
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
 	void                        normal()
 	void                        logNormal()
 	void                        bates()
@@ -26,6 +26,8 @@ void d3math::init(string scalar vnm, | string scalar arguments) {
 void d3math::new() {
 }
 
+void d3math::destroy() {
+}
 
 void d3math::normal(| string scalar mean, string scalar sd) {
 	if (mean != "" & sd != "") {	

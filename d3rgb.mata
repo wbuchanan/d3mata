@@ -4,7 +4,7 @@ class d3rgb {
 
     private   string  scalar    rgb
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public   string  scalar    get()
     public    string  scalar    complete() 
     void                        brighter() 
     void                        darker() 
@@ -23,11 +23,19 @@ string scalar d3rgb::complete() {
     return(rgbObject)
 }
 
-void d3rgb::init(string scalar vnm, string scalar arguments) { 
-	this.rgb = "var " + vnm + " = " + arguments 
+void d3rgb::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.rgb = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.rgb = vnm
+	}	
 }
 
 void d3rgb::new() {
+}
+
+void d3rgb::destroy() {
 }
 
 void d3rgb::brighter(| string scalar k) { 
@@ -51,12 +59,12 @@ void d3rgb::darker(| string scalar k) {
 
 
 void d3rgb::hsl() { 
-	this.rgb = this.get() + ".hsl();"
+	this.rgb = this.get() + ".hsl()"
 }
 
 
 void d3rgb::toString() { 
-	this.rgb = this.get() + ".toString();"
+	this.rgb = this.get() + ".toString()"
 }
 
 

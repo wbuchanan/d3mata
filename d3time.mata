@@ -5,7 +5,7 @@ mata:
 class d3time { 
     private   	string  		scalar    	time
     void                			        new(), destroy(), init()
-    private   	string  		scalar    	get()
+    public   	string  		scalar    	get()
     public    	string  		scalar    	complete() 
 	class		d3timeformat	scalar		format()
 	class		d3timescale		scalar		scale()
@@ -70,6 +70,8 @@ void d3time::init(string scalar vnm, | string scalar arguments) {
 void d3time::new() {
 }
 
+void d3time::destroy() {
+}
 
 class d3timeformat scalar d3time::format(string scalar varnm, string scalar specifier) {
 	class d3timeformat scalar Time

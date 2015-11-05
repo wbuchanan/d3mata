@@ -5,7 +5,7 @@ class d3scale {
 	void							new(), destroy(), init()
 	private	string 			scalar 	scale	
 	private string			scalar  varnm
-	string					scalar	get(), getVarnm()
+	public  string			scalar	get(), getVarnm(), complete()
 	void							category10()
 	void							category20()
 	void							category20b()
@@ -65,6 +65,10 @@ void d3scale::category20c() {
 	this.scale = this.get() + ".category20c()" 
 }
 
+string scalar d3scale::complete() {
+	return(this.get() + ";")
+}
+
 
 class d3identity scalar d3scale::identity() {
 	class d3identity scalar ident
@@ -86,6 +90,14 @@ class d3log scalar d3scale::log() {
 	lg = d3log()
 	lg.init(varnm, this.getVarnm() + ".log()")
 	return(lg)
+}
+
+
+class d3ordinal scalar d3scale::ordinal() {
+	class d3ordinal scalar p
+	p = d3ordinal()
+	p.init(varnm, this.getVarnm() + ".ordinal()")
+	return(p)
 }
 
 

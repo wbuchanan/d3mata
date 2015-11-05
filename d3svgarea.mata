@@ -4,7 +4,7 @@ class d3svgarea {
 
     private   string  scalar    area
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        area() 
     void                        angle() 
@@ -35,14 +35,20 @@ string scalar d3svgarea::complete() {
     return(areaObject)
 }
 
-void d3svgarea::init(string scalar vnm, string scalar arguments) { 
-    string scalar jsvarname
-    this.area = "var " + vnm + " = " + arguments
+void d3svgarea::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.area = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.area = vnm
+	}	
 }
 
 void d3svgarea::new() {
 }
 
+void d3svgarea::destroy() {
+}
 
 void d3svgarea::area(string scalar data) {
 	this.area = this.get() + "area(" + data + ")"

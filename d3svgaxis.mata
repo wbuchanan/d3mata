@@ -4,7 +4,7 @@ class d3svgaxis {
 
     private   string  scalar    axis
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        innerTickSize() 
     void                        orient() 
@@ -28,11 +28,19 @@ string scalar d3svgaxis::complete() {
     return(axisObject)
 }
 
-void d3svgaxis::init(string scalar vnm, string scalar arguments) { 
-    this.axis = "var " + vnm + " = " + arguments
+void d3svgaxis::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.axis = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.axis = vnm
+	}	
 }
 
 void d3svgaxis::new() {
+}
+
+void d3svgaxis::destroy() {
 }
 
 void d3svgaxis::innerTickSize(| string scalar size) { 

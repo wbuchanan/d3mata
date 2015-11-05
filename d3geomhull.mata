@@ -3,7 +3,7 @@ mata:
 class d3hull { 
     private   string  scalar    hull
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						hull()
     void                        x() 

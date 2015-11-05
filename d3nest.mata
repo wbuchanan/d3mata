@@ -4,7 +4,7 @@ class d3nest {
 
     private   string  scalar    nest
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public   string  scalar    get()
     public    string  scalar    complete() 
     void                        entries() 
     void                        key() 
@@ -35,6 +35,9 @@ void d3nest::init(string scalar vnm, | string scalar arguments) {
 }
 
 void d3nest::new() {
+}
+
+void d3nest::destroy() {
 }
 
 void d3nest::key(string scalar func) { 

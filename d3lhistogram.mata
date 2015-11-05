@@ -4,7 +4,7 @@ class d3lhistogram {
 
     private   string  scalar    histogram
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						histogram()
     void                        bins() 
@@ -26,14 +26,21 @@ string scalar d3lhistogram::complete() {
 }
 
 
-void d3lhistogram::init(string scalar vnm, string scalar arguments) { 
-	this.histogram = "var " + vnm + " = " + arguments
+void d3lhistogram::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.histogram = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.histogram = vnm
+	}	
 }
 
 
 void d3lhistogram::new() {
 }
 
+void d3lhistogram::destroy() {
+}
 
 void d3lhistogram::histogram(string scalar values, | string scalar index) { 
 	if (index != "") {

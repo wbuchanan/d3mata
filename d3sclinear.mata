@@ -4,7 +4,7 @@ class d3linear {
 
     private   string  scalar    linear
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						linear()
     void                        clamp() 
@@ -30,8 +30,13 @@ string scalar d3linear::complete() {
     return(linearObject)
 }
 
-void d3linear::init(string scalar vnm, string scalar arguments) { 
-	this.linear = "var " + vnm + " = " + arguments
+void d3linear::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.linear = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.linear = vnm
+	}	
 }
 
 void d3linear::new() {

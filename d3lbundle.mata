@@ -18,8 +18,13 @@ string scalar d3lbundle::complete() {
     return(bundleObject)
 }
 
-void d3lbundle::init(string scalar vnm, string scalar arguments) { 
-    this.bundle = "var " + vnm + " = " + arguments
+void d3lbundle::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.bundle = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.bundle = vnm
+	}	
 }
 
 void d3lbundle::bundle(string scalar links) {

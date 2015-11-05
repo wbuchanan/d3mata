@@ -3,7 +3,7 @@ mata:
 class d3quantile { 
     private   string  scalar    quantile
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public   string  scalar    get()
     public    string  scalar    complete() 
 	void						quantile()
     void                        copy() 
@@ -25,8 +25,13 @@ string scalar d3quantile::complete() {
 }
 
 
-void d3quantile::init(string scalar vnm, string scalar arguments) { 
-	this.quantile = "var " + vnm + " = " + "quantile()"
+void d3quantile::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.quantile = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.quantile = vnm
+	}	
 }
 
 

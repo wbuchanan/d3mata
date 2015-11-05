@@ -3,7 +3,7 @@ mata:
 class d3polygon { 
     private   string  scalar    polygon
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        area() 
     void                        centroid() 

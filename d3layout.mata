@@ -4,7 +4,7 @@ class d3layout {
 	private   	string  		scalar    	layout
 	private		string			scalar		varnm
 	void        	        	        	new(), destroy(), init()
-	private   	string  		scalar    	get(), getVarnm()
+	public   	string  		scalar    	get(), getVarnm()
 	public    	string  		scalar    	complete()
 	class		d3lbundle		scalar		bundle()
 	class		d3lchord		scalar		chord()
@@ -31,6 +31,9 @@ void d3layout::init(string scalar vnm, | string scalar arguments) {
 }
 
 void d3layout::new() {
+}
+
+void d3layout::destroy() {
 }
 
 string scalar d3layout::get() { 

@@ -3,7 +3,7 @@ mata:
 class d3ltreemap { 
     private   string  scalar    treemap
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        treemap() 
     void                        children() 
@@ -29,13 +29,21 @@ string scalar d3ltreemap::complete() {
     return(treemapObject)
 }
 
-void d3ltreemap::init(string scalar vnm, string scalar arguments) { 
-	this.treemap = "var " + vnm + " = " + arguments
+void d3ltreemap::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.treemap = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.treemap = vnm
+	}	
 }
 
 void d3ltreemap::new() {
 }
 
+
+void d3ltreemap::destroy() {
+}
 
 
 void d3ltreemap::treemap(string scalar root) { 

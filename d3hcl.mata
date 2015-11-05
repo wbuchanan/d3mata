@@ -4,7 +4,7 @@ class d3hcl {
 
     private   string  scalar    hcl
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        brighter() 
     void                        darker() 
@@ -23,11 +23,19 @@ string scalar d3hcl::complete() {
     return(hclObject)
 }
 
-void d3hcl::init(string scalar vnm, string scalar arguments) { 
-	this.hcl = "var " + vnm + " = " + arguments
+void d3hcl::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.hcl = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.hcl = vnm
+	}	
 }
 
 void d3hcl::new() {
+}
+
+void d3hcl::destroy() {
 }
 
 void d3hcl::brighter(| string scalar k) { 
@@ -49,11 +57,11 @@ void d3hcl::darker(| string scalar k) {
 }
 
 void d3hcl::rgb() { 
-	this.hcl = this.get() + ".rgb();"
+	this.hcl = this.get() + ".rgb()"
 }
 
 void d3hcl::toString() { 
-	this.hcl = this.get() + ".toString();"
+	this.hcl = this.get() + ".toString()"
 }
 
 end

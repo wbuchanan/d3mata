@@ -5,7 +5,7 @@ class d3locale {
     private   	string  scalar    	locale
 	private		string	scalar		varnm
     void                        	new(), destroy(), init()
-    private   	string  scalar    	get(), getVarnm()
+    public   	string  scalar    	get(), getVarnm()
     public    	string  scalar    	complete() 
     void                        	numberFormat() 
     void                        	timeFormat() 
@@ -40,6 +40,9 @@ void d3locale::init(string scalar vnm, | string scalar arguments) {
 }
 
 void d3locale::new() {
+}
+
+void d3locale::destroy() {
 }
 
 void d3locale::numberFormat(string scalar specifier) { 

@@ -3,7 +3,7 @@ mata:
 class d3lpack { 
     private   string  scalar    pack
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        pack() 
     void                        children() 
@@ -29,14 +29,21 @@ string scalar d3lpack::complete() {
 }
 
 
-void d3lpack::init(string scalar vnm, string scalar arguments) { 
-	this.pack = "var " + vnm + " = " + arguments
+void d3lpack::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.pack = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.pack = vnm
+	}	
 }
 
 
 void d3lpack::new() {
 }
 
+void d3lpack::destroy() {
+}
 
 void d3lpack::pack(string scalar root) { 
 	this.pack = this.get() + ".pack(" + root + ")"

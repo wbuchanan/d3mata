@@ -4,7 +4,7 @@ class d3interval {
 
     private   string  scalar    interval
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        ceil() 
     void                        floor() 
@@ -25,11 +25,19 @@ string scalar d3interval::complete() {
     return(intervalObject)
 }
 
-void d3interval::init(string scalar vnm) { 
-	this.interval = "var " + vnm + " = " + "interval()"
+void d3interval::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.interval = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.interval = vnm
+	}	
 }
 
 void d3interval::new() {
+}
+
+void d3interval::destroy() {
 }
 
 void d3interval::ceil(string scalar x) { 

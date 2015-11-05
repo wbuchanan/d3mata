@@ -3,16 +3,16 @@ mata:
 class d3 {
 
 	void							new(), destroy(), init()
-	string 					scalar 	d3, varname
-	string 					scalar	get(), getVarnm()
+	private		string 		scalar 	d3, varname
+	public		string 		scalar	get(), getVarnm()
 	string					scalar  complete()	
 	
 	/* Selection Methods/Class Constructors */
-	class	d3selection		scalar	d3selection(), select(), selectAll()
+	class	d3selection		scalar	select(), selectAll()
 	void							event(), mouse(), touch(), touches(), selection()
 
 	/* Transition Methods/Class Constructors */
-	class	d3transition 	scalar	d3transition(), transition()
+	class	d3transition 	scalar	transition()
 	
 	/* Easing */
 	void							ease()
@@ -39,27 +39,27 @@ class d3 {
 	void							keys(), values(), entries()
 	
 	/* Map Object */
-	class	d3map 			scalar	d3map(), map()
+	class	d3map 			scalar	map()
 	
 	/* Set Object */
-	class	d3set 			scalar	d3set(), set()
+	class	d3set 			scalar	set()
 	
 	/* Array Operators */
 	void							merge(), range(), permute(), zip(), 
 									transpose(), pairs()
 	
 	/* Nest Object */
-	class	d3nest 			scalar	d3nest(), nest()
+	class	d3nest 			scalar	nest()
 	
 	/* Pseudorandom Number Generation */
-	class	d3math			scalar	d3math(), random()
+	class	d3math			scalar	random()
 	
 	/* 2D Transforms */
-	class	d3transform		scalar	d3transform(), transform()
+	class	d3transform		scalar	transform()
 	
 	/* Loading External Resources */
 	/** XHR Object **/
-	class	d3xhr			scalar	d3xhr(), xhr()
+	class	d3xhr			scalar	xhr()
 		
 	/** Text Data Object **/
 	public	string			scalar	text()
@@ -74,13 +74,13 @@ class d3 {
 	public	string			scalar	html()
 	
 	/** CSV Data Object **/
-	class	d3csv			scalar	d3csv(), csv()
+	class	d3csv			scalar	csv()
 	
 	/** TSV Data Object **/
-	class	d3tsv			scalar	d3tsv(), tsv()
+	class	d3tsv			scalar	tsv()
 	
 	/** DSV Data Object **/
-	class	d3dsv			scalar	d3dsv(), dsv()
+	class	d3dsv			scalar	dsv()
 	
 	/* Formatting */
 	/** Numbers **/
@@ -130,7 +130,7 @@ class d3 {
 }
 
 
-class d3geo scalar d3::geo(string scalar varnm, string scalar arguments) {
+class d3geo scalar d3::geo(string scalar varnm, | string scalar arguments) {
 	class d3geo scalar geo
 	geo = d3geo()
 	geo.init(this.getVarnm() + ".geo")
@@ -146,7 +146,7 @@ class d3geom scalar d3::geom(string scalar varnm, | string scalar arguments) {
 }
 
 
-class d3layout scalar d3::layout(string scalar varnm, string scalar arguments) {
+class d3layout scalar d3::layout(string scalar varnm, | string scalar arguments) {
 	class d3layout scalar layout
 	layout = d3layout()
 	layout.init(varnm, this.getVarnm() + ".layout")
@@ -154,7 +154,7 @@ class d3layout scalar d3::layout(string scalar varnm, string scalar arguments) {
 }
 
 
-class d3time scalar d3::time(string scalar varnm, string scalar arguments) {
+class d3time scalar d3::time(string scalar varnm, | string scalar arguments) {
 	class d3time scalar time
 	time = d3time()
 	time.init(varnm, this.getVarnm() + ".time")
@@ -162,7 +162,7 @@ class d3time scalar d3::time(string scalar varnm, string scalar arguments) {
 }
 
 
-class d3svg scalar d3::svg(string scalar varnm, string scalar arguments) {
+class d3svg scalar d3::svg(string scalar varnm, | string scalar arguments) {
 	class d3svg scalar svg
 	svg = d3svg()
 	svg.init(varnm, this.getVarnm() + ".svg")
@@ -170,7 +170,7 @@ class d3svg scalar d3::svg(string scalar varnm, string scalar arguments) {
 }
 
 
-class d3scale scalar d3::scale(string scalar varnm, string scalar arguments) {
+class d3scale scalar d3::scale(string scalar varnm, | string scalar arguments) {
 	class d3scale scalar scale
 	scale = d3scale()
 	scale.init(varnm, this.getVarnm() + ".scale")
@@ -179,6 +179,9 @@ class d3scale scalar d3::scale(string scalar varnm, string scalar arguments) {
 
 
 void d3::new() {
+}
+
+void d3::destroy() {
 }
 
 string scalar d3::get() {
@@ -199,14 +202,6 @@ string scalar d3::complete() {
 	object = this.get() + ";"
 	return(object)
 }
-
-class d3selection scalar d3::d3selection(string scalar d3Object) {
-	class d3selection scalar sel
-	sel = d3selection()
-	sel.init(d3Object)
-	return(sel)
-}
-
 
 void d3::event() {
 	this.d3 = this.get() + ".event" 
@@ -245,10 +240,7 @@ void d3::touches(string scalar container, | string scalar touches) {
 class d3selection scalar d3::select(string scalar node) {
 	class d3selection scalar selected
 	selected = d3selection()
-	string scalar Select 
-	Select = this.get() + ".select(" + node + ")" 
-	this.d3 = Select
-	selected.init(this.d3)
+	selected.init(this.get() + ".select(" + node + ")")
 	return(selected)
 }
 
@@ -257,10 +249,7 @@ class d3selection scalar d3::select(string scalar node) {
 class d3selection scalar d3::selectAll(string scalar selector) {
 	class d3selection scalar selected
 	selected = d3selection()
-	string scalar Selectall
-	Selectall = this.get() + ".selectAll(" + selector + ")" 
-	this.d3 = Selectall
-	selected.init(this.d3)
+	selected.init(this.get() + ".selectAll(" + selector + ")")
 	return(selected)
 }
 
@@ -271,15 +260,7 @@ void d3::selection() {
 
 
 
-/* Transitions */
-// Transition class object constructor
-class d3transition scalar d3::d3transition(string scalar varnm, string scalar trns) {
-	class d3transition scalar trans
-	trans = d3transition()
-	trans.init(varnm, trns)
-	return(trans)						  
-}				
-		  
+/* Transitions */		  
 
 // Method used to call class constructor
 class d3transition scalar d3::transition(string scalar varnm, 				 ///   
@@ -578,20 +559,7 @@ void d3::entries(string scalar object) {
 	this.d3 = this.get() + ".entries(" + object + ")"
 }
 
-
-
-
-
-
-
 /* Map Object */
-class d3map scalar d3::d3map(string scalar varnm, string scalar mapper) {
-	class d3map scalar mapped
-	mapped = d3map()
-	mapped.init(varnm, mapper)
-	return(mapped)
-}
-
 class d3map scalar d3::map(string scalar vnm, | string scalar object, string scalar key) {
 	class d3map scalar mapob
 	mapob = d3map()
@@ -607,13 +575,6 @@ class d3map scalar d3::map(string scalar vnm, | string scalar object, string sca
 }
 							 
 /* Set Object */
-class d3set scalar d3::d3set(string scalar varnm, string scalar setref) {
-	class d3set scalar sets
-	sets = d3set()
-	sets.init(varnm, setref)
-	return(sets)
-}
-
 class d3set scalar d3::set(string scalar vnm, | string scalar aray) {
 	class d3set scalar setob
 	setob = d3set()
@@ -666,13 +627,6 @@ void d3::pairs(string scalar aray) {
 }
 
 /* Nest Object */
-class d3nest scalar d3::d3nest(string scalar varnm, string scalar obref) {
-	class d3nest scalar nested
-	nested = d3nest()
-	nested.init(varnm, obref)
-	return(nested)
-}
-
 class d3nest scalar d3::nest(string scalar vnm) {
 	class d3nest scalar nestob
 	nestob = d3nest()
@@ -682,13 +636,6 @@ class d3nest scalar d3::nest(string scalar vnm) {
 							 
 							 
 /* Math Object */
-class d3math scalar d3::d3math(string scalar varnm, string scalar mathnm) {
-	class d3math scalar math
-	math = d3math()
-	math.init(varnm, mathnm)
-	return(math)
-}
-
 class d3math scalar d3::random(string scalar vnm) {
 	class d3math scalar mathob
 	mathob = d3math()
@@ -698,31 +645,15 @@ class d3math scalar d3::random(string scalar vnm) {
 							 
 
 /* Transform Object */
-class d3transform scalar d3::d3transform(string scalar varnm, string scalar trnstrng) {
-	class d3transform scalar trns
-	trns = d3transform()
-	trns.init(varnm, trnstrng)
-	return(trns)
-}
-
 class d3transform scalar d3::transform(string scalar vnm, string scalar trnstring) {
 	class d3transform scalar trnsob
 	trnsob = d3transform()
-	string scalar theOb
-	theOb = this.getVarnm() + ".transform(" + trnstring + ")"
-	trnsob.init(vnm, theOb)
+	trnsob.init(vnm, this.getVarnm() + ".transform(" + trnstring + ")")
 	return(trnsob)
 }
 							 
 
 /* XHR Object */
-class d3xhr scalar d3::xhr(string scalar varnm, string scalar arguments) {
-	class d3xhr scalar xhr
-	xhr = d3xhr()
-	xhr.init(varnm, arguments)
-	return(xhr)
-}							 
-							 
 class d3xhr scalar d3::xhr(string scalar varnm, string scalar url, | 		 ///   
 						   string scalar mimeType, string scalar callback) {
 	class d3xhr scalar xhr
@@ -804,14 +735,6 @@ string scalar d3::html(string scalar url, | string scalar callback) {
 
 
 /* CSV Object */
-class d3csv scalar d3::d3csv(string scalar varnm, string scalar arguments) {
-	class d3csv scalar csv
-	csv = d3csv()
-	csv.init(varnm, arguments)
-	return(csv)
-}							 
-							 
-
 class d3csv scalar d3::csv(string scalar varnm, string scalar url, | string scalar accessor, 
 					  string scalar callback) {
 	class d3csv scalar c
@@ -832,14 +755,6 @@ class d3csv scalar d3::csv(string scalar varnm, string scalar url, | string scal
 
 
 /* TSV Object */							 
-class d3tsv scalar d3::d3tsv(string scalar varnm, string scalar arguments) {
-	class d3tsv scalar tsv
-	tsv = d3tsv()
-	tsv.init(varnm, arguments)
-	return(tsv)
-}							 
-							 
-
 class d3tsv scalar d3::tsv(string scalar varnm, string scalar url, | string scalar accessor, 
 					  string scalar callback) {
 	class d3tsv scalar c
@@ -860,14 +775,6 @@ class d3tsv scalar d3::tsv(string scalar varnm, string scalar url, | string scal
 
 							 
 /* DSV Object */							 
-class d3dsv scalar d3::d3dsv(string scalar varnm, string scalar arguments) {
-	class d3dsv scalar dsv
-	dsv = d3dsv()
-	dsv.init(varnm, arguments)
-	return(dsv)
-}							 
-							 
-
 class d3dsv scalar d3::dsv(string scalar varnm, string scalar delim, 		 ///   
 						   string scalar mimeType, string scalar url, |		 ///   
 						   string scalar accessor, string scalar callback) {

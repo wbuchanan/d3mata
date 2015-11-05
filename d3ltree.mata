@@ -3,7 +3,7 @@ mata:
 class d3ltree { 
     private   string  scalar    tree
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        tree() 
     void                        children() 
@@ -29,14 +29,21 @@ string scalar d3ltree::complete() {
 }
 
 
-void d3ltree::init(string scalar vnm, string scalar arguments) { 
-	this.tree = "var " + vnm + " = " + arguments
+void d3ltree::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.tree = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.tree = vnm
+	}	
 }
 
 
 void d3ltree::new() {
 }
 
+void d3ltree::destroy() {
+}
 
 void d3ltree::tree(string scalar root) { 
 	this.tree = this.get() + ".tree(" + root + ")"

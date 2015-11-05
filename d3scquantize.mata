@@ -4,7 +4,7 @@ class d3quantize {
 
     private   string  scalar    quantize
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						quantize()
     void                        copy() 
@@ -24,8 +24,13 @@ string scalar d3quantize::complete() {
     return(quantizeObject)
 }
 
-void d3quantize::init(string scalar vnm, string scalar arguments) { 
-	this.quantize = "var " + vnm + " = " + arguments
+void d3quantize::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.quantize = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.quantize = vnm
+	}	
 }
 
 void d3quantize::new() {

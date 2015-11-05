@@ -4,7 +4,7 @@ class d3xhr {
 
     private   string  scalar    xhr
     void                        new(), destroy(), init()
-    private   string  scalar    getter()
+    public    string  scalar    getter()
     public    string  scalar    complete() 
     void                        abort() 
     void                        header() 
@@ -28,8 +28,13 @@ string scalar d3xhr::complete() {
     return(xhrObject)
 }
 
-void d3xhr::init(string scalar vnm, string scalar arguments) { 
-	this.xhr = "var " + vnm + " = " + arguments
+void d3xhr::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.xhr = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.xhr = vnm
+	}	
 }
 
 

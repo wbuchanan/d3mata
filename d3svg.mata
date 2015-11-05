@@ -24,6 +24,10 @@ string scalar d3svg::get() {
     return(this.svg)
 }
 
+string scalar d3svg::getVarnm() { 
+    return(this.varnm)
+}
+
 string scalar d3svg::complete() { 
     string scalar svgObject 
     svgObject = this.get() + ";"

@@ -4,7 +4,7 @@ class d3selection {
 
     private   string  scalar    selection
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        append() 
     void                        attr() 
@@ -40,9 +40,7 @@ string scalar d3selection::get() {
 }
 
 string scalar d3selection::complete() { 
-    string scalar selectionObject 
-    selectionObject = this.get() + ";"
-    return(selectionObject)
+    return(this.get() + ";")
 }
 
 void d3selection::init(string scalar vnm, | string scalar arguments) { 
@@ -57,272 +55,223 @@ void d3selection::init(string scalar vnm, | string scalar arguments) {
 void d3selection::new() {
 }
 
+void d3selection::destroy() {
+}
+
 /** Operating on Selections **/
 /*** Content ***/
 
 void d3selection::attr(string scalar name, | string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".attr(" + name + ", " + value + ")"
+		this.selection = this.get() + ".attr(" + name + ", " + value + ")"
 	}
 	else {
-		s = this.get() + ".attr(" + name + ")"
+		this.selection = this.get() + ".attr(" + name + ")"
 	}
-    this.selection = s
 }
 
 
 void d3selection::classed(string scalar name, | string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".classed(" + name + ", " + value + ")"
+		this.selection = this.get() + ".classed(" + name + ", " + value + ")"
 	}
 	else {
-		s = this.get() + ".classed(" + name + ")"
+		this.selection = this.get() + ".classed(" + name + ")"
 	}
-    this.selection = s
 }
 
 
 void d3selection::style(string scalar name, | string scalar value, string scalar priority) { 
-    string scalar s 
 	if (value != "" & priority != "") {
-		s = this.get() + ".style(" + name + ", " + value + ", " + priority + ")"
+		this.selection = this.get() + ".style(" + name + ", " + value + ", " + priority + ")"
 	}
 	else if (value != "" & priority == "") {
-		s = this.get() + ".style(" + name + ", " + value + ")"
+		this.selection = this.get() + ".style(" + name + ", " + value + ")"
 	}
 	else {
-		s = this.get() + ".style(" + name + ")"
+		this.selection = this.get() + ".style(" + name + ")"
 	}
-    this.selection = s
 }
 
 
 void d3selection::property(string scalar name, | string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".property(" + name + ", " + value + ")"
+		this.selection = this.get() + ".property(" + name + ", " + value + ")"
 	}
 	else {
-		s = this.get() + ".property(" + name + ")"
+		this.selection = this.get() + ".property(" + name + ")"
 	}
-    this.selection = s
 }
 
 
 void d3selection::text(| string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".text(" + value + ")"
+		this.selection = this.get() + ".text(" + value + ")"
 	}
 	else {
-		s = this.get() + ".text()"
+		this.selection = this.get() + ".text()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::html(| string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".text(" + value + ")"
+		this.selection = this.get() + ".text(" + value + ")"
 	}
 	else {
-		s = this.get() + ".text()"
+		this.selection = this.get() + ".text()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::append(string scalar name) { 
-    string scalar s 
-    s = this.get() + ".append(" + name + ")"
-    this.selection = s
+	this.selection = this.get() + ".append(" + name + ")"
 }
 
 
 void d3selection::insert(string scalar name, | string scalar before) { 
-    string scalar s 
 	if (before != "") {
-		s = this.get() + ".insert(" + name + ", " + before + ")"
+		this.selection = this.get() + ".insert(" + name + ", " + before + ")"
     }
 	else {
-		s = this.get() + ".insert(" + name + ")"
+		this.selection = this.get() + ".insert(" + name + ")"
 	}
-	this.selection = s
 }
 
 
-void d3selection::remove() { 
-    string scalar s 
-    s = this.get() + ".remove()"
-    this.selection = s
+void d3selection::remove() {
+	this.selection = this.get() + ".remove()"
 }
 
 
 /*** Data ***/
 void d3selection::data(| string scalar values, string scalar key) { 
-    string scalar s 
 	if (values != "" & key != "") {
-		s = this.get() + ".data(" + values + ", " + key + ")"
+		this.selection = this.get() + ".data(" + values + ", " + key + ")"
 	}
 	else if (values != "" & key == "") {
-		s = this.get() + ".data(" + values + ")"
+		this.selection = this.get() + ".data(" + values + ")"
 	}
 	else {
-		s = this.get() + ".data()"
+		this.selection = this.get() + ".data()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::enter() { 
-    string scalar s 
-    s = this.get() + ".enter()"
-    this.selection = s
+	this.selection = this.get() + ".enter()"
 }
 
 
 void d3selection::exit() { 
-    string scalar s 
-    s = this.get() + ".exit()"
-    this.selection = s
+	this.selection = this.get() + ".exit()"
 }
 
 
 void d3selection::filter(string scalar selector) { 
-    string scalar s 
-    s = this.get() + ".filter(" + selector + ")"
-    this.selection = s
+	this.selection = this.get() + ".filter(" + selector + ")"
 }
 
 
 
 void d3selection::datum(| string scalar value) { 
-    string scalar s 
 	if (value != "") {
-		s = this.get() + ".datum(" + value + ")"
+		this.selection = this.get() + ".datum(" + value + ")"
 	}
 	else {
-		s = this.get() + ".datum()"
+		this.selection = this.get() + ".datum()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::sort(| string scalar comparator) { 
-    string scalar s 
 	if (comparator != "") {
-		s = this.get() + ".sort(" + comparator + ")"
+		this.selection = this.get() + ".sort(" + comparator + ")"
 	}
 	else {
-		s = this.get() + ".sort()"
+		this.selection = this.get() + ".sort()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::order() { 
-    string scalar s 
-    s = this.get() + ".order()"
-    this.selection = s
+	this.selection = this.get() + ".order()"
 }
 
 
 /*** Animation and Interaction ***/
 void d3selection::on(string scalar type, | string scalar listener, string scalar capture) { 
-    string scalar s 
 	if (listener != "" & capture != "") {
-		s = this.get() + ".on(" + type + ", " + listener + ", " + capture + ")"
+		this.selection = this.get() + ".on(" + type + ", " + listener + ", " + capture + ")"
 	}
 	else if (listener != "" & capture == "") {
-		s = this.get() + ".on(" + type + ", " + listener + ")"
+		this.selection = this.get() + ".on(" + type + ", " + listener + ")"
 	}
 	else {
-		s = this.get() + ".on(" + type + ")"
+		this.selection = this.get() + ".on(" + type + ")"
 	}	
-    this.selection = s
 }
 
 
 void d3selection::transition(| string scalar name) { 
-    string scalar s 
 	if (name != "") {
-		s = this.get() + ".transition(" + name + ")"
+		this.selection = this.get() + ".transition(" + name + ")"
 	}
 	else {
-		s = this.get() + ".transition()"
+		this.selection = this.get() + ".transition()"
 	}
-    this.selection = s
 }
 
 
 void d3selection::interrupt(| string scalar name) { 
-    string scalar s 
 	if (name != "") {
-		s = this.get() + ".interrupt(" + name + ")"
+		this.selection = this.get() + ".interrupt(" + name + ")"
 	}
 	else {
-		s = this.get() + ".interrupt()"
+		this.selection = this.get() + ".interrupt()"
 	}
-    this.selection = s
 }
 
 
 /*** Subselections ***/
 void d3selection::select(string scalar node) {
-        string scalar Select
-        Select = this.get() + ".select(" + node + ")" 
-        this.selection = Select
+	this.selection = this.get() + ".select(" + node + ")" 
 }
 
 
 void d3selection::selectAll(string scalar selector) {
-        string scalar Selectall
-        Selectall = this.get() + ".selectAll(" + selector + ")" 
-        this.selection = Selectall
+	this.selection = this.get() + ".selectAll(" + selector + ")" 
 }
 
 
 /*** Control ***/
 void d3selection::each(string scalar func) { 
-    string scalar s 
-    s = this.get() + ".each(" + func + ")"
-    this.selection = s
+	this.selection = this.get() + ".each(" + func + ")"
 }
 
 
 void d3selection::call(string scalar func, | string scalar arguments) { 
-    string scalar s 
 	if (arguments != "") {
-		s = this.get() + ".call(" + func + ", " + arguments + ")"
+		this.selection = this.get() + ".call(" + func + ", " + arguments + ")"
 	}
 	else {
-		s = this.get() + ".call(" + func + ")"
+		this.selection = this.get() + ".call(" + func + ")"
 	}
-    this.selection = s
 }
 
 
 void d3selection::empty() { 
-    string scalar s 
-    s = this.get() + ".empty()"
-    this.selection = s
+	this.selection = this.get() + ".empty()"
 }
 
 
 void d3selection::node() { 
-    string scalar s 
-    s = this.get() + ".node()"
-    this.selection = s
+	this.selection = this.get() + ".node()"
 }
 
 
 void d3selection::size() { 
-    string scalar s 
-    s = this.get() + ".size()"
-    this.selection = s
+	this.selection = this.get() + ".size()"
 }
 
 

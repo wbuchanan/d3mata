@@ -4,7 +4,7 @@ class d3identity {
 
     private   string  scalar    identity
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						identity()
     void                        copy() 
@@ -28,8 +28,13 @@ string scalar d3identity::complete() {
 }
 
 
-void d3identity::init(string scalar vnm, string scalar arguments) { 
-	this.identity = "var " + vnm + " = " + arguments
+void d3identity::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.identity = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.identity = vnm
+	}	
 }
 
 

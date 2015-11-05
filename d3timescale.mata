@@ -4,7 +4,7 @@ class d3timescale {
 
     private   string  scalar    timescale
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						scale()
 	void						invert()
@@ -30,11 +30,19 @@ string scalar d3timescale::complete() {
     return(timescaleObject)
 }
 
-void d3timescale::init(string scalar vnm, string scalar arguments) { 
-	this.timescale = "var " + vnm + " = " + arguments 
+void d3timescale::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.timescale = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.timescale = vnm
+	}	
 }
 
 void d3timescale::new() {
+}
+
+void d3timescale::destroy() {
 }
 
 

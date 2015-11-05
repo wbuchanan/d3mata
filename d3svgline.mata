@@ -4,7 +4,7 @@ class d3svgline {
 
     private   string  scalar    line
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        angle() 
     void                        defined() 
@@ -27,12 +27,21 @@ string scalar d3svgline::complete() {
     return(lineObject)
 }
 
-void d3svgline::init(string scalar vnm, string scalar arguments) { 
-    this.line = "var " + vnm + " = " + arguments
+void d3svgline::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.line = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.line = vnm
+	}	
 }
 
 void d3svgline::new() {
 }
+
+void d3svgline::destroy() {
+}
+
 
 void d3svgline::angle(string scalar angle) { 
 	if (angle != "") {

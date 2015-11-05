@@ -4,7 +4,7 @@ class d3svgbrush {
 
     private   string  scalar    brush
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
 	void                        brush()
 	void                        clamp()
@@ -28,11 +28,19 @@ string scalar d3svgbrush::complete() {
     return(brushObject)
 }
 
-void d3svgbrush::init(string scalar vnm, string scalar arguments) { 
-    this.brush = "var " + vnm + " = " + arguments
+void d3svgbrush::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.brush = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.brush = vnm
+	}	
 }
 
 void d3svgbrush::new() {
+}
+
+void d3svgbrush::destroy() {
 }
 
 void d3svgbrush::clear() { 

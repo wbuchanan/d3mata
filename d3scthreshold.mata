@@ -4,7 +4,7 @@ class d3threshold {
 
     private   string  scalar    threshold
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
     void                        threshold() 
     void                        copy() 
@@ -24,8 +24,13 @@ string scalar d3threshold::complete() {
     return(thresholdObject)
 }
 
-void d3threshold::init(string scalar vnm, string scalar arguments) { 
-    this.threshold = "var " + vnm + " = " + arguments
+void d3threshold::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.threshold = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.threshold = vnm
+	}	
 }
 
 void d3threshold::new() {

@@ -4,7 +4,7 @@ class d3tsv {
 
     private   string  scalar    tsv
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete()
 	void						parse()
 	void						parseRows()
@@ -26,8 +26,13 @@ string scalar d3tsv::complete() {
 }
 
 
-void d3tsv::init(string scalar vnm, string scalar arguments) { 
-	this.tsv = "var " + vnm + " = " + arguments
+void d3tsv::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.tsv = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.tsv = vnm
+	}	
 }
 
 

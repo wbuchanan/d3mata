@@ -3,7 +3,7 @@ mata:
 class d3quadtree { 
     private   string  scalar    quadtree
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						quadtree()
     void                        add() 

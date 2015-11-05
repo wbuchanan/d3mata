@@ -3,7 +3,7 @@ mata:
 class d3log { 
     private   string  scalar    log
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						log()
     void                        clamp() 
@@ -31,8 +31,13 @@ string scalar d3log::complete() {
 }
 
 
-void d3log::init(string scalar vnm, string scalar arguments) { 
-    this.log = "var " + vnm + " = " + arguments
+void d3log::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.log = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.log = vnm
+	}	
 }
 
 

@@ -3,7 +3,7 @@ mata:
 class d3map { 
     private   string  scalar    map
     void                        new(), destroy(), init()
-    private   string  scalar    getter()
+    public    string  scalar    getter()
     public    string  scalar    complete() 
     void                        empty() 
     void                        entries() 
@@ -39,6 +39,8 @@ void d3map::init(string scalar vnm, | string scalar arguments) {
 void d3map::new() {
 }
 
+void d3map::destroy() {
+}
 
 void d3map::has(string scalar key) { 
 	this.map = this.getter() + ".has(" + key + ")"

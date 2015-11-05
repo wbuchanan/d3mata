@@ -3,7 +3,7 @@ mata:
 class d3pow { 
     private   string  scalar    pow
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						pow()
     void                        clamp() 
@@ -29,8 +29,13 @@ string scalar d3pow::complete() {
     return(powObject)
 }
 
-void d3pow::init(string scalar vnm, string scalar arguments) { 
-	this.pow = "var " + vnm + " = " + arguments
+void d3pow::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.pow = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.pow = vnm
+	}	
 }
 
 void d3pow::new() {

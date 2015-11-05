@@ -24,14 +24,21 @@ string scalar d3bdrag::complete() {
 }
 
 
-void d3bdrag::init(string scalar varnm, string scalar arguments) { 
-	this.drag = "var " + varnm + " = " + arguments
+void d3bdrag::init(string scalar vnm, | string scalar arguments) {
+	if (arguments != "") {
+		this.drag = "var " + vnm + " = " + arguments
+	}
+	else {
+		this.drag = vnm
+	}	
 }
-
+	
 
 void d3bdrag::new() {
 }
 
+void d3bdrag::destroy() {
+}
 
 void d3bdrag::on(string scalar type, | string scalar listener) { 
 	if (listener != "") {

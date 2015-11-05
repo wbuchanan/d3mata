@@ -4,7 +4,7 @@ class d3voronoi {
 
     private   string  scalar    voronoi
     void                        new(), destroy(), init()
-    private   string  scalar    get()
+    public    string  scalar    get()
     public    string  scalar    complete() 
 	void						voronoi()
     void                        clipExtent() 

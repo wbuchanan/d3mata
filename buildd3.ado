@@ -5,7 +5,8 @@ prog def buildd3, rclass
 
 	version 13
 	
-	syntax anything(name=what id="D3 Classes or All") [, DIsplay ]
+	syntax anything(name=what id="D3 Classes or All") [, DIsplay MLib MOSave ///   
+		dir(passthru) REPlace size(passthru) ]
 	
 	// Clear any existing class from mata
 	mata: mata clear
@@ -292,8 +293,8 @@ prog def buildd3, rclass
 			
 		} // Finish building other classes
 	
-	} // End Loop over arguments passed to program's parameter	
-	
+	} // End Loop over arguments passed to program's parameter
+		
 	// Loop over the classes in the class list
 	forv i = 1/`: word count `classlist'' {
 	
@@ -314,7 +315,26 @@ prog def buildd3, rclass
 			
 		} // End IF Block for display option
 		
+		// Check for MoSave option
+		if `"`mosave'"' != "" {
+		
+			// Save the mata objects
+			mata: mata mosave `nm', `dir' complete `replace'
+		
+		} // End IF Block for mata mo save
+		
 	} // End Loop over the class list
+
+	// Check for MLib option
+	if `"`mlib'"' != "" {
+
+		// Create the library
+		mata: mata mlib create libd3, `dir' `size' `replace'
+
+		// Add the first class to the library
+		mata: mata mlib add libd3 *(), `dir' complete
+			
+	} // End IF Block to build custom d3 library for user
 	
 // End of program
 end
