@@ -216,10 +216,10 @@ void d3::mouse(string scalar container) {
 
 
 void d3::touch(string scalar container, | string scalar touches, string scalar identifier) {
-	if (touches != "" & identifier != "") {
+	if (args() == 3) {
 		this.d3 = this.get() + ".touch(" + container + ", " + touches + ", " + identifier + ")"
 	}
-	else if (touches != "" & identifier == "") {
+	else if (args() == 2) {
 		this.d3 = this.get() + ".touch(" + container + ", " + touches + ")"
 	}
 	else {
@@ -229,7 +229,7 @@ void d3::touch(string scalar container, | string scalar touches, string scalar i
 
 
 void d3::touches(string scalar container, | string scalar touches) {
-	if (touches != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".touches(" + container + ", " + touches + ")" 
 	}
 	else {
@@ -260,23 +260,18 @@ void d3::selection() {
 	this.d3= this.get() + ".selection()" 
 }
 
-
-
 /* Transitions */		  
 
 // Method used to call class constructor
-class d3transition scalar d3::transition(string scalar varnm, 				 ///   
-								string scalar selection, | string scalar name) {
+class d3transition scalar d3::transition(string scalar varnm, string scalar selection, | string scalar name) {
 	class d3transition scalar transit
 	transit = d3transition()
-	string scalar Transition
-	if (name != "") {
-		Transition = this.get() + ".transition(" + selection + ", " + name + ")"
+	if (args() == 3) {
+		transit.init(varnm, this.get() + ".transition(" + selection + ", " + name + ")")
 	}
 	else {
-		Transition = this.get() + ".transition(" + selection + ")" 
+		transit.init(this.get() + ".transition(" + selection + ")")
 	}
-	transit.init(varnm, Transition)
 	return(transit)
 }
 
@@ -290,7 +285,7 @@ void d3::ease(string scalar type, | string scalar arguments) {
 		this.d3 = this.get()
 	}
 	else {
-		if (arguments != "") {
+		if (args() == 2) {
 			this.d3 = this.get() + ".ease(" + type + ", " + arguments + ")"
 		} 
 		else {
@@ -303,10 +298,10 @@ void d3::ease(string scalar type, | string scalar arguments) {
 
 /** Timers **/
 void d3::timer(string scalar func, | string scalar delay, string scalar time) {
-	if (delay != "" & time != "") {
+	if (args() == 3) {
 		this.d3 = this.get() + ".timer(" + func + ", " + delay + ", " + time + ")" 
 	}
-	else if (delay != "" & time == "") {
+	else if (args() == 2) {
 		this.d3 = this.get() + ".timer(" + func + ", " + delay + ")" 
 	}
 	else {
@@ -399,7 +394,7 @@ void d3::descending(string scalar a, string scalar b) {
 
 
 void d3::min(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".min(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -409,7 +404,7 @@ void d3::min(string scalar aray, | string scalar accessor) {
 
 
 void d3::max(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".max(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -419,7 +414,7 @@ void d3::max(string scalar aray, | string scalar accessor) {
 
 
 void d3::extent(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".extent(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -429,7 +424,7 @@ void d3::extent(string scalar aray, | string scalar accessor) {
 
 
 void d3::sum(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".sum(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -440,7 +435,7 @@ void d3::sum(string scalar aray, | string scalar accessor) {
 
 
 void d3::mean(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".mean(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -451,7 +446,7 @@ void d3::mean(string scalar aray, | string scalar accessor) {
 
 
 void d3::median(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".median(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -466,7 +461,7 @@ void d3::quantile(string scalar numbers, string scalar p) {
 
 
 void d3::variance(string scalar aray, | string scalar accessor) {
-	if (accessor != "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".variance(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -476,7 +471,7 @@ void d3::variance(string scalar aray, | string scalar accessor) {
 
 
 void d3::deviation(string scalar aray, | string scalar accessor) {
-	if (accessor != "") { 
+	if (args() == 2) { 
 		this.d3 = this.get() + ".deviation(" + aray + ", " + accessor + ")" 
 	}
 	else {
@@ -487,10 +482,10 @@ void d3::deviation(string scalar aray, | string scalar accessor) {
 
 void d3::bisectLeft(string scalar aray, string scalar x, |			 ///   
 							 string scalar lo, string scalar hi) {
-	if (lo != "" & hi == "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ")"
 	}
-	else if (lo != "" & hi != "") {
+	else if (args() == 3) {
 		this.d3 = this.get() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
 	}
 	else {
@@ -501,10 +496,10 @@ void d3::bisectLeft(string scalar aray, string scalar x, |			 ///
 
 void d3::bisect(string scalar aray, string scalar x, |				 ///   
 						 string scalar lo, string scalar hi) {
-	if (lo != "" & hi == "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".bisect(" + aray + ", " + x + ", " + lo + ")"
 	}
-	else if (lo != "" & hi != "") {
+	else if (args() == 3) {
 		this.d3 = this.get() + ".bisect(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
 	}
 	else {
@@ -515,10 +510,10 @@ void d3::bisect(string scalar aray, string scalar x, |				 ///
 
 void d3::bisectRight(string scalar aray, string scalar x, |		 ///   
 							 string scalar lo, string scalar hi) {
-	if (lo != "" & hi == "") {
+	if (args() == 2) {
 		this.d3 = this.get() + ".bisectRight(" + aray + ", " + x + ", " + lo + ")"
 	}
-	else if (lo != "" & hi != "") {
+	else if (args() == 3) {
 		this.d3 = this.get() + ".bisectRight(" + aray + ", " + x + ", " + lo + ", " + hi + ")"
 	}
 	else {
@@ -534,10 +529,10 @@ void d3::bisector(string scalar accomp) {
 
 
 void d3::shuffle(string scalar aray, | string scalar lo, string scalar hi) {
-	if (lo != "" & hi != "") {
+	if (args() == 3) {
 		this.d3 = this.get() + ".shuffle(" + aray + ", " + lo + ", " + hi + ")" 
 	}
-	else if (lo != "" & hi == "") {
+	else if (args() == 2) {
 		this.d3 = this.get() + ".shuffle(" + aray + ", " + lo + ")" 
 	}
 	else {
@@ -565,14 +560,12 @@ void d3::entries(string scalar object) {
 class d3map scalar d3::map(string scalar vnm, | string scalar object, string scalar key) {
 	class d3map scalar mapob
 	mapob = d3map()
-	string scalar mapargs
-	if (object != "" & key != "") {
-		mapargs = this.getVarnm() + ".map(" + object + ", " + key + ")"
+	if (args() == 2) {
+		mapob.init(vnm, this.getVarnm() + ".map(" + object + ", " + key + ")")
 	}
 	else {
-		mapargs = this.getVarnm() + ".map()"
+		mapob.init(vnm, this.getVarnm() + ".map()")
 	}
-	mapob.init(vnm, mapargs)
 	return(mapob)
 }
 							 
@@ -580,14 +573,12 @@ class d3map scalar d3::map(string scalar vnm, | string scalar object, string sca
 class d3set scalar d3::set(string scalar vnm, | string scalar aray) {
 	class d3set scalar setob
 	setob = d3set()
-	string scalar setargs
-	if (aray != "") {
-		setargs = this.getVarnm() + ".set(" + aray + ")"
+	if (args() == 2) {
+		setob.init(vnm, this.getVarnm() + ".set(" + aray + ")")
 	}
 	else {
-		setargs = this.getVarnm() + ".set()"
+		setob.init(this.getVarnm() + ".set()")
 	}
-	setob.init(vnm, setargs)
 	return(setob)
 }
 							 
@@ -656,135 +647,117 @@ class d3transform scalar d3::transform(string scalar vnm, string scalar trnstrin
 							 
 
 /* XHR Object */
-class d3xhr scalar d3::xhr(string scalar varnm, string scalar url, | 		 ///   
+class d3xhr scalar d3::xhr(string scalar vnm, string scalar url, | 		 ///   
 						   string scalar mimeType, string scalar callback) {
 	class d3xhr scalar xhr
 	xhr = d3xhr()
 	string scalar arguments
-	if (mimeType != "" & callback != "") {
-		arguments = this.get() + ".xhr(" + url + ", " + mimeType + ", " + callback + ")" 
+	if (args() == 4) {
+		xhr.init(vnm, this.get() + ".xhr(" + url + ", " + mimeType + ", " + callback + ")")
 	}
-	else if (mimeType != "" & callback == "") {
-		arguments = this.get() + ".xhr(" + url + ", " + mimeType + ")"		
+	else if (args() == 3) {
+		xhr.init(vnm, this.get() + ".xhr(" + url + ", " + mimeType + ")")
 	}
 	else {
-		arguments = this.get() + ".xhr(" + url + ")"		
+		xhr.init(vnm, this.get() + ".xhr(" + url + ")")
 	}
-	xhr.init(varnm, arguments)
 	return(xhr)
 }
 
 /* Text Object */
-string scalar d3::text(string scalar url, | string scalar mimeType,			 ///   
-					   string scalar callback) {
-        string scalar Text
-		
-		if (mimeType != "" & callback != "") {
-			Text = this.get() + ".text(" + url + ", " + mimeType + ", " + callback + ")" 
-		}
-		else if (mimeType != "" & callback == "") {
-			Text = this.get() + ".text(" + url + ", " + mimeType + ")"		
-		}
-		else {
-			Text = this.get() + ".text(" + url + ")"		
-		}
-		return(Text)
+string scalar d3::text(string scalar url, | string scalar mimeType, string scalar callback) {
+	if (args() == 3) {
+		return(this.get() + ".text(" + url + ", " + mimeType + ", " + callback + ")")
+	}
+	else if (args() == 2) {
+		return(this.get() + ".text(" + url + ", " + mimeType + ")")
+	}
+	else {
+		return(this.get() + ".text(" + url + ")")
+	}
 }
 
 
 /* JSON Object */
 string scalar d3::json(string scalar url, | string scalar callback) {
-        string scalar Json
-		if (callback != "") {
-			Json = this.get() + ".json(" + url + ", " + callback + ")" 
-		}
-		else {
-			Json = this.get() + ".json(" + url + ")"		
-		}
-        return(Json)
+	if (args() == 2) {
+		return(this.get() + ".json(" + url + ", " + callback + ")")
+	}
+	else {
+		return(this.get() + ".json(" + url + ")")
+	}
 }
 
 
 /* XML Object */
-string scalar d3::xml(string scalar url, | string scalar mimeType,			 ///   
-					   string scalar callback) {
-        string scalar Xml
-		if (mimeType != "" & callback != "") {
-			Xml = this.get() + ".xml(" + url + ", " + mimeType + ", " + callback + ")" 
-		}
-		else if (mimeType != "" & callback == "") {
-			Xml = this.get() + ".xml(" + url + ", " + mimeType + ")"		
-		}
-		else {
-			Xml = this.get() + ".xml(" + url + ")"		
-		}
-		return(Xml)
+string scalar d3::xml(string scalar url, | string scalar mimeType, string scalar callback) {
+	if (args() == 3) {
+		return(this.get() + ".xml(" + url + ", " + mimeType + ", " + callback + ")")
+	}
+	else if (args() == 2) {
+		return(this.get() + ".xml(" + url + ", " + mimeType + ")")
+	}
+	else {
+		return(this.get() + ".xml(" + url + ")")
+	}
 }
 
 
 /* HTML Object */
 string scalar d3::html(string scalar url, | string scalar callback) {
-        string scalar Html
-		if (callback != "") {
-			Html = this.get() + ".html(" + url + ", " + callback + ")" 
-		}
-		else {
-			Html = this.get() + ".html(" + url + ")"		
-		}
-        return(Html)
+	if (args() == 2) {
+		return(this.get() + ".html(" + url + ", " + callback + ")")
+	}
+	else {
+		return(this.get() + ".html(" + url + ")")
+	}
 }
 
 
 
 /* CSV Object */
-class d3csv scalar d3::csv(string scalar varnm, string scalar url, | string scalar accessor, 
+class d3csv scalar d3::csv(string scalar vnm, string scalar url, | string scalar accessor, 
 					  string scalar callback) {
 	class d3csv scalar c
 	c = d3csv()
-	string scalar Csv
-	if (accessor != "" & callback != "") {
-		Csv = this.getVarnm() + ".csv(" + url + ", " + accessor + ", " + callback + ")" 
+	if (args() == 4) {
+		c.init(vnm, this.getVarnm() + ".csv(" + url + ", " + accessor + ", " + callback + ")")
 	}
-	else if (accessor != "" & callback == "") {
-		Csv = this.getVarnm() + ".csv(" + url + ", " + accessor + ")"		
+	else if (args() == 3) {
+		c.init(vnm, this.getVarnm() + ".csv(" + url + ", " + accessor + ")")
 	}
 	else {
-		Csv = this.getVarnm() + ".csv(" + url + ")"		
+		c.init(vnm, this.getVarnm() + ".csv(" + url + ")")
 	}
-	c.init(varnm, Csv)
 	return(c)
 }
 
 
 /* TSV Object */							 
-class d3tsv scalar d3::tsv(string scalar varnm, string scalar url, | string scalar accessor, 
+class d3tsv scalar d3::tsv(string scalar vnm, string scalar url, | string scalar accessor, 
 					  string scalar callback) {
-	class d3tsv scalar c
-	c = d3tsv()
-	string scalar tsv
-	if (accessor != "" & callback != "") {
-		tsv = this.getVarnm() + ".tsv(" + url + ", " + accessor + ", " + callback + ")" 
+	class d3tsv scalar t
+	t = d3tsv()
+	if (args() == 4) {
+		t.init(vnm, this.getVarnm() + ".tsv(" + url + ", " + accessor + ", " + callback + ")")
 	}
-	else if (accessor != "" & callback == "") {
-		tsv = this.getVarnm() + ".tsv(" + url + ", " + accessor + ")"		
+	else if (args() == 3) {
+		t.init(vnm, this.getVarnm() + ".tsv(" + url + ", " + accessor + ")")
 	}
 	else {
-		tsv = this.getVarnm() + ".tsv(" + url + ")"		
+		t.init(vnm, this.getVarnm() + ".tsv(" + url + ")")
 	}
-	c.init(varnm, tsv)
-	return(c)
+	return(t)
 }							 
 
 							 
 /* DSV Object */							 
-class d3dsv scalar d3::dsv(string scalar varnm, string scalar delim, 		 ///   
+class d3dsv scalar d3::dsv(string scalar vnm, string scalar delim, 			 ///   
 						   string scalar mimeType, string scalar url, |		 ///   
 						   string scalar accessor, string scalar callback) {
 	class d3dsv scalar d
 	d = d3dsv()
-	string scalar dinit
-	dinit = ".dsv(" + delim + ", " + mimeType + ")"
-	d.init(varnm, dinit)
+	d.init(vnm, ".dsv(" + delim + ", " + mimeType + ")")
 	if (accessor != "" & callback != "") {
 		d.dsv(url, accessor, callback)
 	}
@@ -806,7 +779,7 @@ string scalar d3::format(string scalar varnm, string scalar specifier) {
 
 
 string scalar d3::formatPrefix(string scalar varnm, string scalar value, | string scalar precision) {
-	if (precision != "") {
+	if (args() == 3) {
 		return("var " + varnm + " = " + this.getVarnm() + ".formatPrefix(" + value + ", " + precision + ")") 
 	}
 	else {
@@ -816,7 +789,7 @@ string scalar d3::formatPrefix(string scalar varnm, string scalar value, | strin
 
 
 string scalar d3::round(string scalar x, | string scalar n) {
-	if (n != "") {
+	if (args() == 2) {
 		return(this.getVarnm() + ".round(" + x + ", " + n + ")")
 	}
 	else {
@@ -830,82 +803,74 @@ string scalar d3::requote(string scalar strng) {
 }
 
 /* Localization */
-class d3locale scalar d3::locale(string scalar varnm, string scalar definition) {
+class d3locale scalar d3::locale(string scalar vnm, string scalar definition) {
 	class d3locale scalar locl
 	locl = d3locale()
-	locl.init(varnm, definition)
+	locl.init(vnm, definition)
 	return(locl)
 }
 
 
 /* Colors */	
-class d3rgb scalar d3::rgb(	string scalar varnm, string scalar r, | 		 ///   
+class d3rgb scalar d3::rgb(	string scalar vnm, string scalar r, | 		 ///   
 							string scalar g, string scalar b) {
 	class d3rgb scalar rg
 	rg = d3rgb()
-	string scalar Rgb
-	if (r != "" & g != "" & b != "") {
-		Rgb = this.getVarnm() + ".rgb(" + r + ", " + g + ", " + b + ")" 		
+	if (args() == 4) {
+		rg.init(vnm, this.getVarnm() + ".rgb(" + r + ", " + g + ", " + b + ")")
 	}
 	else {	
-		Rgb = this.getVarnm() + ".rgb(" + r + ")" 
+		rg.init(vnm, this.getVarnm() + ".rgb(" + r + ")")
 	} 
-	rg.init(varnm, Rgb)
 	return(rg)
 }
 
 
-class d3hsl scalar d3::hsl(	string scalar varnm, string scalar h, | 		 ///   
+class d3hsl scalar d3::hsl(	string scalar vnm, string scalar h, | 		 ///   
 							string scalar s, string scalar l) {
 	class d3hsl scalar hs
 	hs = d3hsl()
-	string scalar Hsl
-	if (h != "" & s != "" & l != "") {	
-		Hsl = this.getVarnm() + ".hsl(" + h + ", " + s + ", " + l + ")" 		
+	if (args() == 4) {	
+		hs.init(vnm, this.getVarnm() + ".hsl(" + h + ", " + s + ", " + l + ")")
 	}
 	else {	
-		Hsl = this.getVarnm() + ".hsl(" + h + ")" 
+		hs.init(vnm, this.getVarnm() + ".hsl(" + h + ")")
 	} 
-	hs.init(varnm, Hsl)
 	return(hs)
 }
 
 
-class d3hcl scalar d3::hcl(	string scalar varnm, string scalar h, | 		 ///   
+class d3hcl scalar d3::hcl(	string scalar vnm, string scalar h, | 		 ///   
 							string scalar c, string scalar l) {
 	class d3hcl scalar hc
 	hc = d3hcl()
-	string scalar Hcl
-	if (h != "" & c != "" & l != "") {	
-		Hcl = this.get() + ".hcl(" + h + ", " + c + ", " + l + ")" 		
+	if (args() == 4) {	
+		hc.init(vnm, this.get() + ".hcl(" + h + ", " + c + ", " + l + ")")
 	}
 	else {	
-		Hcl = this.get() + ".hcl(" + h + ")" 
+		hc.init(vnm, this.get() + ".hcl(" + h + ")")
 	} 
-	hc.init(varnm, Hcl)
 	return(hc)
 }
 
 
-class d3lab scalar d3::lab(	string scalar varnm, string scalar l, | 		 ///   
+class d3lab scalar d3::lab(	string scalar vnm, string scalar l, | 		 ///   
 							string scalar a, string scalar b) {
 	class d3lab scalar lb
 	lb = d3lab()
-	string scalar Lab
-	if (l != "" & a != "" & b != "") {	
-		Lab = this.getVarnm() + ".lab(" + l + ", " + a + ", " + b + ")" 		
+	if (args() == 4) {	
+		lb.init(vnm, this.getVarnm() + ".lab(" + l + ", " + a + ", " + b + ")")
 	}
 	else {	
-		Lab = this.getVarnm() + ".lab(" + l + ")" 
+		lb.init(vnm, this.getVarnm() + ".lab(" + l + ")")
 	} 
-	lb.init(varnm, Lab)
 	return(lb)
 }
 							 
-class d3behavior scalar d3::behavior(string scalar varnm) {
+class d3behavior scalar d3::behavior(string scalar vnm) {
 	class d3behavior scalar behave
 	behave = d3behavior()
-	behave.init(varnm, this.getVarnm() + ".behavior")
+	behave.init(vnm, this.getVarnm() + ".behavior")
 	return(behave)
 }
 
@@ -928,10 +893,10 @@ void d3::rebind(string scalar target, string scalar source, string scalar names)
 	this.d3 = this.get() + ".rebind(" + target + ", " + source + ", " + names + ")" 
 }
 
-class d3dispatch scalar d3::dispatch(string scalar varnm, string scalar types) {
+class d3dispatch scalar d3::dispatch(string scalar vnm, string scalar types) {
 	class d3dispatch dispat
 	dispat = d3dispatch()
-	dispat.init(varnm, this.getVarnm() + ".dispatch(" + types + ")")
+	dispat.init(vnm, this.getVarnm() + ".dispatch(" + types + ")")
 	return(dispat)
 }
 

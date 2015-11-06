@@ -319,7 +319,7 @@ prog def buildd3, rclass
 		if "`display'" != "" {
 		
 			// Print message to screen
-			di as res "Compiled the class : `nm' from d3mata" _n
+			di as res "Compiled the class : `nm' from d3mata" _n _continue
 			
 		} // End IF Block for display option
 		
