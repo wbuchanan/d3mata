@@ -6,13 +6,21 @@ prog def buildd3, rclass
 	version 13
 	
 	syntax anything(name=what id="D3 Classes or All") [, DIsplay MLib MOSave ///   
-		dir(passthru) REPlace size(passthru) ]
+		dir(passthru) REPlace size(passthru) noPATH ]
 	
 	// Clear any existing class from mata
 	mata: mata clear
 	
 	// Build a class list macro to store the names of the mata classes
 	loc classlist ""
+	
+	// Check for path option
+	if `"`path'"' != "nopath" {
+	
+		// Set Directory for locating Mata source
+		loc location `c(sysdir_plus)'d/
+		
+	} // End IF Block for nopath option
 	
 	// Loop over the arguments passed to the program
 	forv i = 1/`: word count `what'' {
@@ -60,9 +68,9 @@ prog def buildd3, rclass
 			
 			
 			// Compile the drag behavior class
-			run d3behaviordrag.mata
-			run d3behaviorzoom.mata
-			run d3behavior.mata
+			run `"`location'd3behaviordrag.mata"'
+			run `"`location'd3behaviorzoom.mata"'
+			run `"`location'd3behavior.mata"'
 			
 			// Return the classes defined here
 			loc classlist `"`classlist' "d3bdrag()" "d3bzoom()" "d3behavior()""'
@@ -79,7 +87,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3geo`v'()
 				
 				// Compile
-				run d3geo`v'.mata
+				run `"`location'd3geo`v'.mata"'
 				
 				// Add to class list
 				loc classlist `"`classlist' "d3geo`v'()""'
@@ -87,7 +95,7 @@ prog def buildd3, rclass
 			} // End Loop over geography classes
 			
 			// Compile geo class
-			run d3geo.mata
+			run `"`location'd3geo.mata"'
 			
 			// Add to class list
 			loc classlist `"`classlist' "d3geo()""'
@@ -104,7 +112,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3geom`v'()
 				
 				// Compile
-				run d3geom`v'.mata
+				run `"`location'd3geom`v'.mata"'
 				
 				// Add to class list
 				loc classlist `"`classlist' "d3geom`v'()""'
@@ -112,7 +120,7 @@ prog def buildd3, rclass
 			} // End Loop over geometry classes
 			
 			// Compile geom class
-			run d3geom.mata
+			run `"`location'd3geom.mata"'
 			
 			// Add to class list
 			loc classlist `"`classlist' "d3geom()""'
@@ -130,7 +138,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3l`v'()
 				
 				// Compile
-				run d3l`v'.mata
+				run `"`location'd3l`v'.mata"'
 				
 				// Add to the class list
 				loc classlist `"`classlist' "d3l`v'()""'
@@ -150,7 +158,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3sc`v'()
 				
 				// Compile
-				run d3sc`v'.mata
+				run `"`location'd3sc`v'.mata"'
 				
 				// Add Classes to class list
 				loc classlist `"`classlist' "d3sc`v'()""' 
@@ -169,7 +177,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3svg`v'()
 				
 				// Compile
-				run d3svg`v'.mata
+				run `"`location'd3svg`v'.mata"'
 				
 				// Return the classes defined here
 				loc classlist `"`classlist' "d3svg`v'()""'  
@@ -180,7 +188,7 @@ prog def buildd3, rclass
 			cap mata: mata drop d3svg()
 			
 			// Build svg class
-			run d3svg.mata
+			run `"`location'd3svg.mata"'
 			
 			// Add to classlist
 			loc classlist `"`classlist' "d3svg()""'
@@ -197,7 +205,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3time`v'()
 				
 				// Compile
-				run d3time`v'.mata
+				run `"`location'd3time`v'.mata"'
 				
 				// Return the classes defined here
 				loc classlist `"`classlist' "d3time`v'()""' 
@@ -208,7 +216,7 @@ prog def buildd3, rclass
 			cap mata: mata drop d3time()
 			
 			// Build the time class
-			run d3time.mata
+			run `"`location'd3time.mata"'
 			
 			// Return the classes defined here
 			loc classlist `"`classlist' "d3time()""' 
@@ -225,7 +233,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3`v'()
 				
 				// Compile
-				run d3`v'.mata
+				run `"`location'd3`v'.mata"'
 				
 				// Return the classes defined here
 				loc classlist `"`classlist' "d3`v'()""' 
@@ -244,7 +252,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3`v'()
 				
 				// Compile
-				run d3`v'.mata
+				run `"`location'd3`v'.mata"'
 				
 				// Return the classes defined here
 				loc classlist `"`classlist' "d3`v'()""' 
@@ -264,7 +272,7 @@ prog def buildd3, rclass
 				cap mata: mata drop d3`v'()
 				
 				// Compile
-				run d3`v'.mata
+				run `"`location'd3`v'.mata"'
 				
 				// Return the classes defined here
 				loc classlist `"`classlist' "d3`v'()""' 
@@ -277,7 +285,7 @@ prog def buildd3, rclass
 			cap mata: mata drop d3doc() 
 			
 			// Compile the header classes
-			run d3header.mata
+			run `"`location'd3header.mata"'
 			
 			// Add header classes to the class list
 			loc classlist `"`classlist' "d3filebase()" "d3header()" "d3doc()""'
@@ -286,7 +294,7 @@ prog def buildd3, rclass
 			cap mata: mata drop d3()
 			
 			// Compile d3 class
-			run d3.mata
+			run `"`location'd3.mata"'
 			
 			// Add to the class list
 			loc classlist `"`classlist' "d3()""'
