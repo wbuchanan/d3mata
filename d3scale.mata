@@ -1,16 +1,15 @@
 mata:
 
 class d3scale {
-
-	void							new(), destroy(), init()
-	private	string 			scalar 	scale	
-	private string			scalar  varnm
-	public  string			scalar	get(), getVarnm(), complete()
-	void							category10()
-	void							category20()
-	void							category20b()
-	void							category20c()
-	void							sqrt()
+	private:
+	string					scalar	scale, varnm
+	
+	
+	public:
+	void							new(), destroy(), init(), category10(),
+									category20(), category20b(), category20c(),
+									sqrt()
+	string					scalar	get(), complete(), getVarnm()
 	class 	d3identity		scalar	identity()
 	class 	d3linear		scalar	linear()
 	class 	d3log			scalar	log()
@@ -18,8 +17,7 @@ class d3scale {
 	class 	d3ordinal		scalar	ordinal()
 	class 	d3quantile		scalar	quantile()
 	class 	d3quantize		scalar	quantize()
-	class 	d3threshold		scalar	threshold() 
-	
+	class 	d3threshold		scalar	threshold() 	
 }	
 
 void d3scale::new() {

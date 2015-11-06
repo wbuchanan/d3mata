@@ -1,17 +1,14 @@
 mata: 
 
 class d3lchord { 
-    private   string  scalar    chord
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void					    matrx() 
-    void					    padding() 
-    void					    sortGroups() 
-    void					    sortSubgroups() 
-    void					    sortChords() 
-    void					    chords() 
-    void					    groups() 
+	private:
+	string				scalar	chord
+	
+	public:
+	void						new(), destroy(), init(), matrx(), padding(),
+								sortGroups(), sortSubgroups(), sortChords(),
+								chords(), groups()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lchord::get() { 

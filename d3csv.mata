@@ -1,16 +1,13 @@
 mata: 
 
 class d3csv { 
-
-    private   string  scalar    csv
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-	void						parse()
-	void						parseRows()
-	void						format()
-	void						formatRows()
+	private:
+	string				scalar	csv
 	
+	public:
+	void						new(), destroy(), init(), parse(), parseRows(),
+								format(), formatRows()
+	string				scalar	get(), complete()
 }
 
 string scalar d3csv::get() { 

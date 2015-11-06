@@ -1,13 +1,12 @@
 mata: 
 
 class d3format { 
-
-    private   string  scalar    format
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        parse() 
-
+	private:
+	string				scalar	format
+	
+	public:
+	void						new(), destroy(), init(), parse()
+	string				scalar	get(), complete()
 }
 
 string scalar d3format::get() { 

@@ -1,51 +1,26 @@
-mata:
-
 mata: 
 
 class d3time { 
-    private   	string  		scalar    	time
-    void                			        new(), destroy(), init()
-    public   	string  		scalar    	get()
-    public    	string  		scalar    	complete() 
-	class		d3timeformat	scalar		format()
-	class		d3timescale		scalar		scale()
-	void									dayOfYear()
-	void									days()
-	void									day()
-	void									mondayOfYear()
-	void									mondays()
-	void									monday()
-	void									tuesdayOfYear()
-	void									tuesdays()
-	void									tuesday()
-	void									wednesdayOfYear()
-	void									wednesdays()
-	void									wednesday()
-	void									thursdayOfYear()
-	void									thursdays()
-	void									thursday()
-	void									fridayOfYear()
-	void									fridays()
-	void									friday() 
-	void									saturdayOfYear()
-	void									saturdays()
-	void									saturday()
-	void									sundayOfYear()
-	void									sundays()
-	void									sunday()
-	void									hours()
-	void									hour()
-	void									interval()
-	void									minutes()
-	void									minute()
-	void									seconds()
-	void									second()
-	void									week() 
-	void									weeks()
-	void									month() 
-	void									months() 
-	void									years()
-	void									year()
+    private:
+	string					scalar	time
+	
+	public:
+	void							new(), destroy(), init(), dayOfYear(), 
+									days(), day(), mondayOfYear(), mondays(), 
+									monday(), tuesdayOfYear(), tuesdays(), 
+									tuesday(), wednesdayOfYear(), wednesdays(), 
+									wednesday(), thursdayOfYear(), thursdays(), 
+									thursday(), fridayOfYear(), fridays(), 
+									friday(), saturdayOfYear(), saturdays(), 
+									saturday(), sundayOfYear(), sundays(), 
+									sunday(), hours(), hour(), interval(), 
+									minutes(), minute(), seconds(), second(), 
+									week(), weeks(), month(), months(), 
+									years(), year()	
+
+	string					scalar	get(), complete()
+	class	d3timeformat	scalar	format()
+	class	d3timescale		scalar	scale()
 }
 
 string scalar d3time::get() { 

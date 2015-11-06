@@ -1,19 +1,14 @@
 mata: 
 
 class d3lpack { 
-    private   string  scalar    pack
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        pack() 
-    void                        children() 
-    void                        links() 
-    void                        nodes() 
-    void                        padding() 
-    void                        radius() 
-    void                        size() 
-    void                        sort() 
-    void                        value() 
+	private:
+	string				scalar	pack
+	
+	public:
+	void						new(), destroy(), init(), pack(), children(), 
+								links(), nodes(), padding(), radius(), size(),
+								sort(), value()
+	string				scalar	get(), complete()
 }
 
 

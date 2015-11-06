@@ -1,16 +1,13 @@
 mata: 
 
 class d3geocircle { 
-
-    private   string  scalar    circle
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						circle()
-    void                        angle() 
-    void                        origin() 
-    void                        precision() 
-
+	private:
+	string				scalar	circle
+	
+	public:
+	void						new(), destroy(), init(), circle(), angle(),
+								origin(), precision()
+	string				scalar	get(), complete()
 }
 
 string scalar d3geocircle::get() { 

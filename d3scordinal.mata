@@ -1,20 +1,15 @@
 mata: 
 
 class d3ordinal { 
-    private   string  scalar    ordinal
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						ordinal()
-    void                        copy() 
-    void                        domain() 
-    void                        range() 
-    void                        rangeBand() 
-    void                        rangeBands() 
-    void                        rangeExtent() 
-    void                        rangePoints() 
-    void                        rangeRoundBands() 
-    void                        rangeRoundPoints() 
+	private:
+	string				scalar	ordinal
+	
+	public:
+	void						new(), destroy(), init(), ordinal(), copy(),
+								domain(), range(), rangeBand(), rangeBands(),
+								rangeExtent(), rangePoints(), rangeRoundBands(),
+								rangeRoundPoints()
+	string				scalar	get(), complete()
 }
 
 string scalar d3ordinal::get() { 

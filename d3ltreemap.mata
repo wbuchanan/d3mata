@@ -1,22 +1,14 @@
 mata: 
 
 class d3ltreemap { 
-    private   string  scalar    treemap
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        treemap() 
-    void                        children() 
-    void                        links() 
-    void                        mode() 
-    void                        nodes() 
-    void                        padding() 
-    void                        round() 
-    void                        ratio() 
-    void                        size() 
-    void                        sort() 
-    void                        sticky() 
-    void                        value() 
+	private:
+	string				scalar	treemap
+	
+	public:
+	void						new(), destroy(), init(), treemap(), children(), 
+								links(), mode(), nodes(), padding(), round(),
+								ratio(), size(), sort(), sticky(), value()
+	string				scalar	get(), complete()
 }
 
 string scalar d3ltreemap::get() { 

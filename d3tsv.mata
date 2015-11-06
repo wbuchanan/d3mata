@@ -1,16 +1,13 @@
 mata: 
 
 class d3tsv { 
-
-    private   string  scalar    tsv
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-	void						parse()
-	void						parseRows()
-	void						format()
-	void						formatRows()
+	private:
+	string				scalar	tsv
 	
+	public:
+	void						new(), destroy(), init(), parse(), parseRows(),
+								format(), formatRows()
+	string				scalar	get(), complete()
 }
 
 

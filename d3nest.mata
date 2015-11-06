@@ -1,18 +1,13 @@
 mata: 
 
 class d3nest { 
-
-    private   string  scalar    nest
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-    void                        entries() 
-    void                        key() 
-    void                        map() 
-    void                        rollup() 
-    void                        sortKeys() 
-    void                        sortValues() 
-
+	private:
+	string				scalar	nest
+	
+	public:
+	void						new(), destroy(), init(), entries(), key(), 
+								map(), rollup(), sortKeys(), sortValues()
+	string				scalar	get(), complete()
 }
 
 string scalar d3nest::get() { 

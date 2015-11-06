@@ -1,18 +1,13 @@
 mata: 
 
 class d3lpie { 
-
-    private   string  scalar    pie
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        pie() 
-    void                        endAngle() 
-    void                        padAngle() 
-    void                        sort() 
-    void                        startAngle() 
-    void                        value() 
-
+	private:
+	string				scalar	pie
+	
+	public:
+	void						new(), destroy(), init(), pie(), endAngle(),
+								padAngle(), sort(), startAngle(), value()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lpie::get() { 

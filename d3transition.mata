@@ -1,31 +1,16 @@
 mata: 
 
 class d3transition { 
-
-    private   string  scalar    transition
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        attr() 
-    void                        attrTween() 
-    void                        call() 
-    void                        delay() 
-    void                        duration() 
-    void                        each() 
-    void                        ease() 
-    void                        empty() 
-    void                        filter() 
-    void                        node() 
-    void                        remove() 
-    void                        select() 
-    void                        selectAll() 
-    void                        size() 
-    void                        style() 
-    void                        styleTween() 
-    void                        text() 
-    void                        transition() 
-    void                        tween() 
-
+	private:
+	string				scalar	transition
+	
+	public:
+	void						new(), destroy(), init(), attr(), attrTween(),
+								call(), delay(), duration(), each(), ease(),
+								empty(), filter(), node(), remove(), select(),
+								selectAll(), size(), style(), styleTween(),
+								text(), transition(), tween()
+	string				scalar	get(), complete()
 }
 
 string scalar d3transition::get() { 

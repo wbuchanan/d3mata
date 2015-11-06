@@ -1,17 +1,13 @@
 mata: 
 
 class d3threshold { 
-
-    private   string  scalar    threshold
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        threshold() 
-    void                        copy() 
-    void                        domain() 
-    void                        invertExtent() 
-    void                        range() 
-
+	private:
+	string				scalar	threshold
+	
+	public:
+	void						new(), destroy(), init(), threshold(), copy(),
+								domain(), invertExtent(), range()
+	string				scalar	get(), complete()
 }
 
 string scalar d3threshold::get() { 

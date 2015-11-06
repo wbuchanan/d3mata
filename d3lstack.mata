@@ -1,19 +1,13 @@
 mata: 
 
 class d3lstack { 
-
-    private   string  scalar    stack
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        stack() 
-    void                        offset() 
-    void                        order() 
-    void                        out() 
-    void                        values() 
-    void                        x() 
-    void                        y() 
-
+	private:
+	string				scalar	stack
+	
+	public:
+	void						new(), destroy(), init(), stack(), offset(),
+								order(), out(), values(), x(), y()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lstack::get() { 

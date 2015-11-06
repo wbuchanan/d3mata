@@ -1,23 +1,15 @@
 mata: 
 
 class d3timescale { 
-
-    private   string  scalar    timescale
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						scale()
-	void						invert()
-	void						domain()
-	void						nice()
-	void						range()
-	void						rangeRound()
-	void						interpolate()
-	void						clamp()
-	void						ticks()
-	void						tickFormat()
-	void						copy()
-
+	private:
+	string				scalar	timescale
+	
+	public:
+	void						new(), destroy(), init(), scale(), invert(),
+								domain(), nice(), range(), rangeRound(), 
+								interpolate(), clamp(), ticks(), tickFormat(), 
+								copy()
+	string				scalar	get(), complete()
 }
 
 string scalar d3timescale::get() { 

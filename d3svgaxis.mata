@@ -1,21 +1,15 @@
 mata: 
 
 class d3svgaxis { 
-
-    private   string  scalar    axis
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        innerTickSize() 
-    void                        orient() 
-    void                        outerTickSize() 
-    void                        scale() 
-    void                        tickFormat() 
-    void                        tickPadding() 
-    void                        tickSize() 
-    void                        tickValues() 
-    void                        ticks() 
-
+	private:
+	string				scalar	axis
+	
+	public:
+	void						new(), destroy(), init(), innerTickSize(),
+								orient(), outerTickSize(), scale(), 
+								tickFormat(), tickPadding(), tickSize(), 
+								tickValues(), ticks()
+	string				scalar	get(), complete()
 }
 
 string scalar d3svgaxis::get() { 

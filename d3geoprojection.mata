@@ -1,21 +1,14 @@
 mata: 
 
 class d3geoprojection { 
-
-    private   string  scalar    projection
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        center() 
-    void                        clipAngle() 
-    void                        clipExtent() 
-    void                        invert() 
-    void                        precision() 
-    void                        rotate() 
-    void                        scale() 
-    void                        stream() 
-    void                        translate() 
-
+	private:
+	string				scalar	projection
+	
+	public:
+	void						new(), destroy(), init(), center(), clipAngle(), 
+								clipExtent(), invert(), precision(), rotate(),
+								scale(), stream(), translate()
+	string				scalar	get(), complete()
 }
 
 string scalar d3geoprojection::get() { 

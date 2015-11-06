@@ -1,21 +1,13 @@
 mata: 
 
 class d3svgbrush { 
-
-    private   string  scalar    brush
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-	void                        brush()
-	void                        clamp()
-    void                        clear() 
-    void                        empty() 
-    void                        event() 
-    void                        extent() 
-    void                        on() 
-    void                        x() 
-    void                        y() 
-
+	private:
+	string				scalar	brush
+	
+	public:
+	void						new(), destroy(), init(), brush(), clamp(), y(), 
+								clear(), empty(), event(), extent(), on(), x()
+	string				scalar	get(), complete()
 }
 
 string scalar d3svgbrush::get() { 

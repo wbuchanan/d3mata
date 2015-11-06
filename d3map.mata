@@ -1,20 +1,14 @@
 mata: 
 
 class d3map { 
-    private   string  scalar    map
-    void                        new(), destroy(), init()
-    public    string  scalar    getter()
-    public    string  scalar    complete() 
-    void                        empty() 
-    void                        entries() 
-    void                        forEach() 
-	void						get()
-    void                        has() 
-    void                        keys() 
-    void                        remove() 
-    void                        set() 
-    void                        size() 
-    void                        values() 
+	private:
+	string				scalar	map
+	
+	public:
+	void						new(), destroy(), init(), empty(), entries(),
+								forEach(), get(), has(), keys(), remove(), set(), 
+								size(), values()
+	string				scalar	getter(), complete()
 }
 
 string scalar d3map::getter() { 

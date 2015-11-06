@@ -1,16 +1,13 @@
 mata: 
 
 class d3svgdiagonal { 
-
-    private   string  scalar    diagonal
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-    void                        diagonal() 
-    void                        projection() 
-    void                        source() 
-    void                        target() 
-
+	private:
+	string				scalar	diagonal
+	
+	public:
+	void						new(), destroy(), init(), diagonal(), 
+								projection(), source(), target()
+	string				scalar	get(), complete()
 }
 
 string scalar d3svgdiagonal::get() { 

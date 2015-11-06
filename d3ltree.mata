@@ -1,19 +1,14 @@
 mata: 
 
 class d3ltree { 
-    private   string  scalar    tree
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        tree() 
-    void                        children() 
-    void                        links() 
-    void                        nodeSize() 
-    void                        nodes() 
-    void                        separation() 
-    void                        size() 
-    void                        sort() 
-    void                        value() 
+	private:
+	string				scalar	tree
+	
+	public:
+	void						new(), destroy(), init(), tree(), children(),
+								links(), nodeSize(), nodes(), separation(),
+								size(), sort(), value()
+	string				scalar	get(), complete()
 }
 
 

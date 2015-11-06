@@ -1,23 +1,15 @@
 mata: 
 
 class d3linear { 
-
-    private   string  scalar    linear
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						linear()
-    void                        clamp() 
-    void                        copy() 
-    void                        domain() 
-    void                        interpolate() 
-    void                        invert() 
-    void                        nice() 
-    void                        range() 
-    void                        rangeRound() 
-    void                        tickFormat() 
-    void                        ticks() 
-
+	private:
+	string				scalar	linear
+	
+	public:
+	void						new(), destroy(), init(), linear(), clamp(),
+								copy(), domain(), interpolate(), invert(), 
+								nice(), range(), rangeRound(), tickFormat(),
+								ticks()
+	string				scalar	get(), complete()
 }
 
 string scalar d3linear::get() { 

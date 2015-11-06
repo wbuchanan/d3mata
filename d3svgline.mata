@@ -1,20 +1,14 @@
 mata: 
 
 class d3svgline { 
-
-    private   string  scalar    line
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        angle() 
-    void                        defined() 
-    void                        interpolate() 
-    void                        line() 
-    void                        radius() 
-    void                        tension() 
-    void                        x() 
-    void                        y() 
-
+	private:   
+	string				scalar	line
+	
+	public:
+	void						new(), destroy(), init(), angle(), defined(),
+								interpolate(), line(), radius(), tension(), x(), 
+								y()
+	string				scalar	get(), complete()
 }
 
 string scalar d3svgline::get() { 

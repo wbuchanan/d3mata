@@ -1,14 +1,12 @@
 mata: 
 
 class d3bdrag { 
-
-    private   	string  	scalar    	drag
-    void                        		new(), destroy(), init()
-    public   	string  	scalar    	get()
-    public    	string  	scalar    	complete() 
-    void                        		on() 
-    void                        		origin() 
-
+	private:
+	string				scalar	drag
+	
+	public:
+	void						new(), destroy(), init(), on(), origin()
+	string				scalar	get(), complete()
 }
 
 

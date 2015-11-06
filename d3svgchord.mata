@@ -1,18 +1,13 @@
 mata: 
 
 class d3svgchord { 
-
-    private   string  scalar    chord
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        chord() 
-    void                        endAngle() 
-    void                        radius() 
-    void                        source() 
-    void                        startAngle() 
-    void                        target() 
-
+	private:
+	string				scalar	chord
+	
+	public:
+	void						new(), destroy(), init(), chord(), endAngle(),
+								radius(), source(), startAngle(), target()
+	string				scalar	get(), complete()
 }
 
 void d3svgchord::init(string scalar vnm, | string scalar arguments) {

@@ -1,21 +1,14 @@
 mata: 
 
 class d3bzoom { 
-    private   string  scalar    zoom
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        zoom() 
-    void                        center() 
-    void                        duration() 
-    void                        event() 
-    void                        on() 
-    void                        scale() 
-    void                        scaleExtent() 
-    void                        size() 
-    void                        translate() 
-    void                        x() 
-    void                        y() 
+	private:
+	string				scalar	zoom
+	
+	public:
+	void						new(), destroy(), init(), zoom(), center(),
+								duration(), event(), on(), scale(), size(),
+								scaleExtent(), translate(), x(), y()
+	string				scalar	get(), complete()
 }
 
 string scalar d3bzoom::get() { 

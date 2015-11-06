@@ -1,21 +1,14 @@
 mata: 
 
 class d3log { 
-    private   string  scalar    log
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						log()
-    void                        clamp() 
-    void                        copy() 
-    void                        domain() 
-    void                        interpolate() 
-    void                        invert() 
-    void                        nice() 
-    void                        range() 
-    void                        rangeRound() 
-    void                        tickFormat() 
-    void                        ticks() 
+	private:
+	string				scalar	log
+	
+	public:
+	void						new(), destroy(), init(), log(), clamp(), copy(),
+								domain(), interpolate(), invert(), nice(), 
+								range(), rangeRound(), tickFormat(), ticks()
+	string				scalar	get(), complete()
 }
 
 

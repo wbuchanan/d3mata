@@ -39,16 +39,14 @@ string scalar d3filebase::getFile() {
 class d3header extends d3filebase {
 
 	public 		real		scalar	fileh
-	public		void				open()
 	private		string		scalar	html, header, title, body, libs, 
 									headscripts, footscripts, style
-	public		void				setHtml(), setHeader(), setTitle(), 
+	public		void				open(), setHtml(), setHeader(), setTitle(), 
 									setBody(), setLibs(), setHeadScripts(), 
-									setFootScripts(), setStyle()
+									setFootScripts(), setStyle(), printHead()
 	public		string		scalar 	getHtml(), getHeader(), getTitle(), 
 									getBody(), getLibs(), getHeadScripts(), 
 									getFootScripts(), getStyle()
-	public		void				printHead()								
 }
 
 void d3header::open(string scalar how) {

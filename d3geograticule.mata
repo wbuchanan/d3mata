@@ -1,22 +1,14 @@
 mata: 
 
 class d3geograticule { 
-
-    private   string  scalar    graticule
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        extent() 
-	void						graticule()
-    void                        lines() 
-    void                        majorExtent() 
-    void                        majorStep() 
-    void                        minorExtent() 
-    void                        minorStep() 
-    void                        outline() 
-    void                        precision() 
-    void                        step() 
-
+	private:
+	string				scalar	graticule
+	
+	public:
+	void						new(), destroy(), init(), extent(), graticule(), 
+								lines(), majorExtent(), majorStep(), minorStep(),
+								minorExtent(), outline(), precision(), step()
+	string				scalar	get(), complete()
 }
 
 string scalar d3geograticule::get() { 

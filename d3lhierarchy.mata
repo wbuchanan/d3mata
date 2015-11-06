@@ -1,18 +1,13 @@
 mata: 
 
 class d3lhierarchy { 
-
-    private   string  scalar    hierarchy
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        hierarchy() 
-    void                        children() 
-    void                        links() 
-    void                        revalue() 
-    void                        sort() 
-    void                        value() 
-
+	private:
+	string				scalar	hierarchy
+	
+	public:
+	void						new(), destroy(), init(), hierarchy(), 
+								children(), links(), revalue(), sort(), value()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lhierarchy::get() { 

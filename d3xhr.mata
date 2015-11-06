@@ -1,21 +1,14 @@
 mata: 
 
 class d3xhr { 
-
-    private   string  scalar    xhr
-    void                        new(), destroy(), init()
-    public    string  scalar    getter()
-    public    string  scalar    complete() 
-    void                        abort() 
-    void                        header() 
-	void						get()
-    void                        mimeType() 
-    void                        on() 
-    void                        post() 
-    void                        response() 
-    void                        responseType() 
-    void                        send() 
-
+	private:
+	string				scalar	xhr
+	
+	public:
+	void						new(), destroy(), init(), abort(), header(),
+								get(), mimeType(), on(), post(), response(),
+								responseType(), send()
+	string				scalar	getter(), complete()
 }
 
 string scalar d3xhr::getter() { 

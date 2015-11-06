@@ -1,17 +1,13 @@
 mata: 
 
 class d3dsv { 
-
-    private   string  scalar    dsv
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-	void						dsv()
-	void						parse()
-	void						parseRows()
-	void						format()
-	void						formatRows()
+	private:
+	string				scalar	dsv
 	
+	public:
+	void						new(), destroy(), init(), dsv(), parse(),
+								parseRows(), format(), formatRows()
+	string				scalar	get(), complete()
 }
 
 

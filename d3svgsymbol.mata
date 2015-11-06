@@ -1,15 +1,12 @@
 mata: 
 
 class d3svgsymbol { 
-
-    private   string  scalar    symbol
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        symbol() 
-    void                        size() 
-    void                        type() 
-
+	private:   
+	string				scalar	symbol
+	
+	public:
+	void						new(), destroy(), init(), symbol(), size(), type()
+	string				scalar	get(), complete()
 }
 
 string scalar d3svgsymbol::get() { 

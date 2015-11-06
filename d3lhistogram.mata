@@ -1,17 +1,13 @@
 mata: 
 
 class d3lhistogram { 
-
-    private   string  scalar    histogram
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						histogram()
-    void                        bins() 
-    void                        frequency() 
-    void                        range() 
-    void                        value() 
-
+	private:
+	string				scalar	histogram
+	
+	public:
+	void						new(), destroy(), init(), histogram(), bins(),
+								frequency(), range(), value()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lhistogram::get() { 

@@ -1,29 +1,16 @@
 mata: 
 
 class d3lforce { 
-
-    private   string  scalar    force
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        alpha() 
-    void                        charge() 
-    void                        chargeDistance() 
-    void                        drag() 
-    void                        friction() 
-    void                        gravity() 
-    void                        linkDistance() 
-    void                        linkStrength() 
-    void                        links() 
-    void                        nodes() 
-    void                        on() 
-    void                        resume() 
-    void                        size() 
-    void                        start() 
-    void                        stop() 
-    void                        theta() 
-    void                        tick() 
-
+	private:
+	string				scalar	force
+	
+	public:
+	void						new(), destroy(), init(), alpha(), charge(),
+								chargeDistance(), drag(), friction(), gravity(), 
+								linkDistance(), linkStrength(), links(), nodes(), 
+								on(), resume(), size(), start(), stop(), theta(), 
+								tick()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lforce::get() { 

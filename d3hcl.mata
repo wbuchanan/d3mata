@@ -1,16 +1,13 @@
 mata: 
 
 class d3hcl { 
-
-    private   string  scalar    hcl
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        brighter() 
-    void                        darker() 
-    void					    rgb() 
-    void					    toString() 
-
+	private:
+	string				scalar	hcl
+	
+	public:
+	void						new(), destroy(), init(), brighter(), darker(), 
+								rgb(), toString()
+	string				scalar	get(), complete()
 }
 
 string scalar d3hcl::get() { 

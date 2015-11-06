@@ -1,18 +1,23 @@
 mata: 
 
 class d3math { 
-    private   string  scalar    math
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-	void                        normal()
-	void                        logNormal()
-	void                        bates()
-	void                        irwinHall()
+	private:
+	string				scalar	math
+	
+	public:
+	void						new(), destroy(), init(), normal(), logNormal(), 
+								bates(), irwinHall()
+	string				scalar	get(), complete()
 }
 
 string scalar d3math::get() { 
     return(this.math)
 }
+
+string scalar d3math::complete() {
+	return(this.get() + ";")
+}
+
 
 void d3math::init(string scalar vnm, | string scalar arguments) { 
 	if (arguments != "") {

@@ -1,16 +1,13 @@
 mata: 
 
 class d3locale { 
-
-    private   	string  scalar    	locale
-	private		string	scalar		varnm
-    void                        	new(), destroy(), init()
-    public   	string  scalar    	get(), getVarnm()
-    public    	string  scalar    	complete() 
-    void                        	numberFormat() 
-    void                        	timeFormat() 
-	void							timeFormat_utc()
-
+	private:
+	string				scalar	locale, varnm
+	
+	public:
+	void						new(), destroy(), init(), numberFormat(), 
+								timeFormat(), timeFormat_utc()
+	string				scalar	get(), complete(), getVarnm()
 }
 
 string scalar d3locale::get() { 

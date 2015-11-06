@@ -1,16 +1,13 @@
 mata: 
 
 class d3quantile { 
-    private   string  scalar    quantile
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-	void						quantile()
-    void                        copy() 
-    void                        domain() 
-    void                        invertExtent() 
-    void                        quantiles() 
-    void                        range() 
+	private:
+	string				scalar	quantile
+	
+	public:
+	void						new(), destroy(), init(), quantile(), copy(),
+								domain(), invertExtent(), quantiles(), range()
+	string				scalar	get(), complete()
 }
 
 string scalar d3quantile::get() { 

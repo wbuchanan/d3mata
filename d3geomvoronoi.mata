@@ -1,18 +1,13 @@
 mata: 
 
 class d3voronoi { 
-
-    private   string  scalar    voronoi
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						voronoi()
-    void                        clipExtent() 
-    void                        links() 
-    void                        triangles() 
-    void                        x() 
-    void                        y() 
-
+	private:
+	string				scalar	voronoi
+	
+	public:
+	void						new(), destroy(), init(), voronoi(), links(),
+								clipExtent(), triangles(), x(), y()
+	string				scalar	get(), complete()
 }
 
 string scalar d3voronoi::get() { 

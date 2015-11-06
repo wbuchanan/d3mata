@@ -1,53 +1,33 @@
 mata: 
 
 class d3geo { 
-    private   	string  		scalar    	geo
-	private		string			scalar		varnm
-    void                			        new(), destroy(), init()
-    public   	string  		scalar    	get(), getVarnm()
-    public    	string  		scalar    	complete() 
-	class		d3geocircle		scalar		circl()
-	class		d3geograticule	scalar		graticule()
-	class		d3geopath		scalar		path()
-	class		d3georotation	scalar		rotation()
-	class		d3geoprojection	scalar		projection()
-	class		d3geostream		scalar		stream()
-	void									area()
-	void									bounds()
-	void									centroid()
-	void									circle()
-	void									distance()
-	void									interpolate()
-	void									length()
-	void									albersUsa()
-	void									albers_raw()
-	void									albers()
-	void									azimuthalEqualArea_raw()
-	void									azimuthalEqualArea()
-	void									azimuthalEquidistant_raw()
-	void									azimuthalEquidistant()
-	void									conicConformal_raw()
-	void									conicConformal()
-	void									conicEqualArea_raw()
-	void									conicEqualArea()
-	void									conicEquidistant_raw()
-	void									conicEquidistant()
-	void									equirectangular_raw()
-	void									equirectangular()
-	void									gnomonic_raw()
-	void									gnomonic()
-	void									mercator_raw()
-	void									mercator()
-	void									orthographic_raw()
-	void									orthographic()
-	void									projectionMutator()
-	void									stereographic_raw()
-	void									stereographic()
-	void									transverseMercator_raw()
-	void									clipExtent()	
-	void									extent()	
-	void									transform()	
-	void									transform_stream()	
+	private:
+	string				scalar	geo, varnm
+	
+	public:
+	void							new(), destroy(), init(), area(), bounds(),
+									centroid(), circle(), distance(), interpolate(), 
+									length(), albersUsa(), albers_raw(), albers(), 
+									azimuthalEqualArea_raw(), azimuthalEqualArea(), 
+									azimuthalEquidistant_raw(), 
+									azimuthalEquidistant(), conicConformal_raw(), 
+									conicConformal(), conicEqualArea_raw(), 
+									conicEqualArea(), conicEquidistant_raw(), 
+									conicEquidistant(), equirectangular_raw(), 
+									equirectangular(), gnomonic_raw(), gnomonic(), 
+									mercator_raw(), mercator(), orthographic_raw(), 
+									orthographic(), projectionMutator(), 
+									stereographic_raw(), stereographic(), 
+									transverseMercator_raw(), clipExtent(), 
+									extent(), transform(), transform_stream()
+
+	string					scalar	get(), complete(), getVarnm()
+	class	d3geocircle		scalar	circl()
+	class	d3geograticule	scalar	graticule()
+	class	d3geopath		scalar	path()
+	class	d3georotation	scalar	rotation()
+	class	d3geoprojection	scalar	projection()
+	class	d3geostream		scalar	stream()
 }
 
 string scalar d3geo::get() { 

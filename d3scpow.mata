@@ -1,22 +1,15 @@
 mata: 
 
 class d3pow { 
-    private   string  scalar    pow
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						pow()
-    void                        clamp() 
-    void                        copy() 
-    void                        domain() 
-    void                        exponent() 
-    void                        interpolate() 
-    void                        invert() 
-    void                        nice() 
-    void                        range() 
-    void                        rangeRound() 
-    void                        tickFormat() 
-    void                        ticks() 
+	private:
+	string				scalar	pow
+	
+	public:
+	void						new(), destroy(), init(), pow(), clamp(), copy(), 
+								domain(), exponent(), interpolate(), invert(),
+								nice(), range(), rangeRound(), tickFormat(), 
+								ticks()
+	string				scalar	get(), complete()
 }
 
 string scalar d3pow::get() { 

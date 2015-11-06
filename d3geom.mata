@@ -1,17 +1,16 @@
 mata: 
 
 class d3geom { 
-
-    private		string		scalar    	geom
-	private		string		scalar		varnm
-    void                		        new(), destroy(), init()
-    public   	string  	scalar    	get(), getVarnm()
-    public    	string  	scalar    	complete() 
-    class	  	d3hull  	scalar		hull()
-    class	  	d3polygon  	scalar		polygon()
-    class	  	d3quadtree 	scalar		quadtree()
-    class	  	d3voronoi 	scalar		voronoi()
-
+	private:
+	string				scalar	geom, varnm
+	
+	public:
+	void						new(), destroy(), init()
+	string				scalar	get(), complete(), getVarnm()
+    class	d3hull  	scalar	hull()
+    class	d3polygon  	scalar	polygon()
+    class	d3quadtree 	scalar	quadtree()
+    class	d3voronoi 	scalar	voronoi()
 }
 
 void d3geom::new() {

@@ -1,19 +1,14 @@
 mata: 
 
 class d3geopath { 
-
-    private   string  scalar    path
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-	void						path()
-    void                        area() 
-    void                        bounds() 
-    void                        centroid() 
-    void                        context() 
-    void                        pointRadius() 
-    void                        projection() 
-
+	private:
+	string				scalar	path
+	
+	public:
+	void						new(), destroy(), init(), path(), area(), 
+								bounds(), centroid(), context(), pointRadius(), 
+								projection()
+	string				scalar	get(), complete()
 }
 
 string scalar d3geopath::get() { 

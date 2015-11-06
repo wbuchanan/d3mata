@@ -1,14 +1,14 @@
 mata:
 
 class d3behavior {
-
-	void						new(), destroy(), init()
-	private	string 		scalar 	behavior	
-	private string		scalar  varnm
-	public	string		scalar	get(), getVarnm()
-	class	d3bzoom		scalar	zoom()
-	class 	d3bdrag		scalar	drag()
+	private:
+	string				scalar	behavior, varnm
 	
+	public:
+	void						new(), destroy(), init()
+	string				scalar	get(), complete(), getVarnm()
+	class	d3bzoom		scalar	zoom()
+	class 	d3bdrag		scalar	drag()	
 }	
 
 void d3behavior::new() {

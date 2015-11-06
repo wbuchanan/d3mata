@@ -1,18 +1,13 @@
 mata: 
 
 class d3geostream { 
-
-    private   string  scalar    stream
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        lineEnd() 
-    void                        lineStart() 
-    void                        point() 
-    void                        polygonEnd() 
-    void                        polygonStart() 
-    void                        sphere() 
-
+	private:
+	string				scalar	stream
+	
+	public:
+	void						new(), destroy(), init(), lineEnd(), lineStart(), 
+								point(), polygonEnd(), polygonStart(), sphere()
+	string				scalar	get(), complete()
 }
 
 string scalar d3geostream::get() { 

@@ -1,17 +1,13 @@
 mata: 
 
 class d3quantize { 
-
-    private   string  scalar    quantize
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						quantize()
-    void                        copy() 
-    void                        domain() 
-    void                        invertExtent() 
-    void                        range() 
-
+	private:
+	string				scalar	quantize
+	
+	public:
+	void						new(), destroy(), init(), quantize(), copy(),
+								domain(), invertExtent(), range()
+	string				scalar	get(), complete()
 }
 
 string scalar d3quantize::get() { 

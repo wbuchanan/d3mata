@@ -1,14 +1,12 @@
 mata: 
 
 class d3georotation { 
-
-    private   string  scalar    rotation
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        invert() 
-    void                        rotation() 
-
+	private:
+	string				scalar	rotation
+	
+	public:
+	void						new(), destroy(), init(), invert(), rotation()
+	string				scalar	get(), complete()
 }
 
 string scalar d3georotation::get() { 

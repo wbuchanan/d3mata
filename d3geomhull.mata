@@ -1,13 +1,12 @@
 mata: 
 
 class d3hull { 
-    private   string  scalar    hull
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						hull()
-    void                        x() 
-    void                        y() 
+	private:
+	string				scalar	hull
+	
+	public:
+	void						new(), destroy(), init(), hull(), x(), y()
+	string				scalar	get(), complete()
 }
 
 string scalar d3hull::get() { 

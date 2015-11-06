@@ -1,18 +1,13 @@
 mata: 
 
 class d3interval { 
-
-    private   string  scalar    interval
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        ceil() 
-    void                        floor() 
-    void                        offset() 
-    void                        range() 
-    void                        round() 
-    void                        utc() 
-
+	private:
+	string				scalar	interval
+	
+	public:
+	void						new(), destroy(), init(), ceil(), floor(),
+								offset(), range(), round(), utc()
+	string				scalar	get(), complete()
 }
 
 string scalar d3interval::get() { 

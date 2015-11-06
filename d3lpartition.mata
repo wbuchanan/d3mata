@@ -1,19 +1,13 @@
 mata: 
 
 class d3lpartition { 
-
-    private   string  scalar    partition
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        partition() 
-    void                        children() 
-    void                        links() 
-    void                        nodes() 
-    void                        size() 
-    void                        sort() 
-    void                        value() 
-
+	private:
+	string				scalar	partition
+	
+	public:
+	void						new(), destroy(), init(), partition(), value(), 
+								children(), links(), nodes(), size(), sort()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lpartition::get() { 

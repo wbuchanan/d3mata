@@ -1,23 +1,24 @@
 mata: 
 
 class d3layout { 
-	private   	string  		scalar    	layout
-	private		string			scalar		varnm
-	void        	        	        	new(), destroy(), init()
-	public   	string  		scalar    	get(), getVarnm()
-	public    	string  		scalar    	complete()
-	class		d3lbundle		scalar		bundle()
-	class		d3lchord		scalar		chord()
-	class		d3lcluster		scalar		cluster()
-	class		d3lforce		scalar		force()
-	class		d3lhierarchy	scalar		hierarchy()
-	class		d3lhistogram	scalar		histogram()
-	class		d3lpack			scalar		pack()
-	class		d3lpartition	scalar		partition()
-	class		d3lpie			scalar		pie()
-	class		d3lstack		scalar		stack()
-	class		d3ltree			scalar		tree()
-	class		d3ltreemap		scalar		treemap()
+	private:
+	string					scalar	layout, varnm
+	
+	public:
+	void							new(), destroy(), init()
+	string					scalar	get(), complete(), getVarnm()
+	class	d3lbundle		scalar		bundle()
+	class	d3lchord		scalar		chord()
+	class	d3lcluster		scalar		cluster()
+	class	d3lforce		scalar		force()
+	class	d3lhierarchy	scalar		hierarchy()
+	class	d3lhistogram	scalar		histogram()
+	class	d3lpack			scalar		pack()
+	class	d3lpartition	scalar		partition()
+	class	d3lpie			scalar		pie()
+	class	d3lstack		scalar		stack()
+	class	d3ltree			scalar		tree()
+	class	d3ltreemap		scalar		treemap()
 }
 
 void d3layout::init(string scalar vnm, | string scalar arguments) { 

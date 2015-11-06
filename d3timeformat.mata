@@ -1,17 +1,13 @@
 mata: 
 
 class d3timeformat { 
-
-    private   string  scalar    timeformat
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						format()
-	void						parse()
-	void						multi()
-	void						utc()
-	void						iso()
-
+	private:
+	string				scalar	timeformat
+	
+	public:
+	void						new(), destroy(), init(), format(), parse(),
+								multi(), utc(), iso()
+	string				scalar	get(), complete()
 }
 
 string scalar d3timeformat::get() { 

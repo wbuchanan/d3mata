@@ -1,13 +1,13 @@
 mata: 
 
 class d3polygon { 
-    private   string  scalar    polygon
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        area() 
-    void                        centroid() 
-    void                        clip() 
+	private:
+	string				scalar	polygon
+	
+	public:
+	void						new(), destroy(), init(), area(), centroid(), 
+								clip()
+	string				scalar	get(), complete()
 }
 
 string scalar d3polygon::get() { 

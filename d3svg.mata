@@ -1,23 +1,23 @@
 mata: 
 
 class d3svg { 
-    private   	string  		scalar    	svg
-	private		string			scalar		varnm
-    void                			        new(), destroy(), init()
-    public   	string  		scalar    	get(), getVarnm()
-    public    	string  		scalar    	complete() 
-	class		d3svgarc		scalar		arc()
-	class		d3svgarea		scalar		area()
-	class		d3svgarea		scalar		area_radial()
-	class		d3svgaxis		scalar		axis()
-	class		d3svgbrush		scalar		brush()
-	class		d3svgchord		scalar		chord()
-	class		d3svgdiagonal	scalar		diagonal()
-	class		d3svgdiagonal	scalar		diagonal_radial()
-	class		d3svgline		scalar		line()
-	class		d3svgline		scalar		line_radial()
-	void                			        symbolTypes()
-	class		d3svgsymbol		scalar		symbol()
+    private:   	
+	string						scalar	svg, varnm
+
+	public:
+	void								new(), destroy(), init(), symbolTypes()
+    string  					scalar	get(), getVarnm(), complete()
+	class		d3svgarc		scalar	arc()
+	class		d3svgarea		scalar	area()
+	class		d3svgarea		scalar	area_radial()
+	class		d3svgaxis		scalar	axis()
+	class		d3svgbrush		scalar	brush()
+	class		d3svgchord		scalar	chord()
+	class		d3svgdiagonal	scalar	diagonal()
+	class		d3svgdiagonal	scalar	diagonal_radial()
+	class		d3svgline		scalar	line()
+	class		d3svgline		scalar	line_radial()
+	class		d3svgsymbol		scalar	symbol()
 }
 
 string scalar d3svg::get() { 

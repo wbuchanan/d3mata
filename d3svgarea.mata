@@ -1,28 +1,15 @@
 mata: 
 
 class d3svgarea { 
+	private:
+	string				scalar	area
 
-    private   string  scalar    area
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        area() 
-    void                        angle() 
-    void                        defined() 
-    void                        endAngle() 
-    void                        innerRadius() 
-    void                        interpolate() 
-    void                        outerRadius() 
-    void                        radius() 
-    void                        startAngle() 
-    void                        tension() 
-    void                        x() 
-    void                        x0() 
-    void                        x1() 
-    void                        y() 
-    void                        y0() 
-    void                        y1() 
-
+	public:
+    void						new(), destroy(), init(), area(), angle(), y(),
+								defined(), endAngle(), innerRadius(), x(), x0(), 
+								interpolate(), outerRadius(), radius(), x1(),
+								startAngle(), tension(), y0(), y1()
+    string				scalar	get(), complete()
 }
 
 string scalar d3svgarea::get() { 

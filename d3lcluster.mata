@@ -1,21 +1,14 @@
 mata: 
 
 class d3lcluster { 
-
-    private   string  scalar    cluster
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-    void                        children() 
-    void                        cluster() 
-    void                        links() 
-    void                        nodeSize() 
-    void                        nodes() 
-    void                        separation() 
-    void                        size() 
-    void                        sort() 
-    void                        value() 
-
+	private:
+	string				scalar	cluster
+	
+	public:
+	void						new(), destroy(), init(), children(), cluster(), 
+								links(), nodeSize(), nodes(), separation(),
+								size(), sort(), value()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lcluster::get() { 

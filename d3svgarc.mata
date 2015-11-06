@@ -1,19 +1,15 @@
 mata: 
 
 class d3svgarc { 
-
-    private   string  scalar    arc
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete()
-    void                        centroid() 
-    void                        cornerRadius() 
-    void                        endAngle() 
-    void                        innerRadius() 
-    void                        outerRadius() 
-    void                        padAngle() 
-    void                        padRadius() 
-    void                        startAngle() 
+	private:
+	string				scalar	arc
+	
+	public:
+    void						new(), destroy(), init(), centroid(), 
+								cornerRadius(), endAngle(), innerRadius(), 
+								outerRadius(), padAngle(), padRadius(),
+								startAngle()
+	public	string		scalar	get(), complete()
 }
 
 string scalar d3svgarc::get() { 

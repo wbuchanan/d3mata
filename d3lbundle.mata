@@ -1,11 +1,12 @@
 mata: 
 
 class d3lbundle { 
-    private   string  scalar    bundle
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void					    bundle() 
+	private:
+	string				scalar	bundle
+	
+	public:
+	void						new(), destroy(), init(), bundle()
+	string				scalar	get(), complete()
 }
 
 string scalar d3lbundle::get() { 

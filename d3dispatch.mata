@@ -1,14 +1,12 @@
 mata: 
 
 class d3dispatch { 
-
-    private   string  scalar    dispatch
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        on() 
-    void                        type() 
-
+	private:
+	string				scalar	dispatch
+	
+	public:
+	void						new(), destroy(), init(), on(), type()
+	string				scalar	get(), complete()
 }
 
 string scalar d3dispatch::get() { 

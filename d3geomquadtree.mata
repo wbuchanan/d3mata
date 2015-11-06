@@ -1,16 +1,13 @@
 mata: 
 
 class d3quadtree { 
-    private   string  scalar    quadtree
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						quadtree()
-    void                        add() 
-    void                        find() 
-    void                        visit() 
-    void                        y() 
-    void                        extent() 
+	private:
+	string				scalar	quadtree
+	
+	public:
+	void						new(), destroy(), init(), quadtree(), add(),
+								find(), visit(), y(), extent()
+	string				scalar	get(), complete()
 }
 
 string scalar d3quadtree::get() { 

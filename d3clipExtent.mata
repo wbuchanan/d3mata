@@ -1,13 +1,12 @@
 mata: 
 
 class d3clipExtent { 
-
-    private   string  scalar    clipExtent
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        extent() 
-
+	private:
+	string				scalar	clipExtent
+	
+	public:
+	void						new(), destroy(), init(), extent()
+	string				scalar	get(), complete()
 }
 
 string scalar d3clipExtent::get() { 

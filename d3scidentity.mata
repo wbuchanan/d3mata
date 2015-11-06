@@ -1,19 +1,13 @@
 mata: 
 
 class d3identity { 
-
-    private   string  scalar    identity
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-	void						identity()
-    void                        copy() 
-    void                        domain() 
-    void                        invert() 
-    void                        range() 
-    void                        tickFormat() 
-    void                        ticks() 
-
+	private:
+	string				scalar	identity
+	
+	public:
+	void						new(), destroy(), init(), identity(), copy(),
+								domain(), invert(), range(), tickFormat(), ticks()
+	string				scalar	get(), complete()
 }
 
 string scalar d3identity::get() { 

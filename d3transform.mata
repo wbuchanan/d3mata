@@ -1,16 +1,13 @@
 mata: 
 
 class d3transform { 
-
-    private   string  scalar    transform
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        rotate() 
-    void                        translate() 
-    void                        skew() 
-    void                        scale() 
-    void                        toString() 
+	private:
+	string				scalar	transform
+	
+	public:
+	void						new(), destroy(), init(), translate(), skew(),
+								scale(), toString(), rotate()
+	string				scalar	get(), complete()
 }
 
 string scalar d3transform::get() { 

@@ -1,19 +1,13 @@
 mata: 
 
 class d3set { 
+    private:
+	string				scalar	set
 
-    private   string  scalar    set
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-    void                        add() 
-    void                        empty() 
-    void                        forEach() 
-    void                        has() 
-    void                        remove() 
-    void                        size() 
-    void                        values() 
-
+	public:
+    void						new(), destroy(), init(), add(), empty(), 
+								forEach(), has(), remove(), size(), values()
+    string				scalar	get(), complete()
 }
 
 string scalar d3set::get() { 

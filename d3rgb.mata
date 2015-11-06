@@ -1,16 +1,13 @@
 mata: 
 
 class d3rgb { 
-
-    private   string  scalar    rgb
-    void                        new(), destroy(), init()
-    public   string  scalar    get()
-    public    string  scalar    complete() 
-    void                        brighter() 
-    void                        darker() 
-    void					    hsl() 
-    void					    toString() 
-
+	private:
+	string				scalar	rgb
+	
+	public:
+	void						new(), destroy(), init(), brighter(), darker(),
+								hsl(), toString()
+	string				scalar	get(), complete()
 }
 
 string scalar d3rgb::get() { 

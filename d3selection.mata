@@ -1,38 +1,17 @@
 mata: 
 
 class d3selection { 
-
-    private   string  scalar    selection
-    void                        new(), destroy(), init()
-    public    string  scalar    get()
-    public    string  scalar    complete() 
-    void                        append() 
-    void                        attr() 
-    void                        call() 
-    void                        classed() 
-    void                        data() 
-    void                        datum() 
-    void                        each() 
-    void                        empty() 
-    void                        enter() 
-    void                        exit() 
-    void                        filter() 
-    void                        html() 
-    void                        insert() 
-    void                        interrupt() 
-    void                        node() 
-    void                        on() 
-    void                        order() 
-    void                        property() 
-    void                        remove() 
-    void                        select() 
-    void                        selectAll() 
-    void                        size() 
-    void                        sort() 
-    void                        style() 
-    void                        text() 
-    void                        transition() 
-
+    private:
+	string				scalar	selection
+    
+	public:
+	void						new(), destroy(), init(), append(), attr(),
+								call(), classed(), data(), datum(), each(),
+								empty(), enter(), exit(), filter(), html(),
+								insert(), interrupt(), node(), on(), order(),
+								property(), remove(), select(), selectAll(),
+								size(), sort(), style(), text(), transition()
+    string				scalar	get(), complete()
 }
 
 string scalar d3selection::get() { 

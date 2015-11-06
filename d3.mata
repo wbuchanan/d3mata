@@ -2,9 +2,12 @@ mata:
 
 class d3 {
 
+	private:		
+	string 					scalar 	d3, varname
+	
+	public:
+	string 					scalar	get(), getVarnm()
 	void							new(), destroy(), init()
-	private		string 		scalar 	d3, varname
-	public		string 		scalar	get(), getVarnm()
 	string					scalar  complete()	
 	
 	/* Selection Methods/Class Constructors */
@@ -62,16 +65,16 @@ class d3 {
 	class	d3xhr			scalar	xhr()
 		
 	/** Text Data Object **/
-	public	string			scalar	text()
+	string					scalar	text()
 	
 	/** JSON Data Object **/
-	public	string			scalar	json()
+	string					scalar	json()
 	
 	/** XML Data Object **/
-	public	string			scalar	xml()
+	string					scalar	xml()
 	
 	/** HTML Data Object **/
-	public	string			scalar	html()
+	string					scalar	html()
 	
 	/** CSV Data Object **/
 	class	d3csv			scalar	csv()
@@ -84,10 +87,10 @@ class d3 {
 	
 	/* Formatting */
 	/** Numbers **/
-	public	string			scalar	format(), formatPrefix(), round()
+	string					scalar	format(), formatPrefix(), round()
 
 	/* Strings */
-	public	string			scalar	requote() 
+	string					scalar	requote() 
 
 	class	d3locale		scalar	locale()
 
@@ -126,7 +129,6 @@ class d3 {
 	/* Scales */
 	class	d3scale			scalar	scale()
 								
-
 }
 
 
