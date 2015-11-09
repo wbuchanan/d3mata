@@ -131,6 +131,31 @@ class d3 {
 								
 }
 
+void d3::new() {
+}
+
+void d3::destroy() {
+}
+
+string scalar d3::get() {
+	return(this.d3)
+}
+
+string scalar d3::getVarnm() {
+	return(this.varname)
+}
+
+void d3::init(string scalar varnm) {
+	this.d3 = "var " + varnm + " = d3"
+	this.varname = varnm
+}
+
+string scalar d3::complete() {
+	string scalar object
+	object = this.get() + ";"
+	return(object)
+}
+
 
 class d3geo scalar d3::geo(string scalar varnm, | string scalar arguments) {
 	class d3geo scalar geo
@@ -179,31 +204,6 @@ class d3scale scalar d3::scale(string scalar varnm, | string scalar arguments) {
 	return(scale)
 }
 
-
-void d3::new() {
-}
-
-void d3::destroy() {
-}
-
-string scalar d3::get() {
-	return(this.d3)
-}
-
-string scalar d3::getVarnm() {
-	return(this.varname)
-}
-
-void d3::init(string scalar varnm) {
-	this.d3 = "var " + varnm + " = d3"
-	this.varname = varnm
-}
-
-string scalar d3::complete() {
-	string scalar object
-	object = this.get() + ";"
-	return(object)
-}
 
 void d3::event() {
 	this.d3 = this.get() + ".event" 

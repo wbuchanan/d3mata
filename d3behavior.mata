@@ -6,7 +6,7 @@ class d3behavior {
 	
 	public:
 	void						new(), destroy(), init()
-	string				scalar	get(), complete(), getVarnm()
+	string				scalar	get(), getVarnm()
 	class	d3bzoom		scalar	zoom()
 	class 	d3bdrag		scalar	drag()	
 }	

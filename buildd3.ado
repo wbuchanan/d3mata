@@ -341,6 +341,9 @@ prog def buildd3, rclass
 
 		// Add the first class to the library
 		mata: mata mlib add libd3 *(), `dir' complete
+		
+		// Index the mata classes/functions
+		mata: mata mlib index
 			
 	} // End IF Block to build custom d3 library for user
 	
