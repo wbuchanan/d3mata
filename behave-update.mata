@@ -2,78 +2,153 @@ mata:
 
 mata clear
 
-class behave {
+class behavior {
 
-private: 
-string scalar behave, varnm, prev, current
+	private: 
+	string 	scalar 		behavior, varnm, prev, current
 
-public: 
-string scalar get(), complete(), recover(), getVarnm() 
+	public: 
+	string 	scalar 		get(), complete(), undo(), getVarnm()
 
-void center()
-void drag()
-void event()
-void on()
-void origin()
-void scale()
-void scaleExtent()
-void size()
-void translate()
-void x()
-void y()
-void zoom()
+	void 				center(), drag(), event(), on(), origin(), scale(), 
+						scaleExtent(), size(), translate(), x(), y(), zoom(), 
+						init()
+
 }
 
-void behave::init(string scalar vnm) {
+void behavior::init(string scalar vnm) {
      this.varnm = vnm 
-     this.behave = "var " + vnm + " = behave
-     this.current = "var " + vnm + " = behave
+     this.behavior = "var " + vnm + " = d3.behavior"
+     this.current = "var " + vnm + " = d3.behavior"
      this.prev = ""
 }
 
-string scalar behave::get() {
+string scalar behavior::get() {
      return(this.current) 
 }
 
-string scalar behave::complete() {
+string scalar behavior::complete() {
      return(this.current + ";") 
 }
 
-string scalar behave::getVarnm() {
+string scalar behavior::getVarnm() {
      return(this.varnm) 
 }
 
-string scalar behave::recover() {
-     return(this.prev) 
+string scalar behavior::undo() {
+	this.current = this.prev
+    return(this.current) 
 }
 
-void behave::center(| string scalar center) { this.prev = this.get(); this.current = this.get() + ".center(" + args + ")" }
+void behavior::center(| string scalar center) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".center(" + center + ")" 
+	}
+	else {
+		this.current = this.get() + ".center()" 
+	}
+}
 
-void behave::drag() { this.prev = this.get(); this.current = this.get() + ".drag(" + args + ")" }
+void behavior::drag() { 
+	this.prev = this.get()
+	this.current = this.get() + ".drag()" 
+}
 
-void behave::event(string scalar selection) { this.prev = this.get(); this.current = this.get() + ".event(" + args + ")" }
+void behavior::event(string scalar selection) { 
+	this.prev = this.get()
+	this.current = this.get() + ".event(" + selection + ")" 
+}
 
-void behave::on(string scalar type, string scalar listener) { this.prev = this.get(); this.current = this.get() + ".on(" + args + ")" }
+void behavior::on(string scalar type, | string scalar listener) { 
+	this.prev = this.get()
+	if (args() == 2) {
+		this.current = this.get() + ".on(" + type + ", " + listener + ")" 
+	}
+	else {
+		this.current = this.get() + ".on(" + type + ")" 
+	}
+}
 
-void behave::on(string scalar type, | string scalar listener) { this.prev = this.get(); this.current = this.get() + ".on(" + args + ")" }
+void behavior::origin(| string scalar origin) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".origin(" + origin + ")" 
+	}
+	else {
+		this.current = this.get() + ".origin()" 
+	}
+}
 
-void behave::origin(| string scalar origin) { this.prev = this.get(); this.current = this.get() + ".origin(" + args + ")" }
+void behavior::scale(| string scalar scale) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".scale(" + scale + ")" 
+	}
+	else {
+		this.current = this.get() + ".scale()" 
+	}
+}
 
-void behave::scale(| string scalar scale) { this.prev = this.get(); this.current = this.get() + ".scale(" + args + ")" }
+void behavior::scaleExtent(| string scalar extent) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".scaleExtent(" + extent + ")" 
+	}
+	else {
+		this.current = this.get() + ".scaleExtent()" 
+	}
+}
 
-void behave::scaleExtent(| string scalar extent) { this.prev = this.get(); this.current = this.get() + ".scaleExtent(" + args + ")" }
+void behavior::size(| string scalar size) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".size(" + size + ")" 
+	}
+	else {
+		this.current = this.get() + ".size()" 
+	}
+}
 
-void behave::size(| string scalar size) { this.prev = this.get(); this.current = this.get() + ".size(" + args + ")" }
+void behavior::translate(| string scalar translate) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".translate(" + translate + ")" 
+	}
+	else {
+		this.current = this.get() + ".translate()" 
+	}
+}
 
-void behave::translate(| string scalar translate) { this.prev = this.get(); this.current = this.get() + ".translate(" + args + ")" }
+void behavior::x(| string scalar x) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".x(" + x + ")" 
+	}
+	else {
+		this.current = this.get() + ".x()" 
+	}
+}
 
-void behave::x(| string scalar x) { this.prev = this.get(); this.current = this.get() + ".x(" + args + ")" }
+void behavior::y(| string scalar y) { 
+	this.prev = this.get()
+	if (args() == 1) {
+		this.current = this.get() + ".y(" + y + ")" 
+	}
+	else {
+		this.current = this.get() + ".y()" 
+	}
+}
 
-void behave::y(| string scalar y) { this.prev = this.get(); this.current = this.get() + ".y(" + args + ")" }
+void behavior::zoom() { 
+	this.prev = this.get()
+	this.current = this.get() + ".zoom()" 
+}
 
-void behave::zoom() { this.prev = this.get(); this.current = this.get() + ".zoom(" + args + ")" }
-
-void behave::zoom(string scalar selection) { this.prev = this.get(); this.current = this.get() + ".zoom(" + args + ")" }
+void behavior::zoom(string scalar selection) { 
+	this.prev = this.get()
+	this.current = this.get() + ".zoom(" + selection + ")" 
+}
 
 end 
 
