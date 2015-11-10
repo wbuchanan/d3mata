@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class d3 {
 
 	private: 
@@ -25,7 +23,7 @@ class d3 {
 							interpolateRgb(), interpolateRound(), 
 							interpolateString(), interpolateTransform(), 
 							interpolateZoom(), interrupt(), irwinHall(), json(), 
-							key(), keys(), lab(), locale(), logNormal(), map(), 
+							keys(), lab(), locale(), logNormal(), map(), 
 							max(), mean(), median(), merge(), mimeType(), min(), 
 							mouse(), nest(), node(), normal(), numberFormat(), 
 							on(), order(), pairs(), permute(), post(), property(), 
@@ -1221,6 +1219,9 @@ void d3::zip(string scalar arays) {
 	this.current = this.getter() + ".zip(" + arays + ")" 
 }
 
+mata mlib create libd3, replace size(2048)
+
+mata mlib add libd3 d3(), complete 
 
 end 
 

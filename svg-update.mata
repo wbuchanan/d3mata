@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class svg {
 
 	private: 
@@ -519,6 +517,8 @@ void svg::y1(| string scalar y1) {
 		this.current = this.get() + ".y1()" 
 	}
 }
+
+mata mlib add libd3 svg(), complete 
 
 end 
 

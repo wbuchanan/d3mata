@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class behavior {
 
 	private: 
@@ -149,6 +147,9 @@ void behavior::zoom(string scalar selection) {
 	this.prev = this.get()
 	this.current = this.get() + ".zoom(" + selection + ")" 
 }
+
+mata mlib add libd3 behavior(), complete 
+
 
 end 
 

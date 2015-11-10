@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class geom {
 
 	private: 
@@ -167,6 +165,8 @@ void geom::y(| string scalar y) {
 		this.current = this.get() + ".y()" 
 	}
 }
+
+mata mlib add libd3 geom(), complete 
 
 end 
 

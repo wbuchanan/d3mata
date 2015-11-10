@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class geo {
 
 	private: 
@@ -410,6 +408,9 @@ void geo::transverseMercator() {
 	this.prev = this.get()
 	this.current = this.get() + ".transverseMercator()" 
 }
+
+mata mlib add libd3 geo(), complete 
+
 
 end 
 

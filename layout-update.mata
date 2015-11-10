@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class layout {
 
 	private: 
@@ -596,6 +594,9 @@ void layout::y(| string scalar accessor) {
 		this.current = this.get() + ".y()" 
 	}
 }
+
+mata mlib add libd3 layout(), complete 
+
 
 end 
 

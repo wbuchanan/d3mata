@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class scales {
 
 	private: 
@@ -353,6 +351,9 @@ void scales::utc() {
 	this.prev = this.get()
 	this.current = this.get() + ".utc()" 
 }
+
+mata mlib add libd3 scales(), complete 
+
 
 end 
 

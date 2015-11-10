@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class time {
 
 	private: 
@@ -394,6 +392,9 @@ void time::years(string scalar start, string scalar stop, | string scalar step) 
 		this.current = this.get() + ".years(" + start + ", " + stop + ")" 
 	}
 }
+
+mata mlib add libd3 time(), complete 
+
 
 end 
 

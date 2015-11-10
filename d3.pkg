@@ -13,7 +13,7 @@ d KW: D3
 d
 d Requires: Stata version 13
 d
-d Distribution-Date: 20151106
+d Distribution-Date: 20151110
 d
 d Author: Billy Buchanan 
 d		  Data Scientist
@@ -91,3 +91,12 @@ f d3transform.mata
 f d3transition.mata
 f d3tsv.mata
 f d3xhr.mata
+f libd3.mlib
+f d3-update.mata
+f behave-update.mata
+f geo-update.mata
+f geom-update.mata
+f layout-update.mata
+f scales-update.mata
+f svg-update.mata
+f time-update.mata
