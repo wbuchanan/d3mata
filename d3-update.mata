@@ -14,28 +14,29 @@ class d3 {
 							classed(), color(), csv(), darker(), data(), 
 							datum(), delay(), descending(), deviation(), 
 							dispatch(), duration(), each(), ease(), empty(), 
-							enter(), entries(), exit(), extent(), filter(), 
+							enter(), entries(), event(), exit(), extent(), filter(), 
 							flush(), forEach(), format(), formatPrefix(), 
-							functor(), get(), has(), hcl(), header(), hsl(), 
+							functor(), geo(), get(), has(), hcl(), header(), hsl(), 
 							html(), insert(), interpolate(), interpolateArray(), 
 							interpolateHcl(), interpolateHsl(), interpolateLab(), 
 							interpolateNumber(), interpolateObject(), 
 							interpolateRgb(), interpolateRound(), 
 							interpolateString(), interpolateTransform(), 
-							interpolateZoom(), interrupt(), irwinHall(), json(), 
-							keys(), lab(), locale(), logNormal(), map(), 
+							interpolateZoom(), interpolators(),interrupt(), irwinHall(), json(), 
+							key(), keys(), lab(), locale(), logNormal(), map(), 
 							max(), mean(), median(), merge(), mimeType(), min(), 
-							mouse(), nest(), node(), normal(), numberFormat(), 
-							on(), order(), pairs(), permute(), post(), property(), 
-							qualify(), quantile(), range(), rebind(), remove(), 
-							requote(), response(), responseType(), rgb(), rollup(), 
-							round(), select(), selectAll(), selection(), send(), 
-							set(), shuffle(), size(), sort(), sortKeys(), 
+							mouse(), nest(), node(), normal(), ns(), numberFormat(), 
+							on(), order(), pairs(), permute(), post(), prefix(),  
+							property(), qualify(), quantile(), random(), range(), 
+							rebind(), remove(), requote(), response(), 
+							responseType(), rgb(), rollup(), rotate(), round(), 
+							scale(), select(), selectAll(), selection(), send(), 
+							set(), shuffle(), size(), skew(), sort(), sortKeys(), 
 							sortValues(), style(), styleTween(), sum(), text(), 
 							timeFormat(), timer(), toString(), touch(), touches(), 
-							transform(), transition(), transpose(), tsv(), tween(), 
-							type(), utc(), values(), variance(), xhr(), xml(), zip(), 
-							init()
+							transform(), transition(), translate(), transpose(), 
+							tsv(), tween(), type(), utc(), values(), variance(), 
+							xhr(), xml(), zip(), init()
 
 }
 
@@ -61,6 +62,31 @@ string scalar d3::getVarnm() {
 string scalar d3::undo() {
 	this.current = this.prev
     return(this.current) 
+}
+
+void d3::geo() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".geo"
+}
+
+void d3::key(string scalar func) {
+	this.prev = this.getter()
+	this.current = this.getter() + ".key(" + func + ")"
+}
+
+void d3::random() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".random"
+}
+
+void d3::scale() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".scale"
+}
+
+void d3::skew() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".skew"
 }
 
 void d3::abort() { 
@@ -149,12 +175,6 @@ void d3::bisectRight(string scalar aray, string scalar x, | string scalar lo, st
 	else if (args() == 2) {
 		this.current = this.getter() + ".bisectRight(" + aray + ", " + x + ")" 
 	}
-}
-
-
-void d3::bisector(string scalar accessor) { 
-	this.prev = this.getter()
-	this.current = this.getter() + ".bisector(" + accessor + ")" 
 }
 
 
@@ -347,6 +367,11 @@ void d3::entries(| string scalar object) {
 	}
 }
 
+void d3::event() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".event"
+}
+
 
 void d3::exit() { 
 	this.prev = this.getter()
@@ -406,12 +431,6 @@ void d3::functor(string scalar value) {
 }
 
 
-void d3::get(string scalar key) { 
-	this.prev = this.getter()
-	this.current = this.getter() + ".get(" + key + ")" 
-}
-
-
 void d3::get(| string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 1) {
@@ -426,12 +445,6 @@ void d3::get(| string scalar callback) {
 void d3::has(string scalar key) { 
 	this.prev = this.getter()
 	this.current = this.getter() + ".has(" + key + ")" 
-}
-
-
-void d3::has(string scalar value) { 
-	this.prev = this.getter()
-	this.current = this.getter() + ".has(" + value + ")" 
 }
 
 
@@ -497,9 +510,9 @@ void d3::interpolate(string scalar a, string scalar b) {
 }
 
 
-void d3::interpolate(string scalar t) { 
+void d3::interpolators(string scalar func) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolate(" + t + ")" 
+	this.current = this.getter() + ".interpolators.push(" + func + ")" 
 }
 
 
@@ -741,6 +754,11 @@ void d3::normal(| string scalar mean, string scalar deviation) {
 }
 
 
+void d3::ns() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".ns"
+}
+
 void d3::numberFormat(string scalar specifier) { 
 	this.prev = this.getter()
 	this.current = this.getter() + ".numberFormat(" + specifier + ")" 
@@ -787,6 +805,11 @@ void d3::post(| string scalar data, string scalar callback) {
 	else {
 		this.current = this.getter() + ".post(" + data + ")" 
 	}
+}
+
+void d3::prefix() {
+	this.prev = this.getter()
+	this.current = this.getter + ".prefix"
 }
 
 void d3::property(string scalar name, | string scalar value) { 
@@ -880,6 +903,11 @@ void d3::rollup(string scalar func) {
 	this.current = this.getter() + ".rollup(" + func + ")" 
 }
 
+void d3::rotate() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".rotate()" 
+}
+
 
 void d3::round(string scalar x, | string scalar n) { 
 	this.prev = this.getter()
@@ -924,22 +952,18 @@ void d3::send(string scalar method, | string scalar data, string scalar callback
 }
 
 
-void d3::set(string scalar key, string scalar value) { 
+void d3::set(| string scalar key, string scalar value) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".set(" + key + ", " + value + ")" 
-}
-
-
-void d3::set(| string scalar aray) { 
-	this.prev = this.getter()
-	if (args() == 1) {
-		this.current = this.getter() + ".set(" + aray + ")" 
+	if (args() == 2) {
+		this.current = this.getter() + ".set(" + key + ", " + value + ")" 
+	}
+	else if (args() == 1) {
+		this.current = this.getter() + ".set(" + key + ")" 
 	}
 	else {
 		this.current = this.getter() + ".set()" 
 	}
 }
-
 
 void d3::shuffle(string scalar aray, | string scalar lo, string scalar hi) { 
 	this.prev = this.getter()
@@ -1094,23 +1118,6 @@ void d3::transform(string scalar strng) {
 }
 
 
-void d3::transition() { 
-	this.prev = this.getter()
-	this.current = this.getter() + ".transition()" 
-}
-
-
-void d3::transition(| string scalar name) { 
-	this.prev = this.getter()
-	if (args() == 1) {
-		this.current = this.getter() + ".transition(" + name + ")" 
-	}
-	else {
-		this.current = this.getter() + ".transition()" 
-	}
-}
-
-
 void d3::transition(| string scalar selection, string scalar name) { 
 	this.prev = this.getter()
 	if (args() == 2) {
@@ -1122,6 +1129,11 @@ void d3::transition(| string scalar selection, string scalar name) {
 	else {
 		this.current = this.getter() + ".transition()" 
 	}
+}
+
+void d3::translate() {
+	this.prev = this.getter()
+	this.current = this.getter() + ".translate"
 }
 
 
@@ -1163,17 +1175,15 @@ void d3::utc(string scalar specifier) {
 }
 
 
-void d3::values() { 
+void d3::values(| string scalar object) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".values()" 
+	if (args() == 1) {
+		this.current = this.getter() + ".values(" + object + ")" 
+	}
+	else {
+		this.current = this.getter() + ".values()" 
+	}
 }
-
-
-void d3::values(string scalar object) { 
-	this.prev = this.getter()
-	this.current = this.getter() + ".values(" + object + ")" 
-}
-
 
 void d3::variance(string scalar aray, | string scalar accessor) { 
 	this.prev = this.getter()

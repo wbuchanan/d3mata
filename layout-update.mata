@@ -595,7 +595,6 @@ void layout::y(| string scalar accessor) {
 	}
 }
 
-mata mlib add libd3 layout(), complete 
 
 
 end 

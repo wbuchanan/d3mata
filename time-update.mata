@@ -8,18 +8,96 @@ class time {
 	public: 
 	string		scalar		get(), complete(), undo(), getVarnm()
 
-	void					ceil(), clamp(), copy(), dayOfYear(), days(), 
-							domain(), floor(), format(), fridayOfYear(), 
-							fridays(), hours(), interpolate(), interval(), 
-							invert(), minutes(), mondayOfYear(), mondays(), 
+	void					ceil(), clamp(), copy(), day(), dayOfYear(), days(), 
+							domain(), floor(), format(), friday(), fridayOfYear(), 
+							fridays(), hour(), hours(), interpolate(), interval(), 
+							invert(), iso(), minute(), minutes(), monday(), 
+							mondayOfYear(), mondays(), month(), 
 							months(), multi(), nice(), offset(), parse(), 
-							range(), rangeRound(), round(), saturdayOfYear(), 
-							saturdays(), scale(), seconds(), sundayOfYear(), 
-							sundays(), thursdayOfYear(), thursdays(), 
-							tickFormat(), ticks(), tuesdayOfYear(), tuesdays(), 
-							utc(), wednesdayOfYear(), wednesdays(), 
-							weekOfYear(), weeks(), years(), init()
+							range(), rangeRound(), round(), saturday(), 
+							saturdayOfYear(), saturdays(), scale(), second(), 
+							seconds(), sunday(), sundayOfYear(), 
+							sundays(), thursday(), thursdayOfYear(), thursdays(), 
+							tickFormat(), ticks(), tuesday(), tuesdayOfYear(), 
+							tuesdays(), utc(), wednesday(), wednesdayOfYear(), 
+							wednesdays(), weekOfYear(), week(), weeks(), year(), 
+							years(), init()
 
+}
+
+void time::iso() {
+	this.prev = this.get()
+	this.current = this.get() + ".iso"
+}
+
+void time::month() {
+	this.prev = this.get()
+	this.current = this.get() + ".month"
+}
+
+void time::week() {
+	this.prev = this.get()
+	this.current = this.get() + ".week"
+}
+
+void time::year() {
+	this.prev = this.get()
+	this.current = this.get() + ".year"
+}
+
+void time::day() {
+	this.prev = this.get()
+	this.current = this.get() + ".day"
+}
+
+void time::hour() {
+	this.prev = this.get()
+	this.current = this.get() + ".hour"
+}
+
+void time::minute() {
+	this.prev = this.get()
+	this.current = this.get() + ".minute"
+}
+
+void time::second() {
+	this.prev = this.get()
+	this.current = this.get() + ".second"
+}
+
+void time::friday() {
+	this.prev = this.get()
+	this.current = this.get() + ".friday"
+}
+
+void time::saturday() {
+	this.prev = this.get()
+	this.current = this.get() + ".saturday"
+}
+
+void time::sunday() {
+	this.prev = this.get()
+	this.current = this.get() + ".sunday"
+}
+
+void time::monday() {
+	this.prev = this.get()
+	this.current = this.get() + ".monday"
+}
+
+void time::tuesday() {
+	this.prev = this.get()
+	this.current = this.get() + ".tuesday"
+}
+
+void time::wednesday() {
+	this.prev = this.get()
+	this.current = this.get() + ".wednesday"
+}
+
+void time::thursday() {
+	this.prev = this.get()
+	this.current = this.get() + ".thursday"
 }
 
 void time::init(string scalar vnm) {
@@ -392,8 +470,6 @@ void time::years(string scalar start, string scalar stop, | string scalar step) 
 		this.current = this.get() + ".years(" + start + ", " + stop + ")" 
 	}
 }
-
-mata mlib add libd3 time(), complete 
 
 
 end 

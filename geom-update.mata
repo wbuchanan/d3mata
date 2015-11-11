@@ -166,7 +166,6 @@ void geom::y(| string scalar y) {
 	}
 }
 
-mata mlib add libd3 geom(), complete 
 
 end 
 

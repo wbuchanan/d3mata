@@ -148,7 +148,6 @@ void behavior::zoom(string scalar selection) {
 	this.current = this.get() + ".zoom(" + selection + ")" 
 }
 
-mata mlib add libd3 behavior(), complete 
 
 
 end 

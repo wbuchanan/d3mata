@@ -352,7 +352,6 @@ void scales::utc() {
 	this.current = this.get() + ".utc()" 
 }
 
-mata mlib add libd3 scales(), complete 
 
 
 end 

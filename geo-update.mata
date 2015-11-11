@@ -409,7 +409,6 @@ void geo::transverseMercator() {
 	this.current = this.get() + ".transverseMercator()" 
 }
 
-mata mlib add libd3 geo(), complete 
 
 
 end 

@@ -15,11 +15,16 @@ class svg {
 							interpolate(), line(), on(), orient(), outerRadius(), 
 							outerTickSize(), padAngle(), padRadius(), 
 							projection(), radial(), radius(), scale(), size(), 
-							source(), startAngle(), symbol(), target(), 
+							source(), startAngle(), symbol(), symbolTypes(), target(), 
 							tension(), tickFormat(), tickPadding(), tickSize(), 
 							tickValues(), ticks(), type(), x(), x0(), x1(), 
 							y(), y0(), y1(), init()
 
+}
+
+void svg::symbolTypes() {
+	this.prev = this.get()
+	this.current = this.get() + ".symbolTypes"
 }
 
 void svg::init(string scalar vnm) {
@@ -518,7 +523,6 @@ void svg::y1(| string scalar y1) {
 	}
 }
 
-mata mlib add libd3 svg(), complete 
 
 end 
 
