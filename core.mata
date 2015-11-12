@@ -1,6 +1,6 @@
 mata: 
 
-class d3 {
+class d3 extends doc {
 
 	private: 
 	string 		scalar 		d3, varnm, prev, current

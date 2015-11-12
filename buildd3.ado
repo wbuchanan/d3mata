@@ -37,11 +37,11 @@ prog def buildd3, rclass
 		cap mata: mata drop doc()
 		cap mata: mata drop filedoc()
 		
-		// Compile the mega d3 class
-		run `"`location'd3.mata"'
-		
 		// Compile the HTML Header/Footer class
 		run `"`location'header.mata"'
+		
+		// Compile the mega d3 class
+		run `"`location'd3.mata"'
 		
 		// Add d3 to class list
 		loc classlist "d3()" "header()" "doc()" "filebase()"
@@ -51,6 +51,17 @@ prog def buildd3, rclass
 	// If what argument is not all
 	else {
 	
+		// Compile header class
+		cap mata: mata drop header()
+		cap mata: mata drop doc()
+		cap mata: mata drop filedoc()
+		
+		// Compile the drag behavior class
+		run `"`location'header.mata"'
+
+		// Return the classes contained in the header.mata file
+		loc classlist `"`classlist' "header()" "doc()" "filebase()""'
+		
 		// Loop over the arguments passed to the program
 		forv i = 1/`: word count `what'' {
 		
@@ -85,35 +96,8 @@ prog def buildd3, rclass
 				
 			} // End ELSE Block for compiling individual classes
 			
-			
-				// Loop over time objects
-				foreach v in csv dsv tsv xhr {
-					
-					// Drop existing class definitions if present
-					cap mata: mata drop d3`v'()
-					
-					// Compile
-					run `"`location'd3`v'.mata"'
-					
-					// Return the classes defined here
-					loc classlist `"`classlist' "d3`v'()""' 
-				
-				} // End Loop over time classes
-				
-			} // End IF Block for time/all argument
 
 		} // End Loop over arguments passed to program's parameter
-		
-		// Compile header class
-		cap mata: mata drop header()
-		cap mata: mata drop doc()
-		cap mata: mata drop filedoc()
-		
-		// Compile the drag behavior class
-		run `"`location'header.mata"'
-
-		// Return the classes contained in the header.mata file
-		loc classlist `"`classlist' "header()" "doc()" "filebase()""'
 		
 	} // End ELSE Block for individual class compilation
 		
