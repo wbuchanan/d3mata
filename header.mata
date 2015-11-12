@@ -1,42 +1,42 @@
 mata:
 
 // Class used to initialize new file
-class d3filebase {
+class filebase {
 
 	void							setProps()
-	private		string		scalar	d3path, d3filename, d3ext	
+	private		string		scalar	path, filename, ext	
 	public 		string		scalar	getFile()
 
 }
 
 // Sets file and path names...Also checks validity of file extension
-void d3filebase::setProps(string scalar filename) {
+void filebase::setProps(string scalar filename) {
 
-	pathsplit(filename, d3path, d3filename)
+	pathsplit(filename, path, filename)
 	
-	if (pathsuffix(this.d3filename) != ".html" | pathsuffix(this.d3filename) != "") {
+	if (pathsuffix(this.filename) != ".html" | pathsuffix(this.filename) != "") {
 		_error(3498, "File name must have .html extension or no file extension")
 	}
 	else {
-		this.d3ext = ".html"
+		this.ext = ".html"
 	}
 	
-	if (direxists(this.d3path) == 0) {
+	if (direxists(this.path) == 0) {
 	
-		mkdir(this.d3path, 1)
+		mkdir(this.path, 1)
 		
 	}
 
 }
 
 // Accessor to get the fully qualified file name/path
-string scalar d3filebase::getFile() {
-	return(this.d3path + this.d3filename + this.d3ext)
+string scalar filebase::getFile() {
+	return(this.path + this.filename + this.ext)
 }
 
 
-// Child class of d3filebase used to write HTML header and set HTML metadata
-class d3header extends d3filebase {
+// Child class of filebase used to write HTML header and set HTML metadata
+class header extends filebase {
 
 	public 		real		scalar	fileh
 	private		string		scalar	html, header, title, body, libs, 
@@ -49,7 +49,7 @@ class d3header extends d3filebase {
 									getFootScripts(), getStyle()
 }
 
-void d3header::open(string scalar how) {
+void header::open(string scalar how) {
 
 	if (how == "write" | how == "w") {
 		this.fileh = fopen(super.getFile(), "w", 1)
@@ -59,24 +59,24 @@ void d3header::open(string scalar how) {
 	}
 }
 
-void d3header::setHtml() {
+void header::setHtml() {
 	this.html = "<!DOCTYPE html><html>"
 }
 
-void d3header::setHeader() {
+void header::setHeader() {
 	this.header = "<head>"
 }
-void d3header::setTitle(string scalar pageTitle) {
+void header::setTitle(string scalar pageTitle) {
 	this.title = "<title>" + pageTitle + "</title>" 
 }
 
-void d3header::setLibs(| string scalar d3lib, string rowvector libraries) {
+void header::setLibs(| string scalar lib, string rowvector libraries) {
 	string scalar head
-	if (d3lib == "") {
-		head = `"<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>"'
+	if (lib == "") {
+		head = `"<script src="//js.org/.v3.min.js" charset="utf-8"></script>"'
 	}
 	else {
-		head = d3lib
+		head = lib
 	}
 	if (length(libraries) >= 1) {
 		real i
@@ -87,7 +87,7 @@ void d3header::setLibs(| string scalar d3lib, string rowvector libraries) {
 	this.libs = head
 }
 
-void d3header::setHeadScripts(| string rowvector src) {
+void header::setHeadScripts(| string rowvector src) {
 	string scalar hscript
 	if (length(src) >= 1) {
 		real i
@@ -99,7 +99,7 @@ void d3header::setHeadScripts(| string rowvector src) {
 }
 
 
-void d3header::setFootScripts(| string rowvector src) {
+void header::setFootScripts(| string rowvector src) {
 	string scalar fscript
 	if (length(src) >= 1) {
 		real i
@@ -110,7 +110,7 @@ void d3header::setFootScripts(| string rowvector src) {
 	this.footscripts = fscript
 }
 
-void d3header::setStyle(| string rowvector css) {
+void header::setStyle(| string rowvector css) {
 	string scalar stylesheets
 	if (length(css) >= 1) {
 		real i
@@ -122,36 +122,36 @@ void d3header::setStyle(| string rowvector css) {
 	this.style = stylesheets
 }
 
-void d3header::setBody() {
+void header::setBody() {
 	this.body = "</head><body>"
 }
 
-string scalar d3header::getHtml() {
+string scalar header::getHtml() {
 	return(this.html)
 }
-string scalar d3header::getHeader() {
+string scalar header::getHeader() {
 	return(this.header)
 }
-string scalar d3header::getTitle() {
+string scalar header::getTitle() {
 	return(this.title)
 }
-string scalar d3header::getBody() {
+string scalar header::getBody() {
 	return(this.body)
 }
-string scalar d3header::getLibs() {
+string scalar header::getLibs() {
 	return(this.libs)
 }
-string scalar d3header::getHeadScripts() {
+string scalar header::getHeadScripts() {
 	return(this.headscripts)
 }
-string scalar d3header::getFootScripts() {
+string scalar header::getFootScripts() {
 	return(this.footscripts)
 }
-string scalar d3header::getStyle() {
+string scalar header::getStyle() {
 	return(this.style)
 }
 
-void d3header::printHead(real scalar fileHandle) {
+void header::printHead(real scalar fileHandle) {
 	put(fileHandle, getHtml())
 	put(fileHandle, getHeader())
 	put(fileHandle, getTitle())
@@ -161,17 +161,17 @@ void d3header::printHead(real scalar fileHandle) {
 	put(fileHandle, getBody())
 }
 
-// Grandchild class of d3filebase.  Used to add D3 objects to the HTML file and 
+// Grandchild class of filebase.  Used to add D3 objects to the HTML file and 
 // to add closing tags/scripts to the file before closing it.
-class d3doc extends d3header {
-	public		void				addD3Element(), close()	
+class doc extends header {
+	public		void				addElement(), close()	
 }
 
-void d3doc::addD3Element(real scalar fileHandle, string scalar d3object) {
-	put(fileHandle, d3object)
+void doc::addElement(real scalar fileHandle, string scalar object) {
+	put(fileHandle, object)
 }
 
-void d3doc::close(real scalar fileHandle) {
+void doc::close(real scalar fileHandle) {
 	put(fileHandle, "</body></html>")
 	put(fileHandle, super.getFootScripts())
 	fclose(fileHandle)

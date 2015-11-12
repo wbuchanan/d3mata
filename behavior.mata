@@ -138,14 +138,14 @@ void behavior::y(| string scalar y) {
 	}
 }
 
-void behavior::zoom() { 
+void behavior::zoom(| string scalar selection) { 
 	this.prev = this.get()
-	this.current = this.get() + ".zoom()" 
-}
-
-void behavior::zoom(string scalar selection) { 
-	this.prev = this.get()
-	this.current = this.get() + ".zoom(" + selection + ")" 
+	if (args() == 1) {
+		this.current = this.get() + ".zoom(" + selection + ")" 
+	}
+	else {
+		this.current = this.get() + ".zoom()" 
+	}
 }
 
 
