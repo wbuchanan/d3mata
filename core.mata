@@ -1229,10 +1229,6 @@ void d3::zip(string scalar arays) {
 	this.current = this.getter() + ".zip(" + arays + ")" 
 }
 
-mata mlib create libd3, replace size(2048)
-
-mata mlib add libd3 d3(), complete 
-
 end 
 
 

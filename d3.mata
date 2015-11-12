@@ -1,7 +1,5 @@
 mata: 
 
-mata clear
-
 class d3 extends doc {
 
 	private: 
