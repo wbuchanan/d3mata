@@ -1029,7 +1029,7 @@ void d3::round(| string scalar x, string scalar n) {
 	if (args() == 2) {
 		this.current = this.getter() + ".round(" + strofreal(x) + ", " + strofreal(n) + ")" 
 	}
-	else if {
+	else if (args() == 1) {
 		this.current = this.getter() + ".round(" + strofreal(x) + ")" 
 	}
 	else {

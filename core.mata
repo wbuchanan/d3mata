@@ -936,13 +936,16 @@ void d3::rotate() {
 }
 
 
-void d3::round(real scalar x, | real scalar n) { 
+void d3::round(| real scalar x, real scalar n) { 
 	this.prev = this.getter()
 	if (args() == 2) {
 		this.current = this.getter() + ".round(" + strofreal(x) + ", " + strofreal(n) + ")" 
 	}
-	else {
+	else if (args() == 1) {
 		this.current = this.getter() + ".round(" + strofreal(x) + ")" 
+	}
+	else {
+		this.current = this.getter() + ".round()" 
 	}
 }
 
