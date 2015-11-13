@@ -29,7 +29,7 @@ prog def buildd3, rclass
 	} // End IF Block for nopath option
 	
 	// If user wants to compile the mega class
-	if `: word count `what'' == 1 & `"`what'"' == "all" {
+	if `: word count `what'' == 1 & inlist(`"`what'"', "all", `"""all"""') {
 	
 		// Drop class if exists in mata already
 		cap mata: mata drop d3()
@@ -44,7 +44,7 @@ prog def buildd3, rclass
 		run `"`location'd3.mata"'
 		
 		// Add d3 to class list
-		loc classlist "d3()" "header()" "doc()" "filebase()"
+		loc classlist d3() header() doc() filebase()
 		
 	} // End IF Block for all classes
 	
@@ -60,7 +60,7 @@ prog def buildd3, rclass
 		run `"`location'header.mata"'
 
 		// Return the classes contained in the header.mata file
-		loc classlist `"`classlist' "header()" "doc()" "filebase()""'
+		loc classlist `classlist' header() doc() filebase()
 		
 		// Loop over the arguments passed to the program
 		forv i = 1/`: word count `what'' {
@@ -92,7 +92,7 @@ prog def buildd3, rclass
 				run `"`location'`classes'.mata"'
 				
 				// Return the classes defined here
-				loc classlist `"`classlist' "`classes'()""'
+				loc classlist `classlist' `classes'()
 				
 			} // End ELSE Block for compiling individual classes
 			
@@ -114,7 +114,7 @@ prog def buildd3, rclass
 		ret loc `lnm' "`nm'"
 		
 		// Check for MoSave option
-		if `"`mosave'"' != "" {
+		if `"`mosave'"' != "" & `"`mlib'"' == "" {
 		
 			// Save the mata objects
 			mata: mata mosave `nm', `dir' complete `replace'

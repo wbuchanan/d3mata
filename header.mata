@@ -10,14 +10,16 @@ class filebase {
 }
 
 // Sets file and path names...Also checks validity of file extension
-void filebase::setProps(string scalar filename) {
-
-	pathsplit(filename, path, filename)
+void filebase::setProps(string scalar fname) {
+	string scalar path, fnm
+	pathsplit(fname, path, fnm)
 	
-	if (pathsuffix(this.filename) != ".html" | pathsuffix(this.filename) != "") {
+	if (pathsuffix(fnm) != ".html" & pathsuffix(fnm) != "") {
 		_error(3498, "File name must have .html extension or no file extension")
 	}
 	else {
+		this.path = path + "/"
+		this.filename = subinstr(fnm, ".html", "")
 		this.ext = ".html"
 	}
 	

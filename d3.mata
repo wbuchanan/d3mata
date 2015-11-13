@@ -11,7 +11,7 @@ class d3 extends doc {
 	void 					abort(), add(), append(), ascending(), attr(), 
 							attrTween(), bates(), bisect(), bisectLeft(), 
 							bisectRight(), bisector(), brighter(), call(), 
-							classed(), color(), csv(), d3(), darker(), 
+							classed(), color(), csv(), darker(), 
 							data(), datum(), delay(), descending(), 
 							deviation(), dispatch(), duration(), each(), 
 							ease(), empty(), enter(), entries(), event(), 
@@ -61,7 +61,7 @@ class d3 extends doc {
 							conicEqualArea(), conicEquidistant(), context(), 
 							distance(), equirectangular(), gnomonic(), graticule(), 
 							invert(), length(), lineEnd(), lineStart(), lines(), 
-							listener(), majorExtent(), majorStep(), mercator(), 
+							majorExtent(), majorStep(), mercator(), 
 							minorExtent(), minorStep(), orthographic(), outline(), 
 							parallels(), path(), point(), pointRadius(), 
 							polygonEnd(), polygonStart(), precision(), 
@@ -98,10 +98,18 @@ class d3 extends doc {
 }
 
 void d3::init(string scalar vnm) {
-     this.varnm = vnm 
-     this.d3 = "var " + vnm + " = d3"
-     this.current = "var " + vnm + " = d3"
-     this.prev = ""
+	string colvector varnmvec
+	varnmvec = tokens(vnm, " ")
+    this.varnm = varnmvec[1, 1]
+	if (cols(varnmvec) == 1) {
+		this.d3 = "var " + varnmvec[1, 1] + " = d3"
+		this.current = "var " + varnmvec[1, 1] + " = d3"
+	}
+	else {
+		this.d3 = varnmvec[1, 1] + " = " + varnmvec[1, 2]
+		this.current = varnmvec[1, 1] + " = " + varnmvec[1, 2]
+	}
+	this.prev = ""
 }
 
 string scalar d3::getter() {
@@ -165,7 +173,7 @@ void d3::add(string scalar value) {
 
 void d3::append(string scalar name) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".append(" + name + ")" 
+	this.current = this.getter() + `".append(""' + name + `"")"' 
 }
 
 
@@ -178,10 +186,10 @@ void d3::ascending(string scalar a, string scalar b) {
 void d3::attr(string scalar name, | string scalar value) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".attr(" + name + ", " + value + ")" 
+		this.current = this.getter() + `".attr(""' + name + `"", "' + value + ")" 
 	}
 	else {
-		this.current = this.getter() + ".attr(" + name + ")" 
+		this.current = this.getter() + `".attr(""' + name + `"")"' 
 	}
 }
 
@@ -271,10 +279,10 @@ void d3::call(string scalar func, | string scalar arguments) {
 void d3::classed(string scalar name, | string scalar value) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".classed(" + name + ", " + value + ")" 
+		this.current = this.getter() + `".classed(""' + name + `"", "' + value + ")" 
 	}
 	else {
-		this.current = this.getter() + ".classed(" + name + ")" 
+		this.current = this.getter() + ".classed(" + name + ")"
 	}
 }
 
@@ -287,13 +295,13 @@ void d3::color() {
 void d3::csv(string scalar url, | string scalar accessor, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".csv(" + url + ", " + accessor + ", " + callback + ")" 
+		this.current = this.getter() + `".csv(""' + url + `"", "' + accessor + ", " + callback + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".csv(" + url + ", " + accessor + ")" 
+		this.current = this.getter() + `".csv(""' + url + `"", "' + accessor + ")" 
 	}
 	else {
-		this.current = this.getter() + ".csv(" + url + ")" 
+		this.current = this.getter() + `".csv(""' + url + `"")"' 
 	}
 }
 
@@ -532,10 +540,10 @@ void d3::hcl(string scalar h, | string scalar c, string scalar l) {
 void d3::header(string scalar name, | string scalar value) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".header(" + name + ", " + value + ")" 
+		this.current = this.getter() + `".header(""' + name + `"", "' + value + ")" 
 	}
 	else {
-		this.current = this.getter() + ".header(" + name + ")" 
+		this.current = this.getter() + `".header(""' + name + `"")"' 
 	}
 }
 
@@ -557,10 +565,10 @@ void d3::hsl(| string scalar h, string scalar s, string scalar l) {
 void d3::html(| string scalar url, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".html(" + url + ", " + callback + ")" 
+		this.current = this.getter() + `".html(""' + url + `"", "' + callback + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".html(" + url + ")" 
+		this.current = this.getter() + `".html(""' + url + `"")"'
 	}
 	else {
 		this.current = this.getter() + ".html()" 
@@ -568,9 +576,14 @@ void d3::html(| string scalar url, string scalar callback) {
 }
 
 
-void d3::insert(string scalar name, string scalar before) { 
+void d3::insert(string scalar name, | string scalar before) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".insert(" + name + ", " + before + ")" 
+	if (args() == 2) {
+		this.current = this.getter() + `".insert(""' + name + `"", ""' + before + `"")"' 
+	}
+	else {
+		this.current = this.getter() + ".insert(" + name + ", " + before + ")" 
+	}
 }
 
 
@@ -680,10 +693,10 @@ void d3::irwinHall(string scalar count) {
 void d3::json(string scalar url, | string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".json(" + url + ", " + callback + ")" 
+		this.current = this.getter() + `".json(""' + url + `"", "' + callback + ")" 
 	}
 	else {
-		this.current = this.getter() + ".json(" + url + ")" 
+		this.current = this.getter() + `".json(""' + url + `"")"' 
 	}
 }
 
@@ -781,7 +794,7 @@ void d3::merge(string scalar arays) {
 void d3::mimeType(| string scalar type) { 
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".mimeType(" + type + ")" 
+		this.current = this.getter() + `".mimeType(""' + type + `"")"' 
 	}
 	else {
 		this.current = this.getter() + ".mimeType()" 
@@ -846,13 +859,13 @@ void d3::numberFormat(string scalar specifier) {
 void d3::on(string scalar type, | string scalar listener, string scalar capture) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".on(" + type + ", " + listener + ", " + capture + ")" 
+		this.current = this.getter() + `".on(""' + type + `"", "' + listener + ", " + capture + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".on(" + type + ", " + listener + ")" 
+		this.current = this.getter() + `".on(""' + type + `"", "' + listener + ")" 
 	}
 	else {
-		this.current = this.getter() + ".on(" + type + ")" 
+		this.current = this.getter() + `".on(""' + type + `"")"' 
 	}
 }
 
@@ -898,7 +911,7 @@ void d3::prefix() {
 void d3::property(string scalar name, | string scalar value) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".property(" + name + ", " + value + ")" 
+		this.current = this.getter() + `".property(""' + name + `"", "' + value + ")" 
 	}
 	else {
 		this.current = this.getter() + ".property(" + name + ")" 
@@ -912,10 +925,10 @@ void d3::qualify(string scalar name) {
 }
 
 
-void d3::quantile(| string scalar numbers, string scalar p) { 
+void d3::quantile(| string scalar numbers, real scalar p) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".quantile(" + numbers + ", " + p + ")" 
+		this.current = this.getter() + ".quantile(" + numbers + ", " + strofreal(p) + ")" 
 	}
 	else if (args() == 1) {
 		this.current = this.getter() + ".quantile(" + numbers + ")" 
@@ -926,17 +939,23 @@ void d3::quantile(| string scalar numbers, string scalar p) {
 }
 
 
-void d3::range(string scalar stop, | string scalar start, string scalar step) { 
+void d3::range(real scalar stop, | real scalar start, real scalar step) { 
 	this.prev = this.getter()
-	if (args() == 3) {
-		this.current = this.getter() + ".range(" + start + ", " + stop + ", " + step + ")" 
-	}
-	else 	if (args() == 2) {
-		this.current = this.getter() + ".range(" + start + ", " + stop + ")" 
+	string scalar strt, stp, ste
+	if (start == .) {
+		strt = strofreal(0)
 	}
 	else {
-		this.current = this.getter() + ".range(" + stop + ")"
+		strt = strofreal(start)
 	}
+	if (step == .) {
+		ste = strofreal(1)
+	}
+	else {
+		ste = strofreal(step)
+	}
+	stp = strofreal(stop)
+	this.current = this.getter() + ".range(" + strt + ", " + stp + ", " + ste + ")" 
 }
 
 
@@ -959,7 +978,7 @@ void d3::remove(| string scalar value) {
 
 void d3::requote(string scalar strng) { 
 	this.prev = this.getter()
-	this.current = this.getter() + ".requote(" + strng + ")" 
+	this.current = this.getter() + `".requote(""' + strng + `"")"' 
 }
 
 
@@ -1008,10 +1027,10 @@ void d3::rotate(| string scalar rotate) {
 void d3::round(| string scalar x, string scalar n) { 
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".round(" + x + ", " + n + ")" 
+		this.current = this.getter() + ".round(" + strofreal(x) + ", " + strofreal(n) + ")" 
 	}
-	else if (args() == 1) {
-		this.current = this.getter() + ".round(" + x + ")" 
+	else if {
+		this.current = this.getter() + ".round(" + strofreal(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".round()" 
@@ -1118,10 +1137,10 @@ void d3::sortValues(string scalar comparator) {
 void d3::style(string scalar name, | string scalar value, string scalar priority) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".style(" + name + ", " + value + ", " + priority + ")" 
+		this.current = this.getter() + `".style(""' + name + `"", "' + value + ", " + priority + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".style(" + name + ", " + value + ")" 
+		this.current = this.getter() + `".style(""' + name + `"", "' + value + ")" 
 	}
 	else {
 		this.current = this.getter() + ".style(" + name + ")" 
@@ -1154,13 +1173,13 @@ void d3::sum(string scalar aray, | string scalar accessor) {
 void d3::text(| string scalar url, string scalar mimeType, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".text(" + url + ", " + mimeType + ", " + callback + ")" 
+		this.current = this.getter() + `".text(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".text(" + url + ", " + mimeType + ")" 
+		this.current = this.getter() + `".text(""' + url + `"", ""' + mimeType + `"")"' 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".text(" + url + ")" 
+		this.current = this.getter() + `".text(""' + url + `"")"' 
 	}
 	else {
 		this.current = this.getter() + ".text()"
@@ -1261,13 +1280,13 @@ void d3::transpose(string scalar matrx) {
 void d3::tsv(string scalar url, | string scalar accessor, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".tsv(" + url + ", " + accessor + ", " + callback + ")" 
+		this.current = this.getter() + `".tsv(""' + url + `"", "' + accessor + ", " + callback + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".tsv(" + url + ", " + accessor + ")" 
+		this.current = this.getter() + `".tsv(""' + url + `"", "' + accessor + ")" 
 	}
 	else {
-		this.current = this.getter() + ".tsv(" + url + ")" 
+		this.current = this.getter() + `".tsv(""' + url + `"")"' 
 	}
 }
 
@@ -1312,13 +1331,13 @@ void d3::variance(string scalar aray, | string scalar accessor) {
 void d3::xhr(string scalar url, | string scalar mimeType, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".xhr(" + url + ", " + mimeType + ", " + callback + ")" 
+		this.current = this.getter() + `".xhr(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".xhr(" + url + ", " + mimeType + ")" 
+		this.current = this.getter() + `".xhr(""' + url + `"", ""' + mimeType + `"")"' 
 	}
 	else {
-		this.current = this.getter() + ".xhr(" + url + ")" 
+		this.current = this.getter() + `".xhr(""' + url + `"")"' 
 	}
 }
 
@@ -1326,13 +1345,13 @@ void d3::xhr(string scalar url, | string scalar mimeType, string scalar callback
 void d3::xml(string scalar url, | string scalar mimeType, string scalar callback) { 
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".xml(" + url + ", " + mimeType + ", " + callback + ")" 
+		this.current = this.getter() + `".xml(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".xml(" + url + ", " + mimeType + ")" 
+		this.current = this.getter() + `".xml(""' + url + `"", ""' + mimeType + `"")"' 
 	}
 	else {
-		this.current = this.getter() + ".xml(" + url + ")" 
+		this.current = this.getter() + `".xml(""' + url + `"")"' 
 	}
 }
 
