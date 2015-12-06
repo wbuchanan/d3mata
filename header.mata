@@ -1,16 +1,27 @@
 mata:
 
 // Class used to initialize new file
-class filebase {
+class doc {
 
 	void							setProps()
-	private		string		scalar	path, filename, ext	
-	public 		string		scalar	getFile()
-
+	private:		
+	string			scalar			path, filename, ext, html, header, title, 
+									body, libs, headscripts, footscripts, style
+	public:
+	string			scalar			getFile(), getHtml(), getHeader(), getTitle(), 
+									getBody(), getLibs(), getHeadScripts(), 
+									getFootScripts(), getStyle()
+	
+	real			scalar			fileh
+	void							open(), setHtml(), setHeader(), setTitle(), 
+									setBody(), setLibs(), setHeadScripts(), 
+									setFootScripts(), setStyle(), printHead(), 
+									addElement(), close()
+									
 }
 
 // Sets file and path names...Also checks validity of file extension
-void filebase::setProps(string scalar fname) {
+void doc::setProps(string scalar fname) {
 	string scalar path, fnm
 	pathsplit(fname, path, fnm)
 	
@@ -32,47 +43,33 @@ void filebase::setProps(string scalar fname) {
 }
 
 // Accessor to get the fully qualified file name/path
-string scalar filebase::getFile() {
+string scalar doc::getFile() {
 	return(this.path + this.filename + this.ext)
 }
 
 
-// Child class of filebase used to write HTML header and set HTML metadata
-class header extends filebase {
-
-	public 		real		scalar	fileh
-	private		string		scalar	html, header, title, body, libs, 
-									headscripts, footscripts, style
-	public		void				open(), setHtml(), setHeader(), setTitle(), 
-									setBody(), setLibs(), setHeadScripts(), 
-									setFootScripts(), setStyle(), printHead()
-	public		string		scalar 	getHtml(), getHeader(), getTitle(), 
-									getBody(), getLibs(), getHeadScripts(), 
-									getFootScripts(), getStyle()
-}
-
-void header::open(string scalar how) {
+void doc::open(string scalar how) {
 
 	if (how == "write" | how == "w") {
-		this.fileh = fopen(super.getFile(), "w", 1)
+		this.fileh = fopen(this.getFile(), "w", 1)
 	}
 	else {
-		this.fileh = fopen(super.getFile(), "a", 1)
+		this.fileh = fopen(this.getFile(), "a", 1)
 	}
 }
 
-void header::setHtml() {
+void doc::setHtml() {
 	this.html = "<!DOCTYPE html><html>"
 }
 
-void header::setHeader() {
+void doc::setHeader() {
 	this.header = "<head>"
 }
-void header::setTitle(string scalar pageTitle) {
+void doc::setTitle(string scalar pageTitle) {
 	this.title = "<title>" + pageTitle + "</title>" 
 }
 
-void header::setLibs(| string scalar lib, string rowvector libraries) {
+void doc::setLibs(| string scalar lib, string rowvector libraries) {
 	string scalar head
 	if (lib == "") {
 		head = `"<script src="//js.org/.v3.min.js" charset="utf-8"></script>"'
@@ -89,30 +86,30 @@ void header::setLibs(| string scalar lib, string rowvector libraries) {
 	this.libs = head
 }
 
-void header::setHeadScripts(| string rowvector src) {
+void doc::setHeadScripts(| string rowvector src) {
 	string scalar hscript
 	if (length(src) >= 1) {
 		real i
 		for(i = 1; i <= length(src); i++) {
-			hscript = hscript + `"<script src""' + src + `"" charset="utf-8"></script>"'
+			hscript = hscript + `"<script src = ""' + src + `"" charset="utf-8"></script>"'
 		}
 	}
 	this.headscripts = hscript
 }
 
 
-void header::setFootScripts(| string rowvector src) {
+void doc::setFootScripts(| string rowvector src) {
 	string scalar fscript
 	if (length(src) >= 1) {
 		real i
 		for(i = 1; i <= length(src); i++) {
-			fscript = fscript + `"<script src""' + src + `"" charset="utf-8"></script>"'
+			fscript = fscript + `"<script src = ""' + src + `"" charset="utf-8"></script>"'
 		}
 	}
 	this.footscripts = fscript
 }
 
-void header::setStyle(| string rowvector css) {
+void doc::setStyle(| string rowvector css) {
 	string scalar stylesheets
 	if (length(css) >= 1) {
 		real i
@@ -124,36 +121,36 @@ void header::setStyle(| string rowvector css) {
 	this.style = stylesheets
 }
 
-void header::setBody() {
+void doc::setBody() {
 	this.body = "</head><body>"
 }
 
-string scalar header::getHtml() {
+string scalar doc::getHtml() {
 	return(this.html)
 }
-string scalar header::getHeader() {
+string scalar doc::getHeader() {
 	return(this.header)
 }
-string scalar header::getTitle() {
+string scalar doc::getTitle() {
 	return(this.title)
 }
-string scalar header::getBody() {
+string scalar doc::getBody() {
 	return(this.body)
 }
-string scalar header::getLibs() {
+string scalar doc::getLibs() {
 	return(this.libs)
 }
-string scalar header::getHeadScripts() {
+string scalar doc::getHeadScripts() {
 	return(this.headscripts)
 }
-string scalar header::getFootScripts() {
+string scalar doc::getFootScripts() {
 	return(this.footscripts)
 }
-string scalar header::getStyle() {
+string scalar doc::getStyle() {
 	return(this.style)
 }
 
-void header::printHead(real scalar fileHandle) {
+void doc::printHead(real scalar fileHandle) {
 	put(fileHandle, getHtml())
 	put(fileHandle, getHeader())
 	put(fileHandle, getTitle())
@@ -163,11 +160,6 @@ void header::printHead(real scalar fileHandle) {
 	put(fileHandle, getBody())
 }
 
-// Grandchild class of filebase.  Used to add D3 objects to the HTML file and 
-// to add closing tags/scripts to the file before closing it.
-class doc extends header {
-	public		void				addElement(), close()	
-}
 
 void doc::addElement(real scalar fileHandle, string scalar object) {
 	put(fileHandle, object)
@@ -175,7 +167,7 @@ void doc::addElement(real scalar fileHandle, string scalar object) {
 
 void doc::close(real scalar fileHandle) {
 	put(fileHandle, "</body></html>")
-	put(fileHandle, super.getFootScripts())
+	put(fileHandle, this.getFootScripts())
 	fclose(fileHandle)
 }
 
