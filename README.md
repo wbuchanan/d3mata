@@ -1,4 +1,7 @@
 # Mata Wrappers for D3js Library
+
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+
 Provides Mata classes and methods that construct strings containing syntax equivalent to writing the javascript.  The purpose is to mirror the semantics and flow of the D3js library as closely as possible so others who may have existing graphics that use D3js could more easily rebuild them using the Mata library.  
 
 ## Important things to note
