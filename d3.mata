@@ -12,10 +12,13 @@ class d3 {
 	
 	// All private member variables are strings used to write JavaScript to a file
 	string 		scalar 		d3, varnm, prev, current, lastFunction, currentFunction
-
+	
 	// Define public member variables
 	public: 
 	
+	// Method to test arguments passed  to methods and returns a string version of them
+	string		scalar		checkValue()
+
 	// Defines class constructor method
 	void					new()
 	
@@ -27,7 +30,7 @@ class d3 {
 	class 	d3	scalar		abort(), add(), append(), ascending(), attr(), 
 							attrTween(), bates(), bisect(), bisectLeft(), 
 							bisectRight(), bisector(), brighter(), call(), 
-							classed(), color(), csv(), darker(), 
+							classed(), color(), csv(), darker(), jsfree(), 
 							data(), datum(), delay(), descending(), 
 							deviation(), dispatch(), duration(), each(), 
 							ease(), empty(), enter(), entries(), event(), 
@@ -125,18 +128,42 @@ void d3::new() {
 	
 } // End Constructor method definition
 
-// Method to initialize the class object
-class d3 scalar d3::init(string scalar vnm) {
+// Method that converts argument types to strings and applies quotes when/if necessary 
+string scalar d3::checkValue(transmorphic scalar value) {
+	
+	// If argument is numeric convert to string and return the value
+	if (isreal(value) == 1) {
+		return(strofreal(value))
+	}
+	
+	// If argument begins with the word function return it as is
+	else if (regexm(value, "^function.*") == 1 & isreal(value) != 1) {
+		return(value)
+	}
+	
+	// If the argument begins with obj_ remove the obj_ and return w/o extra quotes
+	else if (regexm(value, "^obj_.*") == 1 & isreal(value) != 1) {
+		return(subinstr(value, "obj_", ""))
+	}
+	
+	// If argument is a string add quotation marks around it
+	else if (isreal(value) != 1 & regexm(value, `"^".*"') == 1) {
+		return(value)
+	}
 
-	// Declare member variable used to implement logic
-	string colvector varnmvec
+	// If argument is a string add quotation marks around it
+	else if (isreal(value) != 1 & regexm(value, "^obj_.*") != 1 & 
+			regexm(value, "^function.*") != 1) {
+		return((char((34)) + value + char((34))))
+	}
 	
-	// Parses method argument on spaces and stores in separate columns of the 
-	// string column vector declared above
-	varnmvec = tokens(vnm, " ")
-	
+} // End of method declaration
+
+// Method to initialize the class object
+class d3 scalar d3::init(| string scalar vnm) {
+
 	// If there is only a single column
-	if (cols(varnmvec) == 1) {
+	if (args() == 1) {
 	
 		// Set the variable name for the class
 	    this.varnm = vnm
@@ -147,30 +174,36 @@ class d3 scalar d3::init(string scalar vnm) {
 		// Set the current property for the class
 		this.current = "var " + vnm + " = d3"
 		
+		// Set current function member variable
+		this.currentFunction = "d3"
+		
+		// Set last function member variable
+		this.lastFunction = "d3"
+		
 	} // End IF Block for single column
 	
 	// If there are two columns
 	else {
 	
 		// Set the variable name for the class
-		this.varnm = varnmvec[1, 1]
+		this.varnm = ""
 		
 		// Set the d3 property for the class
-		this.d3 = varnmvec[1, 1] + " = " + varnmvec[1, 2]
+		this.d3 = ""
 		
 		// Set the current property for the class
-		this.current = varnmvec[1, 1] + " = " + varnmvec[1, 2]
+		this.current = ""
 
+		// Set current function member variable
+		this.currentFunction = ""
+		
+		// Set last function member variable
+		this.lastFunction = ""
+		
 	} // End ELSE Block for multiple columns
 	
 	// Set previous value member variable
 	this.prev = ""
-	
-	// Set current function member variable
-	this.currentFunction = "d3"
-	
-	// Set last function member variable
-	this.lastFunction = "d3"
 	
 	// Return a copy of the object
 	return(this)
@@ -184,7 +217,30 @@ string scalar d3::getter() {
 
 // Method to print the complete JS object
 string scalar d3::complete() {
- 	return(this.current + ";") 
+	string scalar prettify
+	
+	/* Explanation of nested subtitute in string functions.
+	1 Removes consecutive carriage returns and replaces with single carriage return
+	--2 Return instances of ; with ; followed by a carriage return and a tab
+	----3 Return instances of { with { followed by a new line and a tab
+	------4 Return instances of }; with }; followed byt a carriage return an tab
+	--------5 Replace instances of var with a carriage return followed by a tab and var
+	*/
+	prettify = subinstr(this.current, char((118, 97, 114, 32)), char((13, 32, 118, 97, 114, 32, 32))) + ";"
+	
+	prettify = subinstr(
+					subinstr(
+						subinstr(prettify, char((13, 13, 13, 13)), char((13))), 
+					char((13, 13, 13)), char((13))), 
+				char((13, 13)), char((13)))
+
+	prettify = subinstr(
+					subinstr(
+						subinstr(prettify, char((13, 32, 32, 13, 32, 32, 13, 32, 32, 13, 32, 32)), char((13, 32, 32))), 
+					char((13, 32, 32, 13, 32, 32, 13, 32, 32)), char((13, 32, 32))), 
+				char((13, 32, 32, 13, 32, 32)), char((13, 32, 32)))
+
+ 	return(prettify) 
 }
 
 // Method to retrieve the name of the JS variable created by the object
@@ -209,6 +265,15 @@ string scalar d3::getCurrentFunction() {
 	return(this.currentFunction)
 }
 
+class d3 scalar d3::jsfree(string scalar jsfunction) {
+	this.currentFunction = "jsfunction"
+	this.lastFunction = getLastFunction()
+	this.prev = this.getter()
+	this.current = this.getter() + jsfunction
+	return(this)
+}
+
+
 class d3 scalar d3::geo() {
 	this.currentFunction = "geo"
 	this.lastFunction = getLastFunction()
@@ -217,11 +282,11 @@ class d3 scalar d3::geo() {
 	return(this)
 }
 
-class d3 scalar d3::key(string scalar func) {
+class d3 scalar d3::key(transmorphic scalar func) {
 	this.currentFunction = "key"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".key(" + func + ")"
+	this.current = this.getter() + ".key(" + checkValue(func) + ")"
 	return(this)
 }
 
@@ -233,12 +298,12 @@ class d3 scalar d3::random() {
 	return(this)
 }
 
-class d3 scalar d3::scale(| string scalar scale) {
+class d3 scalar d3::scale(| transmorphic scalar scale) {
 	this.currentFunction = "scale"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".scale(" + scale +")"
+		this.current = this.getter() + ".scale(" + checkValue(scale) +")"
 	}
 	else {
 		this.current = this.getter() + ".scale"
@@ -263,131 +328,134 @@ class d3 scalar d3::abort() {
 }
 
 
-class d3 scalar d3::add(string scalar value) { 
+class d3 scalar d3::add(transmorphic scalar value) { 
 	this.currentFunction = "add"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".add(" + value + ")" 
+	this.current = this.getter() + ".add(" + checkValue(value) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::append(string scalar name) { 
+class d3 scalar d3::append(transmorphic scalar name) { 
 	this.currentFunction = "append"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".append(""' + name + `"")"' 
+	this.current = this.getter() + ".append(" + checkValue(name) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::ascending(string scalar a, string scalar b) { 
+class d3 scalar d3::ascending(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "ascending"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".ascending(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".ascending(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::attr(string scalar name, | string scalar value) { 
+class d3 scalar d3::attr(transmorphic scalar name, | transmorphic scalar value) { 
 	this.currentFunction = "attr"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	if (args() == 2) {
-		this.current = this.getter() + `".attr(""' + name + `"", "' + value + ")" 
+	if (name == "class" & args() == 2) {
+		this.current = this.getter() + ".attr(" + checkValue(name) + ", " + checkValue(value) + ")" 
+	}
+	else if (name != "class" & args() == 2)  {
+			this.current = this.getter() + ".attr(" + checkValue(name) + ", " + checkValue(value) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".attr(""' + name + `"")"' 
+		this.current = this.getter() + ".attr(" + checkValue(name) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::attrTween(string scalar name, string scalar tween) { 
+class d3 scalar d3::attrTween(transmorphic scalar name, transmorphic scalar tween) { 
 	this.currentFunction = "attrTween"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".attrTween(""' + name + `"", "' + tween + ")" 
+	this.current = this.getter() + ".attrTween(" + checkValue(name) + ", " + checkValue(tween) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::bates(real scalar count) { 
+class d3 scalar d3::bates(transmorphic scalar count) { 
 	this.currentFunction = "bates"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".bates(" + strofreal(count) + ")" 
+	this.current = this.getter() + ".bates(" + checkValue(count) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::bisect(string scalar aray, string scalar x, | string scalar lo, string scalar hi) { 
+class d3 scalar d3::bisect(transmorphic scalar aray, transmorphic scalar x, | transmorphic scalar lo, transmorphic scalar hi) { 
 	this.currentFunction = "bisect"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 4) {
-		this.current = this.getter() + ".bisect(" + aray + ", " + x + ", " + lo + ", " + hi + ")" 
+		this.current = this.getter() + ".bisect(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ", " + checkValue(hi) + ")" 
 	}
 	else if (args() == 3) {
-		this.current = this.getter() + ".bisect(" + aray + ", " + x + ", " + lo + ")" 
+		this.current = this.getter() + ".bisect(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".bisect(" + aray + ", " + x + ")" 
+		this.current = this.getter() + ".bisect(" + checkValue(aray) + ", " + checkValue(x) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::bisectLeft(string scalar aray, string scalar x, | string scalar lo, string scalar hi) { 
+class d3 scalar d3::bisectLeft(transmorphic scalar aray, transmorphic scalar x, | transmorphic scalar lo, transmorphic scalar hi) { 
 	this.currentFunction = "bisectLeft"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 4) {
-		this.current = this.getter() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ", " + hi + ")" 
+		this.current = this.getter() + ".bisectLeft(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ", " + checkValue(hi) + ")" 
 	}
 	else if (args() == 3) {
-		this.current = this.getter() + ".bisectLeft(" + aray + ", " + x + ", " + lo + ")" 
+		this.current = this.getter() + ".bisectLeft(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".bisectLeft(" + aray + ", " + x + ")" 
+		this.current = this.getter() + ".bisectLeft(" + checkValue(aray) + ", " + checkValue(x) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::bisectRight(string scalar aray, string scalar x, | string scalar lo, string scalar hi) { 
+class d3 scalar d3::bisectRight(transmorphic scalar aray, transmorphic scalar x, | transmorphic scalar lo, transmorphic scalar hi) { 
 	this.currentFunction = "bisectRight"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 4) {
-		this.current = this.getter() + ".bisectRight(" + aray + ", " + x + ", " + lo + ", " + hi + ")" 
+		this.current = this.getter() + ".bisectRight(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ", " + checkValue(hi) + ")" 
 	}
 	else if (args() == 3) {
-		this.current = this.getter() + ".bisectRight(" + aray + ", " + x + ", " + lo + ")" 
+		this.current = this.getter() + ".bisectRight(" + checkValue(aray) + ", " + checkValue(x) + ", " + checkValue(lo) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".bisectRight(" + aray + ", " + x + ")" 
+		this.current = this.getter() + ".bisectRight(" + checkValue(aray) + ", " + checkValue(x) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::bisector(string scalar comparator) { 
+class d3 scalar d3::bisector(transmorphic scalar comparator) { 
 	this.currentFunction = "bisector"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".bisector(" + comparator + ")" 
+	this.current = this.getter() + ".bisector(" + checkValue(comparator) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::brighter(| real scalar k) { 
+class d3 scalar d3::brighter(| transmorphic scalar k) { 
 	this.currentFunction = "brighter"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".brighter(" + strofreal(k) + ")" 
+		this.current = this.getter() + ".brighter(" + checkValue(k) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".brighter()" 
@@ -396,29 +464,29 @@ class d3 scalar d3::brighter(| real scalar k) {
 }
 
 
-class d3 scalar d3::call(string scalar func, | string scalar arguments) { 
+class d3 scalar d3::call(transmorphic scalar func, | transmorphic scalar arguments) { 
 	this.currentFunction = "call"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".call(" + func + ", " + arguments + ")" 
+		this.current = this.getter() + ".call(" + checkValue(func) + ", " + checkValue(arguments) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".call(" + func + ")" 
+		this.current = this.getter() + ".call(" + checkValue(func) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::classed(string scalar name, | string scalar value) { 
+class d3 scalar d3::classed(transmorphic scalar name, | transmorphic scalar value) { 
 	this.currentFunction = "classed"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".classed(""' + name + `"", "' + value + ")" 
+		this.current = this.getter() + ".classed(" + checkValue(name) + ", " + checkValue(value) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".classed(" + name + ")"
+		this.current = this.getter() + ".classed(" + checkValue(name) + ")"
 	}
 	return(this)
 }
@@ -432,29 +500,29 @@ class d3 scalar d3::color() {
 }
 
 
-class d3 scalar d3::csv(string scalar url, | string scalar accessor, string scalar callback) { 
+class d3 scalar d3::csv(transmorphic scalar url, | transmorphic scalar accessor, transmorphic scalar callback) { 
 	this.currentFunction = "csv"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".csv(""' + url + `"", "' + accessor + ", " + callback + ")" 
+		this.current = this.getter() + ".csv(" + checkValue(url) + ", " + checkValue(accessor) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".csv(""' + url + `"", "' + accessor + ")" 
+		this.current = this.getter() + ".csv(" + checkValue(url) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".csv(""' + url + `"")"' 
+		this.current = this.getter() + ".csv(" + checkValue(url) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::darker(| real scalar k) { 
+class d3 scalar d3::darker(| transmorphic scalar k) { 
 	this.currentFunction = "darker"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".darker(" + strofreal(k) + ")" 
+		this.current = this.getter() + ".darker(" + checkValue(k) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".darker()" 
@@ -463,15 +531,15 @@ class d3 scalar d3::darker(| real scalar k) {
 }
 
 
-class d3 scalar d3::data(| string scalar values, string scalar key) { 
+class d3 scalar d3::data(| transmorphic scalar values, transmorphic scalar key) { 
 	this.currentFunction = "data"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".data(" + values + ", " + key + ")" 
+		this.current = this.getter() + ".data(" + checkValue(values) + ", " + checkValue(key) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".data(" + values + ")" 
+		this.current = this.getter() + ".data(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".data()" 
@@ -480,12 +548,12 @@ class d3 scalar d3::data(| string scalar values, string scalar key) {
 }
 
 
-class d3 scalar d3::datum(| string scalar value) { 
+class d3 scalar d3::datum(| transmorphic scalar value) { 
 	this.currentFunction = "datum"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".datum(" + value + ")" 
+		this.current = this.getter() + ".datum(" + checkValue(value) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".datum()" 
@@ -494,12 +562,12 @@ class d3 scalar d3::datum(| string scalar value) {
 }
 
 
-class d3 scalar d3::delay(| string scalar delay) { 
+class d3 scalar d3::delay(| transmorphic scalar delay) { 
 	this.currentFunction = "delay"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".delay(" + delay + ")" 
+		this.current = this.getter() + ".delay(" + checkValue(delay) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".delay()" 
@@ -508,44 +576,44 @@ class d3 scalar d3::delay(| string scalar delay) {
 }
 
 
-class d3 scalar d3::descending(string scalar a, string scalar b) { 
+class d3 scalar d3::descending(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "descending"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".descending(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".descending(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::deviation(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::deviation(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "deviation"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".deviation(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".deviation(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".deviation(" + aray + ")" 
+		this.current = this.getter() + ".deviation(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::dispatch(string scalar types) { 
+class d3 scalar d3::dispatch(transmorphic scalar types) { 
 	this.currentFunction = "dispatch"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".dispatch(" + types + ")" 
+	this.current = this.getter() + ".dispatch(" + checkValue(types) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::duration(| string scalar duration) { 
+class d3 scalar d3::duration(| transmorphic scalar duration) { 
 	this.currentFunction = "duration"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".duration(" + duration + ")" 
+		this.current = this.getter() + ".duration(" + checkValue(duration) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".duration()" 
@@ -554,15 +622,15 @@ class d3 scalar d3::duration(| string scalar duration) {
 }
 
 
-class d3 scalar d3::each(| string scalar type, string scalar listener) { 
+class d3 scalar d3::each(| transmorphic scalar type, transmorphic scalar listener) { 
 	this.currentFunction = "each"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".each(" + type + ", " + listener + ")" 
+		this.current = this.getter() + ".each(" + checkValue(type) + ", " + checkValue(listener) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".each(" + type + ")" 
+		this.current = this.getter() + ".each(" + checkValue(type) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".each()" 
@@ -571,15 +639,15 @@ class d3 scalar d3::each(| string scalar type, string scalar listener) {
 }
 
 
-class d3 scalar d3::ease(| string scalar value, string scalar arguments) { 
+class d3 scalar d3::ease(| transmorphic scalar value, transmorphic scalar arguments) { 
 	this.currentFunction = "ease"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".ease(" + value + ", " + arguments + ")" 
+		this.current = this.getter() + ".ease(" + checkValue(value) + ", " + checkValue(arguments) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".ease(" + value + ")" 
+		this.current = this.getter() + ".ease(" + checkValue(value) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".ease()" 
@@ -606,12 +674,12 @@ class d3 scalar d3::enter() {
 }
 
 
-class d3 scalar d3::entries(| string scalar object) { 
+class d3 scalar d3::entries(| transmorphic scalar object) { 
 	this.currentFunction = "entries"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".entries(" + object + ")" 
+		this.current = this.getter() + ".entries(" + checkValue(object) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".entries()" 
@@ -619,12 +687,12 @@ class d3 scalar d3::entries(| string scalar object) {
 	return(this)
 }
 
-class d3 scalar d3::event(| string scalar event) {
+class d3 scalar d3::event(| transmorphic scalar event) {
 	this.currentFunction = "event"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".event(" + event + ")"
+		this.current = this.getter() + ".event(" + checkValue(event) + ")"
 	}
 	else {
 		this.current = this.getter() + ".event"
@@ -642,28 +710,28 @@ class d3 scalar d3::exit() {
 }
 
 
-class d3 scalar d3::extent(| string scalar aray, string scalar accessor) { 
+class d3 scalar d3::extent(| transmorphic scalar aray, transmorphic scalar accessor) { 
 	this.currentFunction = "extent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".extent(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".extent(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".extent(" + aray + ")" 
+		this.current = this.getter() + ".extent(" + checkValue(aray) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".extent(" + aray + ")" 
+		this.current = this.getter() + ".extent(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::filter(string scalar selector) { 
+class d3 scalar d3::filter(transmorphic scalar selector) { 
 	this.currentFunction = "filter"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".filter(" + selector + ")" 
+	this.current = this.getter() + ".filter(" + checkValue(selector) + ")" 
 	return(this)
 }
 
@@ -677,53 +745,53 @@ class d3 scalar d3::flush() {
 }
 
 
-class d3 scalar d3::forEach(string scalar func) { 
+class d3 scalar d3::forEach(transmorphic scalar func) { 
 	this.currentFunction = "forEach"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".forEach(" + func + ")" 
+	this.current = this.getter() + ".forEach(" + checkValue(func) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::format(string scalar specifier) { 
+class d3 scalar d3::format(transmorphic scalar specifier) { 
 	this.currentFunction = "format"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".format(" + specifier + ")" 
+	this.current = this.getter() + ".format(" + checkValue(specifier) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::formatPrefix(string scalar value, | string scalar precision) { 
+class d3 scalar d3::formatPrefix(transmorphic scalar value, | transmorphic scalar precision) { 
 	this.currentFunction = "formatPrefix"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".formatPrefix(" + value + ", " + precision + ")" 
+		this.current = this.getter() + ".formatPrefix(" + checkValue(value) + ", " + checkValue(precision) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".formatPrefix(" + value + ")" 
+		this.current = this.getter() + ".formatPrefix(" + checkValue(value) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::functor(string scalar value) { 
+class d3 scalar d3::functor(transmorphic scalar value) { 
 	this.currentFunction = "functor"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".functor(" + value + ")" 
+	this.current = this.getter() + ".functor(" + checkValue(value) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::get(| string scalar callback) { 
+class d3 scalar d3::get(| transmorphic scalar callback) { 
 	this.currentFunction = "get"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".get(" + callback + ")" 
+		this.current = this.getter() + ".get(" + checkValue(callback) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".get()" 
@@ -732,52 +800,52 @@ class d3 scalar d3::get(| string scalar callback) {
 }
 
 
-class d3 scalar d3::has(string scalar key) { 
+class d3 scalar d3::has(transmorphic scalar key) { 
 	this.currentFunction = "has"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".has(" + key + ")" 
+	this.current = this.getter() + ".has(" + checkValue(key) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::hcl(string scalar h, | real scalar c, real scalar l) { 
+class d3 scalar d3::hcl(transmorphic scalar h, | transmorphic scalar c, transmorphic scalar l) { 
 	this.currentFunction = "hcl"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".hcl(" + h + ", " + strofreal(c) + ", " + strofreal(l) + ")" 
+		this.current = this.getter() + ".hcl(" + checkValue(h) + ", " + checkValue(c) + ", " + checkValue(l) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".hcl(" + h + ")" 
+		this.current = this.getter() + ".hcl(" + checkValue(h) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::header(string scalar name, | string scalar value) { 
+class d3 scalar d3::header(transmorphic scalar name, | transmorphic scalar value) { 
 	this.currentFunction = "header"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".header(""' + name + `"", "' + value + ")" 
+		this.current = this.getter() + ".header(" + checkValue(name) + ", " + checkValue(value) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".header(""' + name + `"")"' 
+		this.current = this.getter() + ".header(" + checkValue(name) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::hsl(| string scalar h, real scalar s, real scalar l) { 
+class d3 scalar d3::hsl(| transmorphic scalar h, transmorphic scalar s, transmorphic scalar l) { 
 	this.currentFunction = "hsl"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".hsl(" + h + ", " + strofreal(s) + ", " + strofreal(l) + ")" 
+		this.current = this.getter() + ".hsl(" + checkValue(h) + ", " + checkValue(s) + ", " + checkValue(l) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".hsl(" + h + ")" 
+		this.current = this.getter() + ".hsl(" + checkValue(h) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".hsl()" 
@@ -786,15 +854,15 @@ class d3 scalar d3::hsl(| string scalar h, real scalar s, real scalar l) {
 }
 
 
-class d3 scalar d3::html(| string scalar url, string scalar callback) { 
+class d3 scalar d3::html(| transmorphic scalar url, transmorphic scalar callback) { 
 	this.currentFunction = "html"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".html(""' + url + `"", "' + callback + ")" 
+		this.current = this.getter() + ".html(" + checkValue(url) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + `".html(""' + url + `"")"'
+		this.current = this.getter() + ".html(" + checkValue(url) + ")"
 	}
 	else {
 		this.current = this.getter() + ".html()" 
@@ -803,29 +871,29 @@ class d3 scalar d3::html(| string scalar url, string scalar callback) {
 }
 
 
-class d3 scalar d3::insert(string scalar name, | string scalar before) { 
+class d3 scalar d3::insert(transmorphic scalar name, | transmorphic scalar before) { 
 	this.currentFunction = "insert"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".insert("' + name + `", "' + before + `")"' 
+		this.current = this.getter() + ".insert(" + checkValue(name) + ", " + checkValue(before) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".insert(" + name + ")" 
+		this.current = this.getter() + ".insert(" + checkValue(name) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::interpolate(| string scalar a, string scalar b) { 
+class d3 scalar d3::interpolate(| transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolate"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".interpolate(" + a + ", " + b + ")" 
+		this.current = this.getter() + ".interpolate(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".interpolate(" + a + ")" 
+		this.current = this.getter() + ".interpolate(" + checkValue(a) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".interpolate()" 
@@ -834,120 +902,120 @@ class d3 scalar d3::interpolate(| string scalar a, string scalar b) {
 }
 
 
-class d3 scalar d3::interpolators(string scalar func) { 
+class d3 scalar d3::interpolators(transmorphic scalar func) { 
 	this.currentFunction = "interpolators"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolators.push(" + func + ")" 
+	this.current = this.getter() + ".interpolators.push(" + checkValue(func) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateArray(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateArray(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateArray"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateArray(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateArray(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateHcl(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateHcl(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateHcl"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateHcl(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateHcl(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateHsl(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateHsl(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateHsl"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateHsl(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateHsl(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateLab(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateLab(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateLab"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateLab(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateLab(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateNumber(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateNumber(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateNumber"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateNumber(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateNumber(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateObject(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateObject(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateObject"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateObject(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateObject(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateRgb(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateRgb(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateRgb"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateRgb(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateRgb(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateRound(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateRound(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateRound"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateRound(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateRound(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateString(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateString(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateString"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateString(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateString(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateTransform(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateTransform(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateTransform"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateTransform(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateTransform(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interpolateZoom(string scalar a, string scalar b) { 
+class d3 scalar d3::interpolateZoom(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "interpolateZoom"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interpolateZoom(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".interpolateZoom(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::interrupt(| string scalar name) { 
+class d3 scalar d3::interrupt(| transmorphic scalar name) { 
 	this.currentFunction = "interrupt"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".interrupt(" + name + ")" 	
+		this.current = this.getter() + ".interrupt(" + checkValue(name) + ")" 	
 	}
 	else {
 		this.current = this.getter() + ".interrupt()" 
@@ -956,58 +1024,58 @@ class d3 scalar d3::interrupt(| string scalar name) {
 }
 
 
-class d3 scalar d3::irwinHall(real scalar count) { 
+class d3 scalar d3::irwinHall(transmorphic scalar count) { 
 	this.currentFunction = "irwinHall"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".irwinHall(" + strofreal(count) + ")" 
+	this.current = this.getter() + ".irwinHall(" + checkValue(count) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::json(string scalar url, | string scalar callback) { 
+class d3 scalar d3::json(transmorphic scalar url, | transmorphic scalar callback) { 
 	this.currentFunction = "json"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".json(""' + url + `"", "' + callback + ")" 
+		this.current = this.getter() + ".json(" + checkValue(url) + ", " + checkValue(callback) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".json(""' + url + `"")"' 
+		this.current = this.getter() + ".json(" + checkValue(url) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::keys(string scalar object) { 
+class d3 scalar d3::keys(transmorphic scalar object) { 
 	this.currentFunction = "keys"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".keys(" + object + ")" 
+	this.current = this.getter() + ".keys(" + checkValue(object) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::lab(string scalar l, | real scalar a, real scalar b) { 
+class d3 scalar d3::lab(transmorphic scalar l, | transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "lab"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".lab(" + l + ", " + strofreal(a) + ", " + strofreal(b) + ")" 
+		this.current = this.getter() + ".lab(" + checkValue(l) + ", " + checkValue(a) + ", " + checkValue(b) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".lab(" + l + ")" 
+		this.current = this.getter() + ".lab(" + checkValue(l) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::locale(string scalar definition) { 
+class d3 scalar d3::locale(transmorphic scalar definition) { 
 	this.currentFunction = "locale"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (regexm(definition, "(decimal)(thousands)(grouping)(currency)") == 1) {
-		this.current = this.getter() + ".locale(" + definition + ")" 
+		this.current = this.getter() + ".locale(" + checkValue(definition) + ")" 
 		return(this)
 	}
 	else {
@@ -1017,15 +1085,15 @@ class d3 scalar d3::locale(string scalar definition) {
 		
 
 
-class d3 scalar d3::logNormal(| real scalar mean, real scalar deviation) { 
+class d3 scalar d3::logNormal(| transmorphic scalar mean, transmorphic scalar deviation) { 
 	this.currentFunction = "logNormal"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".logNormal(" + strofreal(mean) + ", " + strofreal(deviation) + ")" 
+		this.current = this.getter() + ".logNormal(" + checkValue(mean) + ", " + checkValue(deviation) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".logNormal(" + strofreal(mean) + ")" 
+		this.current = this.getter() + ".logNormal(" + checkValue(mean) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".logNormal()" 
@@ -1034,15 +1102,15 @@ class d3 scalar d3::logNormal(| real scalar mean, real scalar deviation) {
 }
 
 
-class d3 scalar d3::map(| string scalar object, string scalar key) { 
+class d3 scalar d3::map(| transmorphic scalar object, transmorphic scalar key) { 
 	this.currentFunction = "map"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".map(" + object + ", " + key + ")" 
+		this.current = this.getter() + ".map(" + checkValue(object) + ", " + checkValue(key) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".map(" + object + ")" 
+		this.current = this.getter() + ".map(" + checkValue(object) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".map()" 
@@ -1051,63 +1119,63 @@ class d3 scalar d3::map(| string scalar object, string scalar key) {
 }
 
 
-class d3 scalar d3::max(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::max(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "max"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".max(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".max(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".max(" + aray + ")" 
+		this.current = this.getter() + ".max(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::mean(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::mean(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "mean"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".mean(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".mean(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".mean(" + aray + ")" 
+		this.current = this.getter() + ".mean(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::median(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::median(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "median"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".median(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".median(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".median(" + aray + ")" 
+		this.current = this.getter() + ".median(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::merge(string scalar arays) { 
+class d3 scalar d3::merge(transmorphic scalar arays) { 
 	this.currentFunction = "merge"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".merge(" + arays + ")" 
+	this.current = this.getter() + ".merge(" + checkValue(arays) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::mimeType(| string scalar type) { 
+class d3 scalar d3::mimeType(| transmorphic scalar type) { 
 	this.currentFunction = "mimeType"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + `".mimeType(""' + type + `"")"' 
+		this.current = this.getter() + ".mimeType(" + checkValue(type) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".mimeType()" 
@@ -1116,25 +1184,25 @@ class d3 scalar d3::mimeType(| string scalar type) {
 }
 
 
-class d3 scalar d3::min(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::min(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "min"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".min(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".min(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".min(" + aray + ")" 
+		this.current = this.getter() + ".min(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::mouse(string scalar container) { 
+class d3 scalar d3::mouse(transmorphic scalar container) { 
 	this.currentFunction = "mouse"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".mouse(""' + container + `"")"' 
+	this.current = this.getter() + ".mouse(" + checkValue(container) + ")" 
 	return(this)
 }
 
@@ -1157,15 +1225,15 @@ class d3 scalar d3::node() {
 }
 
 
-class d3 scalar d3::normal(| real scalar mean, real scalar deviation) { 
+class d3 scalar d3::normal(| transmorphic scalar mean, transmorphic scalar deviation) { 
 	this.currentFunction = "normal"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".normal(" + strofreal(mean) + ", " + strofreal(deviation) + ")" 
+		this.current = this.getter() + ".normal(" + checkValue(mean) + ", " + checkValue(deviation) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".normal(" + strofreal(mean) + ")" 
+		this.current = this.getter() + ".normal(" + checkValue(mean) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".normal()" 
@@ -1184,38 +1252,38 @@ class d3 scalar d3::ns() {
 	return(this)
 }
 
-class d3 scalar d3::numberFormat(string scalar specifier) { 
+class d3 scalar d3::numberFormat(transmorphic scalar specifier) { 
 	this.currentFunction = "numberFormat"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".numberFormat(" + specifier + ")" 
+	this.current = this.getter() + ".numberFormat(" + checkValue(specifier) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::on(string scalar type, | string scalar listener, string scalar capture) { 
+class d3 scalar d3::on(transmorphic scalar type, | transmorphic scalar listener, transmorphic scalar capture) { 
 	this.currentFunction = "on"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".on(""' + type + `"", "' + listener + ", " + capture + ")" 
+		this.current = this.getter() + ".on(" + checkValue(type) + ", " + checkValue(listener) + ", " + checkValue(capture) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".on(""' + type + `"", "' + listener + ")" 
+		this.current = this.getter() + ".on(" + checkValue(type) + ", " + checkValue(listener) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".on(""' + type + `"")"' 
+		this.current = this.getter() + ".on(" + checkValue(type) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::order(| string scalar order) { 
+class d3 scalar d3::order(| transmorphic scalar order) { 
 	this.currentFunction = "order"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".order(" + order + ")" 
+		this.current = this.getter() + ".order(" + checkValue(order) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".order()" 
@@ -1224,33 +1292,33 @@ class d3 scalar d3::order(| string scalar order) {
 }
 
 
-class d3 scalar d3::pairs(string scalar aray) { 
+class d3 scalar d3::pairs(transmorphic scalar aray) { 
 	this.currentFunction = "pairs"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".pairs(" + aray + ")" 
+	this.current = this.getter() + ".pairs(" + checkValue(aray) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::permute(string scalar aray, string scalar indexes) { 
+class d3 scalar d3::permute(transmorphic scalar aray, transmorphic scalar indexes) { 
 	this.currentFunction = "permute"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".permute(" + aray + ", " + indexes + ")" 
+	this.current = this.getter() + ".permute(" + checkValue(aray) + ", " + checkValue(indexes) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::post(| string scalar data, string scalar callback) { 
+class d3 scalar d3::post(| transmorphic scalar data, transmorphic scalar callback) { 
 	this.currentFunction = "post"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".post(" + data + ", " + callback + ")" 
+		this.current = this.getter() + ".post(" + checkValue(data) + ", " + checkValue(callback) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".post(" + data + ")" 
+		this.current = this.getter() + ".post(" + checkValue(data) + ")" 
 	}
 	return(this)
 }
@@ -1263,38 +1331,38 @@ class d3 scalar d3::prefix() {
 	return(this)
 }
 
-class d3 scalar d3::property(string scalar name, | string scalar value) { 
+class d3 scalar d3::property(transmorphic scalar name, | transmorphic scalar value) { 
 	this.currentFunction = "property"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".property(""' + name + `"", "' + value + ")" 
+		this.current = this.getter() + ".property(" + checkValue(name) + ", " + checkValue(value) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".property(" + name + ")" 
+		this.current = this.getter() + ".property(" + checkValue(name) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::qualify(string scalar name) { 
+class d3 scalar d3::qualify(transmorphic scalar name) { 
 	this.currentFunction = "qualify"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".qualify(" + name + ")" 
+	this.current = this.getter() + ".qualify(" + checkValue(name) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::quantile(| string scalar numbers, real scalar p) { 
+class d3 scalar d3::quantile(| transmorphic scalar numbers, transmorphic scalar p) { 
 	this.currentFunction = "quantile"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".quantile(" + numbers + ", " + strofreal(p) + ")" 
+		this.current = this.getter() + ".quantile(" + checkValue(numbers) + ", " + checkValue(p) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".quantile(" + numbers + ")" 
+		this.current = this.getter() + ".quantile(" + checkValue(numbers) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".quantile()" 
@@ -1303,44 +1371,36 @@ class d3 scalar d3::quantile(| string scalar numbers, real scalar p) {
 }
 
 
-class d3 scalar d3::range(real scalar stop, | real scalar start, real scalar step) { 
+class d3 scalar d3::range(transmorphic scalar stop, | transmorphic scalar start, transmorphic scalar step) { 
 	this.currentFunction = "range"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	string scalar strt, stp, ste
-	if (start == .) {
-		strt = strofreal(0)
-	}
-	else {
-		strt = strofreal(start)
-	}
-	if (step == .) {
-		ste = strofreal(1)
-	}
-	else {
-		ste = strofreal(step)
-	}
-	stp = strofreal(stop)
-	this.current = this.getter() + ".range(" + strt + ", " + stp + ", " + ste + ")" 
+	transmorphic scalar strt, stp, ste
+	if (start == .) strt = 0
+	else strt = start
+	if (step == .) ste = 1
+	else ste = step
+	stp = stop
+	this.current = this.getter() + ".range(" + checkValue(strt) + ", " + checkValue(stp) + ", " + checkValue(ste) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::rebind(string scalar target, string scalar source, string scalar names) { 
+class d3 scalar d3::rebind(transmorphic scalar target, transmorphic scalar source, transmorphic scalar names) { 
 	this.currentFunction = "rebind"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".rebind(" + target + ", " + source + ", " + names + ")" 
+	this.current = this.getter() + ".rebind(" + checkValue(target) + ", " + checkValue(source) + ", " + checkValue(names) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::remove(| string scalar value) { 
+class d3 scalar d3::remove(| transmorphic scalar value) { 
 	this.currentFunction = "remove"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".remove(" + value + ")" 
+		this.current = this.getter() + ".remove(" + checkValue(value) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".remove()" 
@@ -1349,42 +1409,42 @@ class d3 scalar d3::remove(| string scalar value) {
 }
 
 
-class d3 scalar d3::requote(string scalar strng) { 
+class d3 scalar d3::requote(transmorphic scalar strng) { 
 	this.currentFunction = "requote"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".requote(""' + strng + `"")"' 
+	this.current = this.getter() + ".requote(" + checkValue(strng) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::response(string scalar value) { 
+class d3 scalar d3::response(transmorphic scalar value) { 
 	this.currentFunction = "response"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".response(" + value + ")" 
+	this.current = this.getter() + ".response(" + checkValue(value) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::responseType(string scalar type) { 
+class d3 scalar d3::responseType(transmorphic scalar type) { 
 	this.currentFunction = "responseType"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".responseType(" + type + ")" 
+	this.current = this.getter() + ".responseType(" + checkValue(type) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::rgb(| string scalar r, real scalar g, real scalar b) { 
+class d3 scalar d3::rgb(| transmorphic scalar r, transmorphic scalar g, transmorphic scalar b) { 
 	this.currentFunction = "rgb"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".rgb(" + r + ", " + strofreal(g) + ", " + strofreal(b) + ")" 
+		this.current = this.getter() + ".rgb(" + checkValue(r) + ", " + checkValue(g) + ", " + checkValue(b) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".rgb(" + r + ")" 
+		this.current = this.getter() + ".rgb(" + checkValue(r) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".rgb()" 
@@ -1393,20 +1453,20 @@ class d3 scalar d3::rgb(| string scalar r, real scalar g, real scalar b) {
 }
 
 
-class d3 scalar d3::rollup(string scalar func) { 
+class d3 scalar d3::rollup(transmorphic scalar func) { 
 	this.currentFunction = "rollup"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".rollup(" + func + ")" 
+	this.current = this.getter() + ".rollup(" + checkValue(func) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::rotate(| string scalar rotate) {
+class d3 scalar d3::rotate(| transmorphic scalar rotate) {
 	this.currentFunction = "rotate"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".rotate(" + rotate + ")" 
+		this.current = this.getter() + ".rotate(" + checkValue(rotate) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".rotate()" 
@@ -1415,15 +1475,15 @@ class d3 scalar d3::rotate(| string scalar rotate) {
 }
 
 
-class d3 scalar d3::round(| string scalar x, string scalar n) { 
+class d3 scalar d3::round(| transmorphic scalar x, transmorphic scalar n) { 
 	this.currentFunction = "round"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".round(" + strofreal(x) + ", " + strofreal(n) + ")" 
+		this.current = this.getter() + ".round(" + checkValue(x) + ", " + checkValue(n) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".round(" + strofreal(x) + ")" 
+		this.current = this.getter() + ".round(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".round()" 
@@ -1432,20 +1492,20 @@ class d3 scalar d3::round(| string scalar x, string scalar n) {
 }
 
 
-class d3 scalar d3::select(string scalar selector) { 
+class d3 scalar d3::select(transmorphic scalar selector) { 
 	this.currentFunction = "select"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".select(""' + selector + `"")"' 
+	this.current = this.getter() + ".select(" + checkValue(selector) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::selectAll(string scalar selector) { 
+class d3 scalar d3::selectAll(transmorphic scalar selector) { 
 	this.currentFunction = "selectAll"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".selectAll(""' + selector + `"")"'
+	this.current = this.getter() + ".selectAll(" + checkValue(selector) + ")"
 	return(this)
 }
 
@@ -1459,32 +1519,32 @@ class d3 scalar d3::selection() {
 }
 
 
-class d3 scalar d3::send(string scalar method, | string scalar data, string scalar callback) { 
+class d3 scalar d3::send(transmorphic scalar method, | transmorphic scalar data, transmorphic scalar callback) { 
 	this.currentFunction = "send"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".send(" + method + ", " + data + ", " + callback + ")" 
+		this.current = this.getter() + ".send(" + checkValue(method) + ", " + checkValue(data) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".send(" + method + ", " + data + ")" 
+		this.current = this.getter() + ".send(" + checkValue(method) + ", " + checkValue(data) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".send(" + method + ")" 
+		this.current = this.getter() + ".send(" + checkValue(method) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::set(| string scalar key, string scalar value) { 
+class d3 scalar d3::set(| transmorphic scalar key, transmorphic scalar value) { 
 	this.currentFunction = "set"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".set(" + key + ", " + value + ")" 
+		this.current = this.getter() + ".set(" + checkValue(key) + ", " + checkValue(value) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".set(" + key + ")" 
+		this.current = this.getter() + ".set(" + checkValue(key) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".set()" 
@@ -1492,32 +1552,32 @@ class d3 scalar d3::set(| string scalar key, string scalar value) {
 	return(this)
 }
 
-class d3 scalar d3::shuffle(string scalar aray, | string scalar lo, string scalar hi) { 
+class d3 scalar d3::shuffle(transmorphic scalar aray, | transmorphic scalar lo, transmorphic scalar hi) { 
 	this.currentFunction = "shuffle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".shuffle(" + aray + ", " + lo + ", " + hi + ")" 
+		this.current = this.getter() + ".shuffle(" + checkValue(aray) + ", " + checkValue(lo) + ", " + checkValue(hi) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".shuffle(" + aray + ", " + lo + ")" 
+		this.current = this.getter() + ".shuffle(" + checkValue(aray) + ", " + checkValue(lo) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".shuffle(" + aray + ")" 
+		this.current = this.getter() + ".shuffle(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::size(| string scalar width, string scalar height) { 
+class d3 scalar d3::size(| transmorphic scalar width, transmorphic scalar height) { 
 	this.currentFunction = "size"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".size(" + width + ", " + height + ")" 
+		this.current = this.getter() + ".size(" + checkValue(width) + ", " + checkValue(height) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".size(" + width + ")" 
+		this.current = this.getter() + ".size(" + checkValue(width) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".size()" 
@@ -1526,12 +1586,12 @@ class d3 scalar d3::size(| string scalar width, string scalar height) {
 }
 
 
-class d3 scalar d3::sort(| string scalar comparator) { 
+class d3 scalar d3::sort(| transmorphic scalar comparator) { 
 	this.currentFunction = "sort"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".sort(" + comparator + ")" 
+		this.current = this.getter() + ".sort(" + checkValue(comparator) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".sort()" 
@@ -1540,81 +1600,81 @@ class d3 scalar d3::sort(| string scalar comparator) {
 }
 
 
-class d3 scalar d3::sortKeys(string scalar comparator) { 
+class d3 scalar d3::sortKeys(transmorphic scalar comparator) { 
 	this.currentFunction = "sortKeys"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".sortKeys(" + comparator + ")" 
+	this.current = this.getter() + ".sortKeys(" + checkValue(comparator) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::sortValues(string scalar comparator) { 
+class d3 scalar d3::sortValues(transmorphic scalar comparator) { 
 	this.currentFunction = "sortValues"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".sortValues(" + comparator + ")" 
+	this.current = this.getter() + ".sortValues(" + checkValue(comparator) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::style(string scalar name, | string scalar value, string scalar priority) { 
+class d3 scalar d3::style(transmorphic scalar name, | transmorphic scalar value, transmorphic scalar priority) { 
 	this.currentFunction = "style"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".style(""' + name + `"", "' + value + ", " + priority + ")" 
+		this.current = this.getter() + ".style(" + checkValue(name) + ", " + checkValue(value) + ", " + checkValue(priority) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".style(""' + name + `"", "' + value + ")" 
+		this.current = this.getter() + ".style(" + checkValue(name) + ", " + checkValue(value) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".style(""' + name + `"")"' 
+		this.current = this.getter() + ".style(" + checkValue(name) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::styleTween(string scalar name, string scalar tween, | string scalar priority) { 
+class d3 scalar d3::styleTween(transmorphic scalar name, transmorphic scalar tween, | transmorphic scalar priority) { 
 	this.currentFunction = "styleTween"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".styleTween(""' + name + `"", "' + tween + ", " + priority + ")" 
+		this.current = this.getter() + ".styleTween(" + checkValue(name) + ", " + checkValue(tween) + ", " + checkValue(priority) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".styleTween(""' + name + `"", "' + tween + ")" 
+		this.current = this.getter() + ".styleTween(" + checkValue(name) + ", " + checkValue(tween) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::sum(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::sum(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "sum"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".sum(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".sum(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".sum(" + aray + ")" 
+		this.current = this.getter() + ".sum(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::text(| string scalar url, string scalar mimeType, string scalar callback) { 
+class d3 scalar d3::text(| transmorphic scalar url, transmorphic scalar mimeType, transmorphic scalar callback) { 
 	this.currentFunction = "text"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".text(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
+		this.current = this.getter() + ".text(" + checkValue(url) + ", " + checkValue(mimeType) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".text(""' + url + `"", ""' + mimeType + `"")"' 
+		this.current = this.getter() + ".text(" + checkValue(url) + ", " + checkValue(mimeType) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + `".text(""' + url + `"")"' 
+		this.current = this.getter() + ".text("' + checkValue(url) + `")"' 
 	}
 	else {
 		this.current = this.getter() + ".text()"
@@ -1623,27 +1683,27 @@ class d3 scalar d3::text(| string scalar url, string scalar mimeType, string sca
 }
 
 
-class d3 scalar d3::timeFormat(string scalar specifier) { 
+class d3 scalar d3::timeFormat(transmorphic scalar specifier) { 
 	this.currentFunction = "timeFormat"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".timeFormat(" + specifier + ")" 
+	this.current = this.getter() + ".timeFormat(" + checkValue(specifier) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::timer(string scalar func, | string scalar delay, string scalar time) { 
+class d3 scalar d3::timer(transmorphic scalar func, | transmorphic scalar delay, transmorphic scalar time) { 
 	this.currentFunction = "timer"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".timer(" + func + ", " + delay + ", " + time + ")" 
+		this.current = this.getter() + ".timer(" + checkValue(func) + ", " + checkValue(delay) + ", " + checkValue(time) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".timer(" + func + ", " + delay + ")" 
+		this.current = this.getter() + ".timer(" + checkValue(func) + ", " + checkValue(delay) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".timer(" + func + ")" 
+		this.current = this.getter() + ".timer(" + checkValue(func) + ")" 
 	}
 	return(this)
 }
@@ -1658,55 +1718,55 @@ class d3 scalar d3::toString() {
 }
 
 
-class d3 scalar d3::touch(string scalar container, | string scalar touches, string scalar identifier) { 
+class d3 scalar d3::touch(transmorphic scalar container, | transmorphic scalar touches, transmorphic scalar identifier) { 
 	this.currentFunction = "touch"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".touch(" + container + ", " + touches + ", " + identifier + ")" 
+		this.current = this.getter() + ".touch(" + checkValue(container) + ", " + checkValue(touches) + ", " + checkValue(identifier) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".touch(" + container + ", " + touches + ")" 
+		this.current = this.getter() + ".touch(" + checkValue(container) + ", " + checkValue(touches) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".touch(" + container + ")" 
+		this.current = this.getter() + ".touch(" + checkValue(container) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::touches(string scalar container, | string scalar touches) { 
+class d3 scalar d3::touches(transmorphic scalar container, | transmorphic scalar touches) { 
 	this.currentFunction = "touches"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".touches(" + container + ", " + touches + ")" 
+		this.current = this.getter() + ".touches(" + checkValue(container) + ", " + checkValue(touches) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".touches(" + container + ")" 
+		this.current = this.getter() + ".touches(" + checkValue(container) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::transform(string scalar strng) { 
+class d3 scalar d3::transform(transmorphic scalar strng) { 
 	this.currentFunction = "transform"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".transform(" + strng + ")" 
+	this.current = this.getter() + ".transform(" + checkValue(strng) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::transition(| string scalar selection, string scalar name) { 
+class d3 scalar d3::transition(| transmorphic scalar selection, transmorphic scalar name) { 
 	this.currentFunction = "transition"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + `".transition(""' + selection + `"", "' + name + ")" 
+		this.current = this.getter() + ".transition(" + checkValue(selection) + ", " + checkValue(name) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + `".transition(""' + selection + `"")"' 
+		this.current = this.getter() + ".transition(" + checkValue(selection) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".transition()" 
@@ -1714,12 +1774,12 @@ class d3 scalar d3::transition(| string scalar selection, string scalar name) {
 	return(this)
 }
 
-class d3 scalar d3::translate(| string scalar translate, real scalar d3) {
+class d3 scalar d3::translate(| transmorphic scalar translate, transmorphic scalar d3) {
 	this.currentFunction = "translate"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (translate != "") {
-		this.current = this.getter() + ".translate(" + translate + ")"
+		this.current = this.getter() + ".translate(" + checkValue(translate) + ")"
 	}
 	else if (translate == "" & d3 == 1) {
 		this.current = this.getter() + ".translate()"
@@ -1731,47 +1791,47 @@ class d3 scalar d3::translate(| string scalar translate, real scalar d3) {
 }
 
 
-class d3 scalar d3::transpose(string scalar matrx) { 
+class d3 scalar d3::transpose(transmorphic scalar matrx) { 
 	this.currentFunction = "transpose"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".transpose(" + matrx + ")" 
+	this.current = this.getter() + ".transpose(" + checkValue(matrx) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::tsv(string scalar url, | string scalar accessor, string scalar callback) { 
+class d3 scalar d3::tsv(transmorphic scalar url, | transmorphic scalar accessor, transmorphic scalar callback) { 
 	this.currentFunction = "tsv"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".tsv(""' + url + `"", "' + accessor + ", " + callback + ")" 
+		this.current = this.getter() + ".tsv(" + checkValue(url) + ", " + checkValue(accessor) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".tsv(""' + url + `"", "' + accessor + ")" 
+		this.current = this.getter() + ".tsv(" + checkValue(url) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".tsv(""' + url + `"")"' 
+		this.current = this.getter() + ".tsv(" + checkValue(url) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::tween(string scalar name, string scalar factory) { 
+class d3 scalar d3::tween(transmorphic scalar name, transmorphic scalar factory) { 
 	this.currentFunction = "tween"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + `".tween(""' + name + `"", "' + factory + ")" 
+	this.current = this.getter() + ".tween(" + checkValue(name) + ", " + checkValue(factory) + ")" 
 	return(this)
 }
 
 
-class d3 scalar d3::type(| string scalar arguments) { 
+class d3 scalar d3::type(| transmorphic scalar arguments) { 
 	this.currentFunction = "type"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".type(" + arguments + ")" 
+		this.current = this.getter() + ".type(" + checkValue(arguments) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".type()" 
@@ -1779,12 +1839,12 @@ class d3 scalar d3::type(| string scalar arguments) {
 	return(this)
 }
 
-class d3 scalar d3::values(| string scalar object) { 
+class d3 scalar d3::values(| transmorphic scalar object) { 
 	this.currentFunction = "values"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".values(" + object + ")" 
+		this.current = this.getter() + ".values(" + checkValue(object) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".values()" 
@@ -1792,59 +1852,59 @@ class d3 scalar d3::values(| string scalar object) {
 	return(this)
 }
 
-class d3 scalar d3::variance(string scalar aray, | string scalar accessor) { 
+class d3 scalar d3::variance(transmorphic scalar aray, | transmorphic scalar accessor) { 
 	this.currentFunction = "variance"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".variance(" + aray + ", " + accessor + ")" 
+		this.current = this.getter() + ".variance(" + checkValue(aray) + ", " + checkValue(accessor) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".variance(" + aray + ")" 
+		this.current = this.getter() + ".variance(" + checkValue(aray) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::xhr(string scalar url, | string scalar mimeType, string scalar callback) { 
+class d3 scalar d3::xhr(transmorphic scalar url, | transmorphic scalar mimeType, transmorphic scalar callback) { 
 	this.currentFunction = "xhr"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".xhr(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
+		this.current = this.getter() + ".xhr(" + checkValue(url) + ", " + checkValue(mimeType) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".xhr(""' + url + `"", ""' + mimeType + `"")"' 
+		this.current = this.getter() + ".xhr(" + checkValue(url) + ", " + checkValue(mimeType) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".xhr(""' + url + `"")"' 
+		this.current = this.getter() + ".xhr(" + checkValue(url) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::xml(string scalar url, | string scalar mimeType, string scalar callback) { 
+class d3 scalar d3::xml(transmorphic scalar url, | transmorphic scalar mimeType, transmorphic scalar callback) { 
 	this.currentFunction = "xml"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + `".xml(""' + url + `"", ""' + mimeType + `"", "' + callback + ")" 
+		this.current = this.getter() + ".xml(" + checkValue(url) + ", " + checkValue(mimeType) + ", " + checkValue(callback) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + `".xml(""' + url + `"", ""' + mimeType + `"")"' 
+		this.current = this.getter() + ".xml(" + checkValue(url) + ", " + checkValue(mimeType) + ")" 
 	}
 	else {
-		this.current = this.getter() + `".xml(""' + url + `"")"' 
+		this.current = this.getter() + ".xml(" + checkValue(url) + ")" 
 	}
 	return(this)
 }
 
 
-class d3 scalar d3::zip(string scalar arays) { 
+class d3 scalar d3::zip(transmorphic scalar arays) { 
 	this.currentFunction = "zip"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".zip(" + arays + ")" 
+	this.current = this.getter() + ".zip(" + checkValue(arays) + ")" 
 	return(this)
 }
 
@@ -1856,12 +1916,12 @@ class d3 scalar d3::behavior() {
 	return(this)
 }
 
-class d3 scalar d3::center(| string scalar center) { 
+class d3 scalar d3::center(| transmorphic scalar center) { 
 	this.currentFunction = "center"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".center(" + center + ")" 
+		this.current = this.getter() + ".center(" + checkValue(center) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".center()" 
@@ -1877,12 +1937,12 @@ class d3 scalar d3::drag() {
 	return(this)
 }
 
-class d3 scalar d3::origin(| string scalar origin) { 
+class d3 scalar d3::origin(| transmorphic scalar origin) { 
 	this.currentFunction = "origin"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".origin(" + origin + ")" 
+		this.current = this.getter() + ".origin(" + checkValue(origin) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".origin()" 
@@ -1890,12 +1950,12 @@ class d3 scalar d3::origin(| string scalar origin) {
 	return(this)
 }
 
-class d3 scalar d3::scaleExtent(| string scalar extent) { 
+class d3 scalar d3::scaleExtent(| transmorphic scalar extent) { 
 	this.currentFunction = "scaleExtent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".scaleExtent(" + extent + ")" 
+		this.current = this.getter() + ".scaleExtent(" + checkValue(extent) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".scaleExtent()" 
@@ -1903,12 +1963,12 @@ class d3 scalar d3::scaleExtent(| string scalar extent) {
 	return(this)
 }
 
-class d3 scalar d3::x(| string scalar x) { 
+class d3 scalar d3::x(| transmorphic scalar x) { 
 	this.currentFunction = "x"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".x(" + x + ")" 
+		this.current = this.getter() + ".x(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".x()" 
@@ -1916,12 +1976,12 @@ class d3 scalar d3::x(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::y(| string scalar y) { 
+class d3 scalar d3::y(| transmorphic scalar y) { 
 	this.currentFunction = "y"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".y(" + y + ")" 
+		this.current = this.getter() + ".y(" + checkValue(y) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".y()" 
@@ -1929,12 +1989,12 @@ class d3 scalar d3::y(| string scalar y) {
 	return(this)
 }
 
-class d3 scalar d3::x0(| string scalar x0) { 
+class d3 scalar d3::x0(| transmorphic scalar x0) { 
 	this.currentFunction = "x0"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".x0(" + x0 + ")" 
+		this.current = this.getter() + ".x0(" + checkValue(x0) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".x0()" 
@@ -1942,12 +2002,12 @@ class d3 scalar d3::x0(| string scalar x0) {
 	return(this)
 }
 
-class d3 scalar d3::y0(| string scalar y0) { 
+class d3 scalar d3::y0(| transmorphic scalar y0) { 
 	this.currentFunction = "y0"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".y0(" + y0 + ")" 
+		this.current = this.getter() + ".y0(" + checkValue(y0) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".y0()" 
@@ -1955,12 +2015,12 @@ class d3 scalar d3::y0(| string scalar y0) {
 	return(this)
 }
 
-class d3 scalar d3::x1(| string scalar x1) { 
+class d3 scalar d3::x1(| transmorphic scalar x1) { 
 	this.currentFunction = "x1"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".x1(" + x1 + ")" 
+		this.current = this.getter() + ".x1(" + checkValue(x1) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".x1()" 
@@ -1968,12 +2028,12 @@ class d3 scalar d3::x1(| string scalar x1) {
 	return(this)
 }
 
-class d3 scalar d3::y1(| string scalar y1) { 
+class d3 scalar d3::y1(| transmorphic scalar y1) { 
 	this.currentFunction = "y1"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".y1(" + y1 + ")" 
+		this.current = this.getter() + ".y1(" + checkValue(y1) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".y1()" 
@@ -1981,12 +2041,12 @@ class d3 scalar d3::y1(| string scalar y1) {
 	return(this)
 }
 
-class d3 scalar d3::zoom(| string scalar selection) { 
+class d3 scalar d3::zoom(| transmorphic scalar selection) { 
 	this.currentFunction = "zoom"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".zoom(" + selection + ")" 
+		this.current = this.getter() + ".zoom(" + checkValue(selection) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".zoom()" 
@@ -2002,20 +2062,20 @@ class d3 scalar d3::geom() {
 	return(this)
 }
 
-class d3 scalar d3::clip(string scalar subject) { 
+class d3 scalar d3::clip(transmorphic scalar subject) { 
 	this.currentFunction = "clip"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".clip(" + subject + ")" 
+	this.current = this.getter() + ".clip(" + checkValue(subject) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::clipExtent(| string scalar extent) { 
+class d3 scalar d3::clipExtent(| transmorphic scalar extent) { 
 	this.currentFunction = "clipExtent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".clipExtent(" + extent + ")" 
+		this.current = this.getter() + ".clipExtent(" + checkValue(extent) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".clipExtent()" 
@@ -2023,20 +2083,20 @@ class d3 scalar d3::clipExtent(| string scalar extent) {
 	return(this)
 }
 
-class d3 scalar d3::find(string scalar point) { 
+class d3 scalar d3::find(transmorphic scalar point) { 
 	this.currentFunction = "find"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".find(" + point + ")" 
+	this.current = this.getter() + ".find(" + checkValue(point) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::hull(| string scalar vertices) { 
+class d3 scalar d3::hull(| transmorphic scalar vertices) { 
 	this.currentFunction = "hull"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".hull(" + vertices + ")" 
+		this.current = this.getter() + ".hull(" + checkValue(vertices) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".hull()" 
@@ -2044,32 +2104,32 @@ class d3 scalar d3::hull(| string scalar vertices) {
 	return(this)
 }
 
-class d3 scalar d3::polygon(string scalar vertices) { 
+class d3 scalar d3::polygon(transmorphic scalar vertices) { 
 	this.currentFunction = "polygon"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".polygon(" + vertices + ")" 
+	this.current = this.getter() + ".polygon(" + checkValue(vertices) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::quadtree(| string scalar points, string scalar x1, string scalar y1, string scalar x2, string scalar y2) { 
+class d3 scalar d3::quadtree(| transmorphic scalar points, transmorphic scalar x1, transmorphic scalar y1, transmorphic scalar x2, transmorphic scalar y2) { 
 	this.currentFunction = "quadtree"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 5) {
-		this.current = this.getter() + ".quadtree(" + points + ", " + x1 + ", " + y1 + ", " + x2 + ", " + y2 + ")" 
+		this.current = this.getter() + ".quadtree(" + checkValue(points) + ", " + checkValue(x1) + ", " + checkValue(y1) + ", " + checkValue(x2) + ", " + checkValue(y2) + ")" 
 	}
 	if (args() == 4) {
-		this.current = this.getter() + ".quadtree(" + points + ", " + x1 + ", " + y1 + ", " + x2 + ")" 
+		this.current = this.getter() + ".quadtree(" + checkValue(points) + ", " + checkValue(x1) + ", " + checkValue(y1) + ", " + checkValue(x2) + ")" 
 	}
 	if (args() == 3) {
-		this.current = this.getter() + ".quadtree(" + points + ", " + x1 + ", " + y1 + ")" 
+		this.current = this.getter() + ".quadtree(" + checkValue(points) + ", " + checkValue(x1) + ", " + checkValue(y1) + ")" 
 	}
 	if (args() == 2) {
-		this.current = this.getter() + ".quadtree(" + points + ", " + x1 + ")" 
+		this.current = this.getter() + ".quadtree(" + checkValue(points) + ", " + checkValue(x1) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".quadtree(" + points + ")" 
+		this.current = this.getter() + ".quadtree(" + checkValue(points) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".quadtree()" 	
@@ -2077,28 +2137,28 @@ class d3 scalar d3::quadtree(| string scalar points, string scalar x1, string sc
 	return(this)
 }
 
-class d3 scalar d3::triangles(string scalar data) { 
+class d3 scalar d3::triangles(transmorphic scalar data) { 
 	this.currentFunction = "triangles"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".triangles(" + data + ")" 
+	this.current = this.getter() + ".triangles(" + checkValue(data) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::visit(string scalar callback) { 
+class d3 scalar d3::visit(transmorphic scalar callback) { 
 	this.currentFunction = "visit"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".visit(" + callback + ")" 
+	this.current = this.getter() + ".visit(" + checkValue(callback) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::voronoi(| string scalar data) { 
+class d3 scalar d3::voronoi(| transmorphic scalar data) { 
 	this.currentFunction = "voronoi"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".voronoi(" + data + ")" 
+		this.current = this.getter() + ".voronoi(" + checkValue(data) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".voronoi()" 
@@ -2114,12 +2174,12 @@ class d3 scalar d3::layout() {
 	return(this)
 }
 
-class d3 scalar d3::alpha(| string scalar value) { 
+class d3 scalar d3::alpha(| transmorphic scalar value) { 
 	this.currentFunction = "alpha"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".alpha(" + value + ")" 
+		this.current = this.getter() + ".alpha(" + checkValue(value) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".alpha()" 
@@ -2127,12 +2187,12 @@ class d3 scalar d3::alpha(| string scalar value) {
 	return(this)
 }
 
-class d3 scalar d3::bins(| string scalar count) { 
+class d3 scalar d3::bins(| transmorphic scalar count) { 
 	this.currentFunction = "bins"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".bins(" + count + ")" 
+		this.current = this.getter() + ".bins(" + checkValue(count) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".bins()" 
@@ -2140,12 +2200,12 @@ class d3 scalar d3::bins(| string scalar count) {
 	return(this)
 }
 
-class d3 scalar d3::bundle(| string scalar links) { 
+class d3 scalar d3::bundle(| transmorphic scalar links) { 
 	this.currentFunction = "bundle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".bundle(" + links + ")" 
+		this.current = this.getter() + ".bundle(" + checkValue(links) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".bundle()" 
@@ -2153,12 +2213,12 @@ class d3 scalar d3::bundle(| string scalar links) {
 	return(this)
 }
 
-class d3 scalar d3::charge(| string scalar charge) { 
+class d3 scalar d3::charge(| transmorphic scalar charge) { 
 	this.currentFunction = "charge"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".charge(" + charge + ")" 
+		this.current = this.getter() + ".charge(" + checkValue(charge) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".charge()" 
@@ -2166,12 +2226,12 @@ class d3 scalar d3::charge(| string scalar charge) {
 	return(this)
 }
 
-class d3 scalar d3::chargeDistance(| string scalar distance) { 
+class d3 scalar d3::chargeDistance(| transmorphic scalar distance) { 
 	this.currentFunction = "chargeDistance"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".chargeDistance(" + distance + ")" 
+		this.current = this.getter() + ".chargeDistance(" + checkValue(distance) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".chargeDistance()" 
@@ -2179,12 +2239,12 @@ class d3 scalar d3::chargeDistance(| string scalar distance) {
 	return(this)
 }
 
-class d3 scalar d3::children(| string scalar accessor) { 
+class d3 scalar d3::children(| transmorphic scalar accessor) { 
 	this.currentFunction = "children"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".children(" + accessor + ")" 
+		this.current = this.getter() + ".children(" + checkValue(accessor) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".children()" 
@@ -2200,12 +2260,12 @@ class d3 scalar d3::chords() {
 	return(this)
 }
 
-class d3 scalar d3::cluster(| string scalar root) { 
+class d3 scalar d3::cluster(| transmorphic scalar root) { 
 	this.currentFunction = "cluster"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".cluster(" + root + ")" 
+		this.current = this.getter() + ".cluster(" + checkValue(root) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".cluster()" 
@@ -2221,12 +2281,12 @@ class d3 scalar d3::force() {
 	return(this)
 }
 
-class d3 scalar d3::frequency(| string scalar frequency) { 
+class d3 scalar d3::frequency(| transmorphic scalar frequency) { 
 	this.currentFunction = "frequency"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".frequency(" + frequency + ")" 
+		this.current = this.getter() + ".frequency(" + checkValue(frequency) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".frequency()" 
@@ -2234,12 +2294,12 @@ class d3 scalar d3::frequency(| string scalar frequency) {
 	return(this)
 }
 
-class d3 scalar d3::friction(| string scalar friction) { 
+class d3 scalar d3::friction(| transmorphic scalar friction) { 
 	this.currentFunction = "friction"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".friction(" + friction + ")" 
+		this.current = this.getter() + ".friction(" + checkValue(friction) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".friction()" 
@@ -2247,12 +2307,12 @@ class d3 scalar d3::friction(| string scalar friction) {
 	return(this)
 }
 
-class d3 scalar d3::gravity(| string scalar gravity) { 
+class d3 scalar d3::gravity(| transmorphic scalar gravity) { 
 	this.currentFunction = "gravity"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".gravity(" + gravity + ")" 
+		this.current = this.getter() + ".gravity(" + checkValue(gravity) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".gravity()" 
@@ -2268,12 +2328,12 @@ class d3 scalar d3::groups() {
 	return(this)
 }
 
-class d3 scalar d3::hierarchy(| string scalar root) { 
+class d3 scalar d3::hierarchy(| transmorphic scalar root) { 
 	this.currentFunction = "hierarchy"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".hierarchy(" + root + ")" 
+		this.current = this.getter() + ".hierarchy(" + checkValue(root) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".hierarchy()" 
@@ -2281,15 +2341,15 @@ class d3 scalar d3::hierarchy(| string scalar root) {
 	return(this)
 }
 
-class d3 scalar d3::histogram(| string scalar values, string scalar index) { 
+class d3 scalar d3::histogram(| transmorphic scalar values, transmorphic scalar index) { 
 	this.currentFunction = "histogram"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".histogram(" + values + ", " + index + ")" 
+		this.current = this.getter() + ".histogram(" + checkValue(values) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".histogram(" + values + ")" 
+		this.current = this.getter() + ".histogram(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".histogram()" 
@@ -2297,12 +2357,12 @@ class d3 scalar d3::histogram(| string scalar values, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::linkDistance(| string scalar distance) { 
+class d3 scalar d3::linkDistance(| transmorphic scalar distance) { 
 	this.currentFunction = "linkDistance"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".linkDistance(" + distance + ")" 
+		this.current = this.getter() + ".linkDistance(" + checkValue(distance) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".linkDistance()" 
@@ -2310,12 +2370,12 @@ class d3 scalar d3::linkDistance(| string scalar distance) {
 	return(this)
 }
 
-class d3 scalar d3::linkStrength(| string scalar strength) { 
+class d3 scalar d3::linkStrength(| transmorphic scalar strength) { 
 	this.currentFunction = "linkStrength"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".linkStrength(" + strength + ")" 
+		this.current = this.getter() + ".linkStrength(" + checkValue(strength) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".linkStrength()" 
@@ -2323,12 +2383,12 @@ class d3 scalar d3::linkStrength(| string scalar strength) {
 	return(this)
 }
 
-class d3 scalar d3::links(| string scalar links) { 
+class d3 scalar d3::links(| transmorphic scalar links) { 
 	this.currentFunction = "links"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".links(" + links + ")" 
+		this.current = this.getter() + ".links(" + checkValue(links) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".links()" 
@@ -2336,12 +2396,12 @@ class d3 scalar d3::links(| string scalar links) {
 	return(this)
 }
 
-class d3 scalar d3::matrx(| string scalar matrx) { 
+class d3 scalar d3::matrx(| transmorphic scalar matrx) { 
 	this.currentFunction = "matrix"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".matrix(" + matrx + ")" 
+		this.current = this.getter() + ".matrix(" + checkValue(matrx) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".matrix()" 
@@ -2349,12 +2409,12 @@ class d3 scalar d3::matrx(| string scalar matrx) {
 	return(this)
 }
 
-class d3 scalar d3::mode(| string scalar mode) { 
+class d3 scalar d3::mode(| transmorphic scalar mode) { 
 	this.currentFunction = "mode"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".mode(" + mode + ")" 
+		this.current = this.getter() + ".mode(" + checkValue(mode) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".mode()" 
@@ -2362,12 +2422,12 @@ class d3 scalar d3::mode(| string scalar mode) {
 	return(this)
 }
 
-class d3 scalar d3::nodeSize(| string scalar nodeSize) { 
+class d3 scalar d3::nodeSize(| transmorphic scalar nodeSize) { 
 	this.currentFunction = "nodeSize"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".nodeSize(" + nodeSize + ")" 
+		this.current = this.getter() + ".nodeSize(" + checkValue(nodeSize) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".nodeSize()" 
@@ -2375,12 +2435,12 @@ class d3 scalar d3::nodeSize(| string scalar nodeSize) {
 	return(this)
 }
 
-class d3 scalar d3::nodes(| string scalar nodes) { 
+class d3 scalar d3::nodes(| transmorphic scalar nodes) { 
 	this.currentFunction = "nodes"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".nodes(" + nodes + ")" 
+		this.current = this.getter() + ".nodes(" + checkValue(nodes) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".nodes()" 
@@ -2388,12 +2448,12 @@ class d3 scalar d3::nodes(| string scalar nodes) {
 	return(this)
 }
 
-class d3 scalar d3::out(| string scalar setter) { 
+class d3 scalar d3::out(| transmorphic scalar setter) { 
 	this.currentFunction = "out"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".out(" + setter + ")" 
+		this.current = this.getter() + ".out(" + checkValue(setter) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".out()" 
@@ -2401,12 +2461,12 @@ class d3 scalar d3::out(| string scalar setter) {
 	return(this)
 }
 
-class d3 scalar d3::pack(| string scalar root) { 
+class d3 scalar d3::pack(| transmorphic scalar root) { 
 	this.currentFunction = "pack"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".pack(" + root + ")" 
+		this.current = this.getter() + ".pack(" + checkValue(root) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".pack()" 
@@ -2414,12 +2474,12 @@ class d3 scalar d3::pack(| string scalar root) {
 	return(this)
 }
 
-class d3 scalar d3::padAngle(| string scalar angle) { 
+class d3 scalar d3::padAngle(| transmorphic scalar angle) { 
 	this.currentFunction = "padAngle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".padAngle(" + angle + ")" 
+		this.current = this.getter() + ".padAngle(" + checkValue(angle) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".padAngle()" 
@@ -2427,12 +2487,12 @@ class d3 scalar d3::padAngle(| string scalar angle) {
 	return(this)
 }
 
-class d3 scalar d3::padding(| string scalar padding) { 
+class d3 scalar d3::padding(| transmorphic scalar padding) { 
 	this.currentFunction = "padding"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".padding(" + padding + ")" 
+		this.current = this.getter() + ".padding(" + checkValue(padding) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".padding()" 
@@ -2440,12 +2500,12 @@ class d3 scalar d3::padding(| string scalar padding) {
 	return(this)
 }
 
-class d3 scalar d3::partition(| string scalar root) { 
+class d3 scalar d3::partition(| transmorphic scalar root) { 
 	this.currentFunction = "partition"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".partition(" + root + ")" 
+		this.current = this.getter() + ".partition(" + checkValue(root) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".partition()" 
@@ -2453,15 +2513,15 @@ class d3 scalar d3::partition(| string scalar root) {
 	return(this)
 }
 
-class d3 scalar d3::pie(| string scalar values, string scalar index) { 
+class d3 scalar d3::pie(| transmorphic scalar values, transmorphic scalar index) { 
 	this.currentFunction = "pie"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".pie(" + values + ", " + index + ")" 
+		this.current = this.getter() + ".pie(" + checkValue(values) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".pie(" + values + ")" 
+		this.current = this.getter() + ".pie(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".pie()" 
@@ -2469,12 +2529,12 @@ class d3 scalar d3::pie(| string scalar values, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::radius(| string scalar radius) { 
+class d3 scalar d3::radius(| transmorphic scalar radius) { 
 	this.currentFunction = "radius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".radius(" + radius + ")" 
+		this.current = this.getter() + ".radius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".radius()" 
@@ -2482,12 +2542,12 @@ class d3 scalar d3::radius(| string scalar radius) {
 	return(this)
 }
 
-class d3 scalar d3::ratio(| string scalar ratio) { 
+class d3 scalar d3::ratio(| transmorphic scalar ratio) { 
 	this.currentFunction = "ratio"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".ratio(" + ratio + ")" 
+		this.current = this.getter() + ".ratio(" + checkValue(ratio) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".ratio()" 
@@ -2503,20 +2563,20 @@ class d3 scalar d3::resume() {
 	return(this)
 }
 
-class d3 scalar d3::revalue(string scalar root) { 
+class d3 scalar d3::revalue(transmorphic scalar root) { 
 	this.currentFunction = "revalue"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".revalue(" + root + ")" 
+	this.current = this.getter() + ".revalue(" + checkValue(root) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::separation(| string scalar separation) { 
+class d3 scalar d3::separation(| transmorphic scalar separation) { 
 	this.currentFunction = "separation"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".separation(" + separation + ")" 
+		this.current = this.getter() + ".separation(" + checkValue(separation) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".separation()" 
@@ -2524,12 +2584,12 @@ class d3 scalar d3::separation(| string scalar separation) {
 	return(this)
 }
 
-class d3 scalar d3::sortChords(| string scalar comparator) { 
+class d3 scalar d3::sortChords(| transmorphic scalar comparator) { 
 	this.currentFunction = "sortChords"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".sortChords(" + comparator + ")" 
+		this.current = this.getter() + ".sortChords(" + checkValue(comparator) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".sortChords()" 
@@ -2537,12 +2597,12 @@ class d3 scalar d3::sortChords(| string scalar comparator) {
 	return(this)
 }
 
-class d3 scalar d3::sortGroups(| string scalar comparator) { 
+class d3 scalar d3::sortGroups(| transmorphic scalar comparator) { 
 	this.currentFunction = "sortGroups"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".sortGroups(" + comparator + ")" 
+		this.current = this.getter() + ".sortGroups(" + checkValue(comparator) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".sortGroups()" 
@@ -2550,12 +2610,12 @@ class d3 scalar d3::sortGroups(| string scalar comparator) {
 	return(this)
 }
 
-class d3 scalar d3::sortSubgroups(| string scalar comparator) { 
+class d3 scalar d3::sortSubgroups(| transmorphic scalar comparator) { 
 	this.currentFunction = "sortSubgroups"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".sortSubgroups(" + comparator + ")" 
+		this.current = this.getter() + ".sortSubgroups(" + checkValue(comparator) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".sortSubgroups()" 
@@ -2563,15 +2623,15 @@ class d3 scalar d3::sortSubgroups(| string scalar comparator) {
 	return(this)
 }
 
-class d3 scalar d3::stack(| string scalar layers, string scalar index) { 
+class d3 scalar d3::stack(| transmorphic scalar layers, transmorphic scalar index) { 
 	this.currentFunction = "stack"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".stack(" + layers + ", " + index + ")" 
+		this.current = this.getter() + ".stack(" + checkValue(layers) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".stack(" + layers + ")" 
+		this.current = this.getter() + ".stack(" + checkValue(layers) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".stack()" 
@@ -2587,12 +2647,12 @@ class d3 scalar d3::start() {
 	return(this)
 }
 
-class d3 scalar d3::startAngle(| string scalar angle) { 
+class d3 scalar d3::startAngle(| transmorphic scalar angle) { 
 	this.currentFunction = "startAngle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".startAngle(" + angle + ")" 
+		this.current = this.getter() + ".startAngle(" + checkValue(angle) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".startAngle()" 
@@ -2600,12 +2660,12 @@ class d3 scalar d3::startAngle(| string scalar angle) {
 	return(this)
 }
 
-class d3 scalar d3::sticky(| string scalar sticky) { 
+class d3 scalar d3::sticky(| transmorphic scalar sticky) { 
 	this.currentFunction = "sticky"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".sticky(" + sticky + ")" 
+		this.current = this.getter() + ".sticky(" + checkValue(sticky) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".sticky()" 
@@ -2621,12 +2681,12 @@ class d3 scalar d3::stop() {
 	return(this)
 }
 
-class d3 scalar d3::theta(| string scalar theta) { 
+class d3 scalar d3::theta(| transmorphic scalar theta) { 
 	this.currentFunction = "theta"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".theta(" + theta + ")" 
+		this.current = this.getter() + ".theta(" + checkValue(theta) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".theta()" 
@@ -2642,12 +2702,12 @@ class d3 scalar d3::tick() {
 	return(this)
 }
 
-class d3 scalar d3::tree(| string scalar root) { 
+class d3 scalar d3::tree(| transmorphic scalar root) { 
 	this.currentFunction = "tree"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".tree(" + root + ")" 
+		this.current = this.getter() + ".tree(" + checkValue(root) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tree()" 
@@ -2655,12 +2715,12 @@ class d3 scalar d3::tree(| string scalar root) {
 	return(this)
 }
 
-class d3 scalar d3::treemap(| string scalar root) { 
+class d3 scalar d3::treemap(| transmorphic scalar root) { 
 	this.currentFunction = "treemap"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".treemap(" + root + ")"
+		this.current = this.getter() + ".treemap(" + checkValue(root) + ")"
 	}
 	else {
 		this.current = this.getter() + ".treemap()"
@@ -2668,12 +2728,12 @@ class d3 scalar d3::treemap(| string scalar root) {
 	return(this)
 }
 
-class d3 scalar d3::value(| string scalar value) { 
+class d3 scalar d3::value(| transmorphic scalar value) { 
 	this.currentFunction = "value"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".value(" + value + ")"
+		this.current = this.getter() + ".value(" + checkValue(value) + ")"
 	}
 	else {
 		this.current = this.getter() + ".value()"
@@ -2713,20 +2773,20 @@ class d3 scalar d3::azimuthalEquidistant() {
 	return(this)
 }
 
-class d3 scalar d3::bounds(string scalar feature) { 
+class d3 scalar d3::bounds(transmorphic scalar feature) { 
 	this.currentFunction = "bounds"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".bounds(" + feature + ")" 
+	this.current = this.getter() + ".bounds(" + checkValue(feature) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::centroid(| string scalar feature) { 
+class d3 scalar d3::centroid(| transmorphic scalar feature) { 
 	this.currentFunction = "centroid"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".centroid(" + feature + ")" 
+		this.current = this.getter() + ".centroid(" + checkValue(feature) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".centroid()" 
@@ -2734,19 +2794,19 @@ class d3 scalar d3::centroid(| string scalar feature) {
 	return(this)
 }
 
-class d3 scalar d3::circle(string scalar arguments) { 
+class d3 scalar d3::circle(transmorphic scalar arguments) { 
 	this.currentFunction = "circle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".circle(" + arguments + ")" 
+	this.current = this.getter() + ".circle(" + checkValue(arguments) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::clipAngle(string scalar angle) { 
+class d3 scalar d3::clipAngle(transmorphic scalar angle) { 
 	this.currentFunction = "clipAngle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".clipAngle(" + angle + ")" 
+	this.current = this.getter() + ".clipAngle(" + checkValue(angle) + ")" 
 	return(this)
 }
 
@@ -2774,12 +2834,12 @@ class d3 scalar d3::conicEquidistant() {
 	return(this)
 }
 
-class d3 scalar d3::context(| string scalar context) { 
+class d3 scalar d3::context(| transmorphic scalar context) { 
 	this.currentFunction = "context"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".context(" + context + ")" 
+		this.current = this.getter() + ".context(" + checkValue(context) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".context()" 
@@ -2787,11 +2847,11 @@ class d3 scalar d3::context(| string scalar context) {
 	return(this)
 }
 
-class d3 scalar d3::distance(string scalar a, string scalar b) { 
+class d3 scalar d3::distance(transmorphic scalar a, transmorphic scalar b) { 
 	this.currentFunction = "distance"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".distance(" + a + ", " + b + ")" 
+	this.current = this.getter() + ".distance(" + checkValue(a) + ", " + checkValue(b) + ")" 
 	return(this)
 }
 
@@ -2819,19 +2879,19 @@ class d3 scalar d3::graticule() {
 	return(this)
 }
 
-class d3 scalar d3::invert(string scalar point) { 
+class d3 scalar d3::invert(transmorphic scalar point) { 
 	this.currentFunction = "invert"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".invert(" + point + ")" 
+	this.current = this.getter() + ".invert(" + checkValue(point) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::length(string scalar feature) { 
+class d3 scalar d3::length(transmorphic scalar feature) { 
 	this.currentFunction = "length"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".length(" + feature + ")" 
+	this.current = this.getter() + ".length(" + checkValue(feature) + ")" 
 	return(this)
 }
 
@@ -2859,19 +2919,19 @@ class d3 scalar d3::lines() {
 	return(this)
 }
 
-class d3 scalar d3::majorExtent(string scalar extent) { 
+class d3 scalar d3::majorExtent(transmorphic scalar extent) { 
 	this.currentFunction = "majorExtent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".majorExtent(" + extent + ")" 
+	this.current = this.getter() + ".majorExtent(" + checkValue(extent) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::majorStep(string scalar step) { 
+class d3 scalar d3::majorStep(transmorphic scalar step) { 
 	this.currentFunction = "majorStep"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".majorStep(" + step + ")" 
+	this.current = this.getter() + ".majorStep(" + checkValue(step) + ")" 
 	return(this)
 }
 
@@ -2883,19 +2943,19 @@ class d3 scalar d3::mercator() {
 	return(this)
 }
 
-class d3 scalar d3::minorExtent(string scalar extent) { 
+class d3 scalar d3::minorExtent(transmorphic scalar extent) { 
 	this.currentFunction = "minorExtent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".minorExtent(" + extent + ")" 
+	this.current = this.getter() + ".minorExtent(" + checkValue(extent) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::minorStep(string scalar step) { 
+class d3 scalar d3::minorStep(transmorphic scalar step) { 
 	this.currentFunction = "minorStep"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".minorStep(" + step + ")" 
+	this.current = this.getter() + ".minorStep(" + checkValue(step) + ")" 
 	return(this)
 }
 
@@ -2915,12 +2975,12 @@ class d3 scalar d3::outline() {
 	return(this)
 }
 
-class d3 scalar d3::parallels(| string scalar parallels) { 
+class d3 scalar d3::parallels(| transmorphic scalar parallels) { 
 	this.currentFunction = "parallels"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".parallels(" + parallels + ")" 
+		this.current = this.getter() + ".parallels(" + checkValue(parallels) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".parallels()" 
@@ -2928,15 +2988,15 @@ class d3 scalar d3::parallels(| string scalar parallels) {
 	return(this)
 }
 
-class d3 scalar d3::path(| string scalar feature, string scalar index) { 
+class d3 scalar d3::path(| transmorphic scalar feature, transmorphic scalar index) { 
 	this.currentFunction = "path"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".path(" + feature + ", " + index + ")" 
+		this.current = this.getter() + ".path(" + checkValue(feature) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".path(" + feature + ")" 
+		this.current = this.getter() + ".path(" + checkValue(feature) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".path()" 
@@ -2944,25 +3004,25 @@ class d3 scalar d3::path(| string scalar feature, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::point(string scalar x, string scalar y, | string scalar z) { 
+class d3 scalar d3::point(transmorphic scalar x, transmorphic scalar y, | transmorphic scalar z) { 
 	this.currentFunction = "point"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".point(" + x + ", " + y + ", " + z + ")" 
+		this.current = this.getter() + ".point(" + checkValue(x) + ", " + checkValue(y) + ", " + checkValue(z) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".point(" + x + ", " + y + ")" 
+		this.current = this.getter() + ".point(" + checkValue(x) + ", " + checkValue(y) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::pointRadius(| string scalar radius) { 
+class d3 scalar d3::pointRadius(| transmorphic scalar radius) { 
 	this.currentFunction = "pointRadius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".pointRadius(" + radius + ")" 
+		this.current = this.getter() + ".pointRadius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".pointRadius()" 
@@ -2986,12 +3046,12 @@ class d3 scalar d3::polygonStart() {
 	return(this)
 }
 
-class d3 scalar d3::precision(| string scalar precision) { 
+class d3 scalar d3::precision(| transmorphic scalar precision) { 
 	this.currentFunction = "precision"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".precision(" + precision + ")" 
+		this.current = this.getter() + ".precision(" + checkValue(precision) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".precision()" 
@@ -2999,12 +3059,12 @@ class d3 scalar d3::precision(| string scalar precision) {
 	return(this)
 }
 
-class d3 scalar d3::projection(| string scalar projection) { 
+class d3 scalar d3::projection(| transmorphic scalar projection) { 
 	this.currentFunction = "projection"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".projection(" + projection + ")" 
+		this.current = this.getter() + ".projection(" + checkValue(projection) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".projection()" 
@@ -3012,27 +3072,27 @@ class d3 scalar d3::projection(| string scalar projection) {
 	return(this)
 }
 
-class d3 scalar d3::projectionMutator(string scalar rawFactory) { 
+class d3 scalar d3::projectionMutator(transmorphic scalar rawFactory) { 
 	this.currentFunction = "projectionMutator"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".projectionMutator(" + rawFactory + ")" 
+	this.current = this.getter() + ".projectionMutator(" + checkValue(rawFactory) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::raw(string scalar psi0, string scalar psi1) { 
+class d3 scalar d3::raw(transmorphic scalar psi0, transmorphic scalar psi1) { 
 	this.currentFunction = "raw"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".raw(" + psi0 + ", " + psi1 + ")" 
+	this.current = this.getter() + ".raw(" + checkValue(psi0) + ", " + checkValue(psi1) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::rotation(string scalar rotate) { 
+class d3 scalar d3::rotation(transmorphic scalar rotate) { 
 	this.currentFunction = "rotation"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".rotation(" + rotate + ")" 
+	this.current = this.getter() + ".rotation(" + checkValue(rotate) + ")" 
 	return(this)
 }
 
@@ -3045,11 +3105,11 @@ class d3 scalar d3::sphere() {
 	return(this)
 }
 
-class d3 scalar d3::step(string scalar step) { 
+class d3 scalar d3::step(transmorphic scalar step) { 
 	this.currentFunction = "step"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".step(" + step + ")" 
+	this.current = this.getter() + ".step(" + checkValue(step) + ")" 
 	return(this)
 }
 
@@ -3061,15 +3121,15 @@ class d3 scalar d3::stereographic() {
 	return(this)
 }
 
-class d3 scalar d3::stream(string scalar object, |string scalar listener) { 
+class d3 scalar d3::stream(transmorphic scalar object, |transmorphic scalar listener) { 
 	this.currentFunction = "stream"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".stream(" + object + ", " + listener + ")" 
+		this.current = this.getter() + ".stream(" + checkValue(object) + ", " + checkValue(listener) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".stream(" + object + ")" 
+		this.current = this.getter() + ".stream(" + checkValue(object) + ")" 
 	}
 	return(this)
 }
@@ -3098,12 +3158,12 @@ class d3 scalar d3::symbolTypes() {
 	return(this)
 }
 
-class d3 scalar d3::angle(| string scalar angle) { 
+class d3 scalar d3::angle(| transmorphic scalar angle) { 
 	this.currentFunction = "angle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".angle(" + angle + ")" 
+		this.current = this.getter() + ".angle(" + checkValue(angle) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".angle()" 
@@ -3111,15 +3171,15 @@ class d3 scalar d3::angle(| string scalar angle) {
 	return(this)
 }
 
-class d3 scalar d3::arc(| string scalar datum, string scalar index) { 
+class d3 scalar d3::arc(| transmorphic scalar datum, transmorphic scalar index) { 
 	this.currentFunction = "arc"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".arc(" + datum + ", " + index + ")" 
+		this.current = this.getter() + ".arc(" + checkValue(datum) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".arc(" + datum + ")" 
+		this.current = this.getter() + ".arc(" + checkValue(datum) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".arc()" 
@@ -3127,12 +3187,12 @@ class d3 scalar d3::arc(| string scalar datum, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::area(| string scalar data) { 
+class d3 scalar d3::area(| transmorphic scalar data) { 
 	this.currentFunction = "area"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".area(" + data + ")" 
+		this.current = this.getter() + ".area(" + checkValue(data) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".area()" 
@@ -3140,12 +3200,12 @@ class d3 scalar d3::area(| string scalar data) {
 	return(this)
 }
 
-class d3 scalar d3::axis(| string scalar selection) { 
+class d3 scalar d3::axis(| transmorphic scalar selection) { 
 	this.currentFunction = "axis"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".axis(" + selection + ")" 
+		this.current = this.getter() + ".axis(" + checkValue(selection) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".axis()" 
@@ -3153,12 +3213,12 @@ class d3 scalar d3::axis(| string scalar selection) {
 	return(this)
 }
 
-class d3 scalar d3::brush(| string scalar selection) { 
+class d3 scalar d3::brush(| transmorphic scalar selection) { 
 	this.currentFunction = "brush"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".brush(" + selection + ")" 
+		this.current = this.getter() + ".brush(" + checkValue(selection) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".brush()" 
@@ -3166,15 +3226,15 @@ class d3 scalar d3::brush(| string scalar selection) {
 	return(this)
 }
 
-class d3 scalar d3::chord(| string scalar datum, string scalar index) { 
+class d3 scalar d3::chord(| transmorphic scalar datum, transmorphic scalar index) { 
 	this.currentFunction = "chord"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".chord(" + datum + ", " + index + ")" 
+		this.current = this.getter() + ".chord(" + checkValue(datum) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".chord(" + datum + ")" 
+		this.current = this.getter() + ".chord(" + checkValue(datum) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".chord()" 
@@ -3182,12 +3242,12 @@ class d3 scalar d3::chord(| string scalar datum, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::clamp(| string scalar clamp) { 
+class d3 scalar d3::clamp(| transmorphic scalar clamp) { 
 	this.currentFunction = "clamp"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".clamp(" + clamp + ")" 
+		this.current = this.getter() + ".clamp(" + checkValue(clamp) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".clamp()" 
@@ -3203,12 +3263,12 @@ class d3 scalar d3::clear() {
 	return(this)
 }
 
-class d3 scalar d3::cornerRadius(| string scalar radius) { 
+class d3 scalar d3::cornerRadius(| transmorphic scalar radius) { 
 	this.currentFunction = "cornerRadius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".cornerRadius(" + radius + ")" 
+		this.current = this.getter() + ".cornerRadius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".cornerRadius()" 
@@ -3216,12 +3276,12 @@ class d3 scalar d3::cornerRadius(| string scalar radius) {
 	return(this)
 }
 
-class d3 scalar d3::defined(| string scalar defined) { 
+class d3 scalar d3::defined(| transmorphic scalar defined) { 
 	this.currentFunction = "defined"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".defined(" + defined + ")" 
+		this.current = this.getter() + ".defined(" + checkValue(defined) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".defined()" 
@@ -3229,15 +3289,15 @@ class d3 scalar d3::defined(| string scalar defined) {
 	return(this)
 }
 
-class d3 scalar d3::diagonal(| string scalar datum, string scalar index) { 
+class d3 scalar d3::diagonal(| transmorphic scalar datum, transmorphic scalar index) { 
 	this.currentFunction = "diagonal"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".diagonal(" + datum + ", " + index + ")" 
+		this.current = this.getter() + ".diagonal(" + checkValue(datum) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".diagonal(" + datum + ")" 
+		this.current = this.getter() + ".diagonal(" + checkValue(datum) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".diagonal()" 
@@ -3245,12 +3305,12 @@ class d3 scalar d3::diagonal(| string scalar datum, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::endAngle(| string scalar angle) { 
+class d3 scalar d3::endAngle(| transmorphic scalar angle) { 
 	this.currentFunction = "endAngle"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".endAngle(" + angle + ")" 
+		this.current = this.getter() + ".endAngle(" + checkValue(angle) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".endAngle()" 
@@ -3258,12 +3318,12 @@ class d3 scalar d3::endAngle(| string scalar angle) {
 	return(this)
 }
 
-class d3 scalar d3::innerRadius(| string scalar radius) { 
+class d3 scalar d3::innerRadius(| transmorphic scalar radius) { 
 	this.currentFunction = "innerRadius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".innerRadius(" + radius + ")" 
+		this.current = this.getter() + ".innerRadius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".innerRadius()" 
@@ -3271,12 +3331,12 @@ class d3 scalar d3::innerRadius(| string scalar radius) {
 	return(this)
 }
 
-class d3 scalar d3::innerTickSize(| string scalar size) { 
+class d3 scalar d3::innerTickSize(| transmorphic scalar size) { 
 	this.currentFunction = "innerTickSize"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".innerTickSize(" + size + ")" 
+		this.current = this.getter() + ".innerTickSize(" + checkValue(size) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".innerTickSize()" 
@@ -3284,12 +3344,12 @@ class d3 scalar d3::innerTickSize(| string scalar size) {
 	return(this)
 }
 
-class d3 scalar d3::line(| string scalar data) { 
+class d3 scalar d3::line(| transmorphic scalar data) { 
 	this.currentFunction = "line"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".line(" + data + ")" 
+		this.current = this.getter() + ".line(" + checkValue(data) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".line()" 
@@ -3297,12 +3357,12 @@ class d3 scalar d3::line(| string scalar data) {
 	return(this)
 }
 
-class d3 scalar d3::orient(| string scalar orientation) { 
+class d3 scalar d3::orient(| transmorphic scalar orientation) { 
 	this.currentFunction = "orient"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".orient(" + orientation + ")" 
+		this.current = this.getter() + ".orient(" + checkValue(orientation) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".orient()" 
@@ -3310,12 +3370,12 @@ class d3 scalar d3::orient(| string scalar orientation) {
 	return(this)
 }
 
-class d3 scalar d3::outerRadius(| string scalar radius) { 
+class d3 scalar d3::outerRadius(| transmorphic scalar radius) { 
 	this.currentFunction = "outerRadius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".outerRadius(" + radius + ")" 
+		this.current = this.getter() + ".outerRadius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".outerRadius()" 
@@ -3323,12 +3383,12 @@ class d3 scalar d3::outerRadius(| string scalar radius) {
 	return(this)
 }
 
-class d3 scalar d3::outerTickSize(| string scalar size) { 
+class d3 scalar d3::outerTickSize(| transmorphic scalar size) { 
 	this.currentFunction = "outerTickSize"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".outerTickSize(" + size + ")" 
+		this.current = this.getter() + ".outerTickSize(" + checkValue(size) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".outerTickSize()" 
@@ -3336,12 +3396,12 @@ class d3 scalar d3::outerTickSize(| string scalar size) {
 	return(this)
 }
 
-class d3 scalar d3::padRadius(| string scalar radius) { 
+class d3 scalar d3::padRadius(| transmorphic scalar radius) { 
 	this.currentFunction = "padRadius"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".padRadius(" + radius + ")" 
+		this.current = this.getter() + ".padRadius(" + checkValue(radius) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".padRadius()" 
@@ -3357,12 +3417,12 @@ class d3 scalar d3::radial() {
 	return(this)
 }
 
-class d3 scalar d3::source(| string scalar source) { 
+class d3 scalar d3::source(| transmorphic scalar source) { 
 	this.currentFunction = "source"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".source(" + source + ")" 
+		this.current = this.getter() + ".source(" + checkValue(source) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".source()" 
@@ -3370,15 +3430,15 @@ class d3 scalar d3::source(| string scalar source) {
 	return(this)
 }
 
-class d3 scalar d3::symbol(| string scalar datum, string scalar index) { 
+class d3 scalar d3::symbol(| transmorphic scalar datum, transmorphic scalar index) { 
 	this.currentFunction = "symbol"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".symbol(" + datum + ", " + index + ")" 
+		this.current = this.getter() + ".symbol(" + checkValue(datum) + ", " + checkValue(index) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".symbol(" + datum + ")" 
+		this.current = this.getter() + ".symbol(" + checkValue(datum) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".symbol()" 
@@ -3386,12 +3446,12 @@ class d3 scalar d3::symbol(| string scalar datum, string scalar index) {
 	return(this)
 }
 
-class d3 scalar d3::target(| string scalar target) { 
+class d3 scalar d3::target(| transmorphic scalar target) { 
 	this.currentFunction = "target"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".target(" + target + ")" 
+		this.current = this.getter() + ".target(" + checkValue(target) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".target()" 
@@ -3399,12 +3459,12 @@ class d3 scalar d3::target(| string scalar target) {
 	return(this)
 }
 
-class d3 scalar d3::tension(| string scalar tension) { 
+class d3 scalar d3::tension(| transmorphic scalar tension) { 
 	this.currentFunction = "tension"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".tension(" + tension + ")" 
+		this.current = this.getter() + ".tension(" + checkValue(tension) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tension()" 
@@ -3412,12 +3472,12 @@ class d3 scalar d3::tension(| string scalar tension) {
 	return(this)
 }
 
-class d3 scalar d3::tickPadding(| string scalar padding) { 
+class d3 scalar d3::tickPadding(| transmorphic scalar padding) { 
 	this.currentFunction = "tickPadding"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".tickPadding(" + padding + ")" 
+		this.current = this.getter() + ".tickPadding(" + checkValue(padding) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tickPadding()" 
@@ -3425,15 +3485,15 @@ class d3 scalar d3::tickPadding(| string scalar padding) {
 	return(this)
 }
 
-class d3 scalar d3::tickSize(| string scalar inner, string scalar outer) { 
+class d3 scalar d3::tickSize(| transmorphic scalar inner, transmorphic scalar outer) { 
 	this.currentFunction = "tickSize"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".tickSize(" + inner + ", " + outer + ")" 
+		this.current = this.getter() + ".tickSize(" + checkValue(inner) + ", " + checkValue(outer) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".tickSize(" + inner + ")" 
+		this.current = this.getter() + ".tickSize(" + checkValue(inner) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tickSize()" 
@@ -3441,12 +3501,12 @@ class d3 scalar d3::tickSize(| string scalar inner, string scalar outer) {
 	return(this)
 }
 
-class d3 scalar d3::tickValues(| string scalar values) { 
+class d3 scalar d3::tickValues(| transmorphic scalar values) { 
 	this.currentFunction = "tickValues"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".tickValues(" + values + ")" 
+		this.current = this.getter() + ".tickValues(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tickValues()" 
@@ -3454,12 +3514,12 @@ class d3 scalar d3::tickValues(| string scalar values) {
 	return(this)
 }
 
-class d3 scalar d3::base(| string scalar base) { 
+class d3 scalar d3::base(| transmorphic scalar base) { 
 	this.currentFunction = "base"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".base(" + base + ")" 
+		this.current = this.getter() + ".base(" + checkValue(base) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".base()" 
@@ -3499,12 +3559,12 @@ class d3 scalar d3::category20c() {
 	return(this)
 }
 
-class d3 scalar d3::domain(| string scalar values) { 
+class d3 scalar d3::domain(| transmorphic scalar values) { 
 	this.currentFunction = "domain"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".domain(" + values + ")" 
+		this.current = this.getter() + ".domain(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".domain()" 
@@ -3512,12 +3572,12 @@ class d3 scalar d3::domain(| string scalar values) {
 	return(this)
 }
 
-class d3 scalar d3::exponent(| string scalar k) { 
+class d3 scalar d3::exponent(| transmorphic scalar k) { 
 	this.currentFunction = "exponent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".exponent(" + k + ")" 
+		this.current = this.getter() + ".exponent(" + checkValue(k) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".exponent()" 
@@ -3525,12 +3585,12 @@ class d3 scalar d3::exponent(| string scalar k) {
 	return(this)
 }
 
-class d3 scalar d3::identity(| string scalar x) { 
+class d3 scalar d3::identity(| transmorphic scalar x) { 
 	this.currentFunction = "identity"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".identity(" + x + ")" 
+		this.current = this.getter() + ".identity(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".identity()" 
@@ -3538,20 +3598,20 @@ class d3 scalar d3::identity(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::invertExtent(string scalar y) { 
+class d3 scalar d3::invertExtent(transmorphic scalar y) { 
 	this.currentFunction = "invertExtent"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".invertExtent(" + y + ")" 
+	this.current = this.getter() + ".invertExtent(" + checkValue(y) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::linear(| string scalar x) { 
+class d3 scalar d3::linear(| transmorphic scalar x) { 
 	this.currentFunction = "linear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".linear(" + x + ")" 
+		this.current = this.getter() + ".linear(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".linear()" 
@@ -3559,12 +3619,12 @@ class d3 scalar d3::linear(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::log(| string scalar x) { 
+class d3 scalar d3::log(| transmorphic scalar x) { 
 	this.currentFunction = "log"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".log(" + x + ")" 
+		this.current = this.getter() + ".log(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".log()" 
@@ -3572,15 +3632,15 @@ class d3 scalar d3::log(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::nice(| string scalar interval, string scalar step) { 
+class d3 scalar d3::nice(| transmorphic scalar interval, transmorphic scalar step) { 
 	this.currentFunction = "nice"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".nice(" + interval + ", " + step + ")" 
+		this.current = this.getter() + ".nice(" + checkValue(interval) + ", " + checkValue(step) + ")" 
 	}
 	if (args() == 1) {
-		this.current = this.getter() + ".nice(" + interval + ")" 
+		this.current = this.getter() + ".nice(" + checkValue(interval) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".nice()" 
@@ -3588,12 +3648,12 @@ class d3 scalar d3::nice(| string scalar interval, string scalar step) {
 	return(this)
 }
 
-class d3 scalar d3::ordinal(| string scalar x) { 
+class d3 scalar d3::ordinal(| transmorphic scalar x) { 
 	this.currentFunction = "ordinal"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".ordinal(" + x + ")" 
+		this.current = this.getter() + ".ordinal(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".ordinal()" 
@@ -3601,12 +3661,12 @@ class d3 scalar d3::ordinal(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::pow(| string scalar x) { 
+class d3 scalar d3::pow(| transmorphic scalar x) { 
 	this.currentFunction = "pow"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".pow(" + x + ")" 
+		this.current = this.getter() + ".pow(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".pow()" 
@@ -3622,12 +3682,12 @@ class d3 scalar d3::quantiles() {
 	return(this)
 }
 
-class d3 scalar d3::quantize(| string scalar x) { 
+class d3 scalar d3::quantize(| transmorphic scalar x) { 
 	this.currentFunction = "quantize"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".quantize(" + x + ")" 
+		this.current = this.getter() + ".quantize(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".quantize()" 
@@ -3643,18 +3703,18 @@ class d3 scalar d3::rangeBand() {
 	return(this)
 }
 
-class d3 scalar d3::rangeBands(string scalar interval, | string scalar padding, string scalar outerPadding) { 
+class d3 scalar d3::rangeBands(transmorphic scalar interval, | transmorphic scalar padding, transmorphic scalar outerPadding) { 
 	this.currentFunction = "rangeBands"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".rangeBands(" + interval + ", " + padding + ", " + outerPadding + ")" 
+		this.current = this.getter() + ".rangeBands(" + checkValue(interval) + ", " + checkValue(padding) + ", " + checkValue(outerPadding) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".rangeBands(" + interval + ", " + padding + ")" 
+		this.current = this.getter() + ".rangeBands(" + checkValue(interval) + ", " + checkValue(padding) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".rangeBands(" + interval + ")" 
+		this.current = this.getter() + ".rangeBands(" + checkValue(interval) + ")" 
 	}
 	return(this)
 }
@@ -3667,25 +3727,25 @@ class d3 scalar d3::rangeExtent() {
 	return(this)
 }
 
-class d3 scalar d3::rangePoints(string scalar interval, | string scalar padding) { 
+class d3 scalar d3::rangePoints(transmorphic scalar interval, | transmorphic scalar padding) { 
 	this.currentFunction = "rangePoints"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".rangePoints(" + interval + ", " + padding + ")" 
+		this.current = this.getter() + ".rangePoints(" + checkValue(interval) + ", " + checkValue(padding) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".rangePoints(" + interval + ")" 
+		this.current = this.getter() + ".rangePoints(" + checkValue(interval) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::rangeRound(| string scalar values) { 
+class d3 scalar d3::rangeRound(| transmorphic scalar values) { 
 	this.currentFunction = "rangeRound"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".rangeRound(" + values + ")" 
+		this.current = this.getter() + ".rangeRound(" + checkValue(values) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".rangeRound()" 
@@ -3693,31 +3753,31 @@ class d3 scalar d3::rangeRound(| string scalar values) {
 	return(this)
 }
 
-class d3 scalar d3::rangeRoundBands(string scalar interval, | string scalar padding, string scalar outerPadding) { 
+class d3 scalar d3::rangeRoundBands(transmorphic scalar interval, | transmorphic scalar padding, transmorphic scalar outerPadding) { 
 	this.currentFunction = "rangeRoundBands"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".rangeRoundBands(" + interval + ", " + padding + ", " + outerPadding + ")" 
+		this.current = this.getter() + ".rangeRoundBands(" + checkValue(interval) + ", " + checkValue(padding) + ", " + checkValue(outerPadding) + ")" 
 	}
 	else if (args() == 2) {
-		this.current = this.getter() + ".rangeRoundBands(" + interval + ", " + padding + ")" 
+		this.current = this.getter() + ".rangeRoundBands(" + checkValue(interval) + ", " + checkValue(padding) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".rangeRoundBands(" + interval + ")" 
+		this.current = this.getter() + ".rangeRoundBands(" + checkValue(interval) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::rangeRoundPoints(string scalar interval, | string scalar padding) { 
+class d3 scalar d3::rangeRoundPoints(transmorphic scalar interval, | transmorphic scalar padding) { 
 	this.currentFunction = "rangeRoundPoints"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".rangeRoundPoints(" + interval + ", " + padding + ")" 
+		this.current = this.getter() + ".rangeRoundPoints(" + checkValue(interval) + ", " + checkValue(padding) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".rangeRoundPoints(" + interval + ")" 
+		this.current = this.getter() + ".rangeRoundPoints(" + checkValue(interval) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".rangeRoundPoints()" 
@@ -3733,12 +3793,12 @@ class d3 scalar d3::sqrt() {
 	return(this)
 }
 
-class d3 scalar d3::threshold(| string scalar x) { 
+class d3 scalar d3::threshold(| transmorphic scalar x) { 
 	this.currentFunction = "threshold"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".threshold(" + x + ")" 
+		this.current = this.getter() + ".threshold(" + checkValue(x) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".threshold()" 
@@ -3746,15 +3806,15 @@ class d3 scalar d3::threshold(| string scalar x) {
 	return(this)
 }
 
-class d3 scalar d3::tickFormat(| string scalar count, string scalar format) { 
+class d3 scalar d3::tickFormat(| transmorphic scalar count, transmorphic scalar format) { 
 	this.currentFunction = "tickFormat"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".tickFormat(" + count + ", " + format + ")" 
+		this.current = this.getter() + ".tickFormat(" + checkValue(count) + ", " + checkValue(format) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".tickFormat(" + count + ")" 
+		this.current = this.getter() + ".tickFormat(" + checkValue(count) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".tickFormat()" 
@@ -3762,15 +3822,15 @@ class d3 scalar d3::tickFormat(| string scalar count, string scalar format) {
 	return(this)
 }
 
-class d3 scalar d3::ticks(| string scalar interval, string scalar step) { 
+class d3 scalar d3::ticks(| transmorphic scalar interval, transmorphic scalar step) { 
 	this.currentFunction = "ticks"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".ticks(" + interval + ", " + step + ")" 
+		this.current = this.getter() + ".ticks(" + checkValue(interval) + ", " + checkValue(step) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".ticks(" + interval + ")" 
+		this.current = this.getter() + ".ticks(" + checkValue(interval) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".ticks()" 
@@ -3906,11 +3966,11 @@ class d3 scalar d3::thursday() {
 	return(this)
 }
 
-class d3 scalar d3::ceil(string scalar date) { 
+class d3 scalar d3::ceil(transmorphic scalar date) { 
 	this.currentFunction = "ceil"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".ceil(" + date + ")" 
+	this.current = this.getter() + ".ceil(" + checkValue(date) + ")" 
 	return(this)
 }
 
@@ -3922,141 +3982,141 @@ class d3 scalar d3::copy() {
 	return(this)
 }
 
-class d3 scalar d3::dayOfYear(string scalar date) { 
+class d3 scalar d3::dayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "dayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".dayOfYear(" + date + ")" 
+	this.current = this.getter() + ".dayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::days(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::days(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "days"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".days(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".days(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".days(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".days(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::floor(string scalar date) { 
+class d3 scalar d3::floor(transmorphic scalar date) { 
 	this.currentFunction = "floor"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".floor(" + date + ")" 
+	this.current = this.getter() + ".floor(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::fridayOfYear(string scalar date) { 
+class d3 scalar d3::fridayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "fridayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".fridayOfYear(" + date + ")" 
+	this.current = this.getter() + ".fridayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::fridays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::fridays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "fridays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".fridays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".fridays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".fridays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".fridays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::hours(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::hours(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "hours"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".hours(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".hours(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".hours(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".hours(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::interval(string scalar date) { 
+class d3 scalar d3::interval(transmorphic scalar date) { 
 	this.currentFunction = "interval"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".interval(" + date + ")" 
+	this.current = this.getter() + ".interval(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::minutes(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::minutes(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "minutes"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".minutes(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".minutes(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".minutes(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".minutes(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::mondayOfYear(string scalar date) { 
+class d3 scalar d3::mondayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "mondayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".mondayOfYear(" + date + ")" 
+	this.current = this.getter() + ".mondayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::mondays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::mondays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "mondays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".mondays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".mondays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".mondays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".mondays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::months(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::months(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "months"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".months(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".months(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".months(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".months(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::multi(string scalar formats) { 
+class d3 scalar d3::multi(transmorphic scalar formats) { 
 	this.currentFunction = "multi"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".multi(" + formats + ")" 
+	this.current = this.getter() + ".multi(" + checkValue(formats) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::offset(| string scalar date, string scalar step) { 
+class d3 scalar d3::offset(| transmorphic scalar date, transmorphic scalar step) { 
 	this.currentFunction = "offset"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 2) {
-		this.current = this.getter() + ".offset(" + date + ", " + step + ")" 
+		this.current = this.getter() + ".offset(" + checkValue(date) + ", " + checkValue(step) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".offset(" + date + ")" 
+		this.current = this.getter() + ".offset(" + checkValue(date) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".offset()" 
@@ -4064,117 +4124,117 @@ class d3 scalar d3::offset(| string scalar date, string scalar step) {
 	return(this)
 }
 
-class d3 scalar d3::parse(string scalar strng) { 
+class d3 scalar d3::parse(transmorphic scalar strng) { 
 	this.currentFunction = "parse"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".parse(" + strng + ")" 
+	this.current = this.getter() + ".parse(" + checkValue(strng) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::saturdayOfYear(string scalar date) { 
+class d3 scalar d3::saturdayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "saturdayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".saturdayOfYear(" + date + ")" 
+	this.current = this.getter() + ".saturdayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::saturdays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::saturdays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "saturdays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".saturdays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".saturdays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".saturdays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".saturdays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::seconds(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::seconds(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "seconds"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".seconds(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".seconds(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".seconds(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".seconds(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::sundayOfYear(string scalar date) { 
+class d3 scalar d3::sundayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "sundayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".sundayOfYear(" + date + ")" 
+	this.current = this.getter() + ".sundayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::sundays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::sundays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "sundays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".sundays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".sundays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".sundays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".sundays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::thursdayOfYear(string scalar date) { 
+class d3 scalar d3::thursdayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "thursdayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".thursdayOfYear(" + date + ")" 
+	this.current = this.getter() + ".thursdayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::thursdays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::thursdays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "thursdays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".thursdays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".thursdays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".thursdays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".thursdays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::tuesdayOfYear(string scalar date) { 
+class d3 scalar d3::tuesdayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "tuesdayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".tuesdayOfYear(" + date + ")" 
+	this.current = this.getter() + ".tuesdayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::tuesdays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::tuesdays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "tuesdays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".tuesdays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".tuesdays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".tuesdays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".tuesdays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::utc(| string scalar specifier) { 
+class d3 scalar d3::utc(| transmorphic scalar specifier) { 
 	this.currentFunction = "utc"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".utc(" + specifier + ")" 
+		this.current = this.getter() + ".utc(" + checkValue(specifier) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".utc()" 
@@ -4182,57 +4242,57 @@ class d3 scalar d3::utc(| string scalar specifier) {
 	return(this)
 }
 
-class d3 scalar d3::wednesdayOfYear(string scalar date) { 
+class d3 scalar d3::wednesdayOfYear(transmorphic scalar date) { 
 	this.currentFunction = "wednesdayOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".wednesdayOfYear(" + date + ")" 
+	this.current = this.getter() + ".wednesdayOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::wednesdays(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::wednesdays(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "wednesdays"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".wednesdays(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".wednesdays(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".wednesdays(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".wednesdays(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::weekOfYear(string scalar date) { 
+class d3 scalar d3::weekOfYear(transmorphic scalar date) { 
 	this.currentFunction = "weekOfYear"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	this.current = this.getter() + ".weekOfYear(" + date + ")" 
+	this.current = this.getter() + ".weekOfYear(" + checkValue(date) + ")" 
 	return(this)
 }
 
-class d3 scalar d3::weeks(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::weeks(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "weeks"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".weeks(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".weeks(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".weeks(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".weeks(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
 
-class d3 scalar d3::years(string scalar start, string scalar stop, | string scalar step) { 
+class d3 scalar d3::years(transmorphic scalar start, transmorphic scalar stop, | transmorphic scalar step) { 
 	this.currentFunction = "years"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 3) {
-		this.current = this.getter() + ".years(" + start + ", " + stop + ", " + step + ")" 
+		this.current = this.getter() + ".years(" + checkValue(start) + ", " + checkValue(stop) + ", " + checkValue(step) + ")" 
 	}
 	else {
-		this.current = this.getter() + ".years(" + start + ", " + stop + ")" 
+		this.current = this.getter() + ".years(" + checkValue(start) + ", " + checkValue(stop) + ")" 
 	}
 	return(this)
 }
