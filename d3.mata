@@ -18,13 +18,19 @@ class d3 {
 	
 	// Method to test arguments passed  to methods and returns a string version of them
 	string		scalar		checkValue()
+	
+	// Constants
+	string 		scalar		d3tab, d3nl, d3cr, d3curlyo, d3curlyc, d3squareo, 
+							d3squarec
 
 	// Defines class constructor method
 	void					new()
 	
 	// Defines methods used to access class internals and to print the JS object
 	string 		scalar 		getter(), complete(), undo(), getVarnm(), 
-							getLastFunction(), getCurrentFunction()
+							getLastFunction(), getCurrentFunction(), printer(), 
+							d3tab(), d3nl(), d3cr(), nindent(), crindent(), 
+							cont()
 
 	// Defines methods based on D3js library functions/methods
 	class 	d3	scalar		abort(), add(), append(), ascending(), attr(), 
@@ -52,7 +58,7 @@ class d3 {
 							property(), qualify(), quantile(), random(), 
 							range(), rebind(), remove(), requote(), response(), 
 							responseType(), rgb(), rollup(), rotate(), round(), 
-							scale(), select(), selectAll(), selection(), 
+							scale(), select(), selectAll(), // selection(), 
 							send(), set(), shuffle(), size(), skew(), sort(), 
 							sortKeys(), sortValues(), style(), styleTween(), 
 							sum(), text(), timeFormat(), timer(), toString(), 
@@ -126,7 +132,53 @@ void d3::new() {
 	this.lastFunction = ""
 	this.currentFunction = ""
 	
+	this.d3tab = char((32, 32))
+	this.d3nl = char((10))
+	this.d3cr = char((10))
+	this.d3curlyo = char((123))
+	this.d3curlyc = char((125))
+	this.d3squareo = char((91)) 
+	this.d3squarec = char((93))
+	
 } // End Constructor method definition
+
+// Function to return JavaScript style tabs of 2 spaces each
+string scalar d3::d3tab(real scalar tabs) {
+	return(this.d3tab * tabs)
+}
+
+// Returns newlines # form feed/new line ASCII characters
+string scalar d3::d3nl(real scalar newlines) {
+	return(this.d3nl * newlines)
+}
+
+// Returns newlines # of carriage return ASCII characters
+string scalar d3::d3cr(real scalar newlines) {
+	return(this.d3cr * newlines)
+}
+
+string scalar d3::nindent() {
+	return(this.d3nl + this.d3tab)
+}
+
+string scalar d3::crindent() {
+	return(this.d3cr + this.d3tab)
+}
+
+string scalar d3::printer(class d3 matrix d3values) {
+	string scalar retval, spaces, temp
+	real scalar dotpos, i, j
+	for (j = 1; j <= cols(d3values); j++) {
+		dotpos = J(0, 0, .)
+		for (i = 1; i <= rows(d3values); i++) {
+			temp = d3values[i, j].getter()
+			dotpos = strpos(temp, char((46)))
+			spaces = char((41, 10)) + (char((32)) * dotpos) + char((46))
+			retval = retval + (subinstr(temp, char((41, 46)), spaces) + ";" + char((10, 10)))	
+		}
+	} 
+	return(retval)
+}
 
 // Method that converts argument types to strings and applies quotes when/if necessary 
 string scalar d3::checkValue(transmorphic scalar value) {
@@ -217,30 +269,36 @@ string scalar d3::getter() {
 
 // Method to print the complete JS object
 string scalar d3::complete() {
-	string scalar prettify
-	
-	/* Explanation of nested subtitute in string functions.
-	1 Removes consecutive carriage returns and replaces with single carriage return
-	--2 Return instances of ; with ; followed by a carriage return and a tab
-	----3 Return instances of { with { followed by a new line and a tab
-	------4 Return instances of }; with }; followed byt a carriage return an tab
-	--------5 Replace instances of var with a carriage return followed by a tab and var
-	*/
-	prettify = subinstr(this.current, char((118, 97, 114, 32)), char((13, 32, 118, 97, 114, 32, 32))) + ";"
-	
-	prettify = subinstr(
-					subinstr(
-						subinstr(prettify, char((13, 13, 13, 13)), char((13))), 
-					char((13, 13, 13)), char((13))), 
-				char((13, 13)), char((13)))
+	this.currentFunction = "complete"
+	this.prev = this.getter()
+	this.lastFunction = getLastFunction()
+	this.current = this.current + ";" + char((10))
+ 	return(this.current) 
+}
 
-	prettify = subinstr(
-					subinstr(
-						subinstr(prettify, char((13, 32, 32, 13, 32, 32, 13, 32, 32, 13, 32, 32)), char((13, 32, 32))), 
-					char((13, 32, 32, 13, 32, 32, 13, 32, 32)), char((13, 32, 32))), 
-				char((13, 32, 32, 13, 32, 32)), char((13, 32, 32)))
-
- 	return(prettify) 
+// Method to print the complete JS object
+string scalar d3::cont(class d3 matrix d3values) {
+	string scalar retval, spaces
+	real scalar i, j, dotpos, dotoffset
+	dotpos = J(0, 0, .)
+	for (j = 1; j <= cols(d3values); j++) {
+		for (i = 1; i <= rows(d3values); i++) {
+			dotoffset = J(0, 0, .)
+			if (i == 1 & j == 1) {
+				dotpos = strpos(d3values[1, 1].getter(), char((61)))
+				retval = retval + (d3values[i, j].getter() + char((44, 32, 10)))
+			}
+			else if (j == cols(d3values)) {
+				dotoffset = dotpos - strpos(d3values[i, j].getter(), char((61)))
+				retval = retval + ((char((32))*dotoffset) + d3values[i, j].getter() + char((59, 10)))
+			}
+			else {
+				dotoffset = dotpos - strpos(d3values[i, j].getter(), char((61)))
+				retval = retval + ((char((32))*dotoffset) + d3values[i, j].getter() + char((44, 32, 10)))
+			}
+		}	
+	} 
+	return(retval)
 }
 
 // Method to retrieve the name of the JS variable created by the object
@@ -303,7 +361,7 @@ class d3 scalar d3::scale(| transmorphic scalar scale) {
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
 	if (args() == 1) {
-		this.current = this.getter() + ".scale(" + checkValue(scale) +")"
+		this.current = this.getter() + ".scale(" + checkValue(scale) + ")"
 	}
 	else {
 		this.current = this.getter() + ".scale"
@@ -1375,13 +1433,18 @@ class d3 scalar d3::range(transmorphic scalar stop, | transmorphic scalar start,
 	this.currentFunction = "range"
 	this.lastFunction = getLastFunction()
 	this.prev = this.getter()
-	transmorphic scalar strt, stp, ste
-	if (start == .) strt = 0
-	else strt = start
-	if (step == .) ste = 1
-	else ste = step
-	stp = stop
-	this.current = this.getter() + ".range(" + checkValue(strt) + ", " + checkValue(stp) + ", " + checkValue(ste) + ")" 
+	if (args() == 1) {
+		this.current = this.getter() + ".range(" + checkValue(stop) + ")"
+	}
+	else {
+		transmorphic scalar strt, stp, ste
+		if (start == .) strt = 0
+		else strt = start
+		if (step == .) ste = 1
+		else ste = step
+		stp = stop
+		this.current = this.getter() + ".range(" + checkValue(strt) + ", " + checkValue(stp) + ", " + checkValue(ste) + ")" 
+	}
 	return(this)
 }
 
@@ -1510,6 +1573,7 @@ class d3 scalar d3::selectAll(transmorphic scalar selector) {
 }
 
 
+/*
 class d3 scalar d3::selection() { 
 	this.currentFunction = "selection"
 	this.lastFunction = getLastFunction()
@@ -1517,7 +1581,7 @@ class d3 scalar d3::selection() {
 	this.current = this.getter() + ".selection()" 
 	return(this)
 }
-
+*/
 
 class d3 scalar d3::send(transmorphic scalar method, | transmorphic scalar data, transmorphic scalar callback) { 
 	this.currentFunction = "send"
@@ -1674,7 +1738,7 @@ class d3 scalar d3::text(| transmorphic scalar url, transmorphic scalar mimeType
 		this.current = this.getter() + ".text(" + checkValue(url) + ", " + checkValue(mimeType) + ")" 
 	}
 	else if (args() == 1) {
-		this.current = this.getter() + ".text("' + checkValue(url) + `")"' 
+		this.current = this.getter() + ".text(" + checkValue(url) + ")" 
 	}
 	else {
 		this.current = this.getter() + ".text()"
