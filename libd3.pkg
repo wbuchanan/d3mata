@@ -1,6 +1,6 @@
-d 'D3': Mata classes wrapping the D3js library
+d 'LIBD3': Mata classes wrapping the D3js library
 d
-d d3 is a package that currently contains an ado file used to compile Mata code 
+d libd3 is a package that currently contains an ado file used to compile Mata code 
 d and Mata object/method definitions used to build Mata wrappers around the D3js
 d library.  The Mata classes/methods aim to mirror the D3js API as closely as 
 d possible. This program is still extremely early in development and should not 
@@ -13,7 +13,7 @@ d KW: D3
 d
 d Requires: Stata version 12
 d
-d Distribution-Date: 20151112
+d Distribution-Date: 20151231
 d
 d Author: Billy Buchanan 
 d		  Data Scientist
@@ -21,18 +21,9 @@ d		  Office of Research, Evaluation, and Assessment
 d		  Minneapolis Public Schools
 d Support: email William [dot] Buchanan @t mpls [dot] k12 [dot] mn [dot] us
 d
-f buildd3.ado
 f d3.mata
-f header.mata
-f behavior.mata
-f core.mata
-f geo.mata
-f geom.mata
-f layout.mata
-f scales.mata
-f svg.mata
-f time.mata
-f buildd3.sthlp
+f libd3.ado
+f libd3.sthlp
 
 
 
