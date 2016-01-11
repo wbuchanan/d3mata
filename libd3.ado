@@ -2,10 +2,10 @@
 
 
 // Drop program if already loaded in memory
-cap prog drop buildd3
+cap prog drop libd3
 
 // Define program to automate compiling mata classes for D3js wrappers
-prog def buildd3, rclass
+prog def libd3, rclass
 
 	// Version of Stata to use
 	version 12

@@ -20,8 +20,8 @@ class d3 {
 	string		scalar		checkValue()
 	
 	// Constants
-	string 		scalar		d3tab, d3nl, d3cr, d3curlyo, d3curlyc, d3squareo, 
-							d3squarec
+	final 	string 	scalar	tab, nl, cr, curlyo, curlyc, squareo, squarec, 
+							nlindent, crindent, dblnl, dblcr
 
 	// Defines class constructor method
 	void					new()
@@ -29,8 +29,7 @@ class d3 {
 	// Defines methods used to access class internals and to print the JS object
 	string 		scalar 		getter(), complete(), undo(), getVarnm(), 
 							getLastFunction(), getCurrentFunction(), printer(), 
-							d3tab(), d3nl(), d3cr(), nindent(), crindent(), 
-							cont()
+							cont(), tabs(), newlines()
 
 	// Defines methods based on D3js library functions/methods
 	class 	d3	scalar		abort(), add(), append(), ascending(), attr(), 
@@ -132,39 +131,32 @@ void d3::new() {
 	this.lastFunction = ""
 	this.currentFunction = ""
 	
-	this.d3tab = char((32, 32))
-	this.d3nl = char((10))
-	this.d3cr = char((10))
-	this.d3curlyo = char((123))
-	this.d3curlyc = char((125))
-	this.d3squareo = char((91)) 
-	this.d3squarec = char((93))
+	this.tab = char((32, 32))
+	this.nl = char((10))
+	this.cr = char((13))
+	this.curlyo = char((123))
+	this.curlyc = char((125))
+	this.squareo = char((91)) 
+	this.squarec = char((93))
+	this.nlindent = char((10, 32, 32))
+	this.crindent = char((13, 32, 32))
+	this.dblnl = char((10, 10))
+	this.dblcr = char((13, 13))
+	
 	
 } // End Constructor method definition
 
 // Function to return JavaScript style tabs of 2 spaces each
-string scalar d3::d3tab(real scalar tabs) {
-	return(this.d3tab * tabs)
+string scalar d3::tabs(real scalar tabs) {
+	return(this.tab * tabs)
 }
 
 // Returns newlines # form feed/new line ASCII characters
-string scalar d3::d3nl(real scalar newlines) {
-	return(this.d3nl * newlines)
+string scalar d3::newlines(real scalar newlines) {
+	return(this.nl * newlines)
 }
 
-// Returns newlines # of carriage return ASCII characters
-string scalar d3::d3cr(real scalar newlines) {
-	return(this.d3cr * newlines)
-}
-
-string scalar d3::nindent() {
-	return(this.d3nl + this.d3tab)
-}
-
-string scalar d3::crindent() {
-	return(this.d3cr + this.d3tab)
-}
-
+// Method to finalize the JavaScript String
 string scalar d3::printer(class d3 matrix d3values) {
 	string scalar retval, spaces, temp
 	real scalar dotpos, i, j
