@@ -29,7 +29,7 @@ class d3 {
 	// Defines methods used to access class internals and to print the JS object
 	string 		scalar 		getter(), complete(), undo(), getVarnm(), 
 							getLastFunction(), getCurrentFunction(), printer(), 
-							cont(), tabs(), newlines()
+							cont(), tabs(), newlines(), printNoTermination()
 
 	// Defines methods based on D3js library functions/methods
 	class 	d3	scalar		abort(), add(), append(), ascending(), attr(), 
@@ -266,6 +266,11 @@ string scalar d3::complete() {
 	this.lastFunction = getLastFunction()
 	this.current = this.current + ";" + char((10))
  	return(this.current) 
+}
+
+// Method to print object without inserting a terminating semicolon or comma
+string scalar d3::printNoTermination() {
+	return(this.current + this.nl)
 }
 
 // Method to print the complete JS object
