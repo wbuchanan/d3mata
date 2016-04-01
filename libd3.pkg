@@ -1,35 +1,43 @@
-d 'LIBD3': Mata classes wrapping the D3js library
-d
-d libd3 is a package that currently contains an ado file used to compile Mata code 
-d and Mata object/method definitions used to build Mata wrappers around the D3js
-d library.  The Mata classes/methods aim to mirror the D3js API as closely as 
-d possible. This program is still extremely early in development and should not 
-d be used in a production environment.
-d
-d KW: Data Visualization
-d KW: Graphs
-d KW: Web graphics
+d 'LIBD3': D3js Mata Library
+d 
+d libd3 is a mata implementation of the D3.js library.  The library aims to 
+d implement the D3js methods as consistently with the original library as 
+d possible.  Some noticible differences are the object oriented approach 
+d taken by the library which allows users to "undo" a previous method call, 
+d the use of explicit constructors/initializers, and build in methods for 
+d "pretty printing" the resulting javascript (e.g., indenting and new line 
+d insertion in a manner that is typical for javascript).  The .ado wrapper 
+d included with the package is used to compile the library locally on your 
+d machine, making it easier for end users to further extend/customize the 
+d underlying source and maintain it across machines.  Using this approach 
+d helps to make reusable components (e.g., compose a Mata function that 
+d generates all of the JS necessary to construct the graph).  You can 
+d find example use cases at https://github.com/wbuchanan/d3mata-examples.  
+d Users of this package will also likely want to consider installing 
+d the libhtml package to compose the HTML document in which the visualization 
+d would be embedded and the jsonio package to serialize their data to 
+d a JSON object that will retain the metadata from their dataset.
+d 
+d Notes: After installing from SSC run the command - libd3, ml rep qui -
+d 
 d KW: D3
-d
+d KW: Javascript
+d KW: Data visualization
+d KW: Graphs
+d KW: D3js
+d 
 d Requires: Stata version 12
-d
-d Distribution-Date: 20151231
-d
+d 
+d Distribution-Date: 20160401
+d 
 d Author: Billy Buchanan 
-d		  Data Scientist
-d		  Office of Research, Evaluation, and Assessment
-d		  Minneapolis Public Schools
-d Support: email William [dot] Buchanan @t mpls [dot] k12 [dot] mn [dot] us
-d
+d 		  Data Scientist
+d 		  Office of Research, Evaluation, and Assessment
+d 		  Minneapolis Public Schools
+d 		  Support: email William [dot] Buchanan @t mpls [dot] k12 [dot] mn [dot] us
+d 
 f d3.mata
 f libd3.ado
 f libd3.sthlp
-
-
-
-
-
-
-
-
-
+ 
+ 
