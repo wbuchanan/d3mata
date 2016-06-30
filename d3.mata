@@ -30,6 +30,17 @@ class d3 {
 	string 		scalar 		getter(), complete(), undo(), getVarnm(), 
 							getLastFunction(), getCurrentFunction(), printer(), 
 							cont(), tabs(), newlines(), printNoTermination()
+	
+	pointer scalar svg = &(svg())
+	pointer scalar transition = &(transition())
+	pointer scalar nest = &(nest())
+	pointer scalar map = &(map())
+	pointer scalar set = &(set())
+	pointer scalar random = &(random())
+	pointer scalar scale = &(scale())
+	pointer scalar axis = &(axis()) 
+	pointer scalar geo = &(geo())
+
 
 	// Defines methods based on D3js library functions/methods
 	class 	d3	scalar		abort(), add(), append(), ascending(), attr(), 
@@ -142,7 +153,6 @@ void d3::new() {
 	this.crindent = char((13, 32, 32))
 	this.dblnl = char((10, 10))
 	this.dblcr = char((13, 13))
-	
 	
 } // End Constructor method definition
 
